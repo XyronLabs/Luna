@@ -7,6 +7,12 @@ std::unique_ptr<sf::RenderWindow> window;
 
 int main() {
     lua_State *L = luaL_newstate();
+
+    // Load lua/main.lua
+    luaL_openlibs(L);
+    luaL_loadfile(L, "lua/main.lua");
+    lua_pcall(L, 0, 0, 0);
+
     window = std::make_unique<sf::RenderWindow>(sf::VideoMode(1280,720), "Luna");
 
     while (window->isOpen()) {
@@ -18,7 +24,7 @@ int main() {
             }
         }
 
-        
+
         window->clear();
         window->display();
 
