@@ -1,7 +1,18 @@
 BIN := bin
 SRC := src
 
-all: $(BIN)/main
+EXE := luna
+MAIN := main.cpp
 
-$(BIN)/main: $(SRC)/main.cpp
-	$(CXX) $< -o $@ -llua -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
+CXXFLAGS := -std=c++14
+
+all: $(BIN)/$(EXE)
+
+$(BIN)/$(EXE): $(SRC)/$(MAIN)
+	$(CXX) $(CXXFLAGS) $< -o $@ -llua -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
+
+clean:
+	-@rm $(BIN)/$(EXE)
+
+run: all
+	./$(BIN)/$(EXE)
