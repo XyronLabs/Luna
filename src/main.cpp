@@ -13,6 +13,9 @@ int main() {
     luaL_loadfile(L, "lua/main.lua");
     lua_pcall(L, 0, 0, 0);
 
+    lua_getglobal(L, "setup");
+    lua_pcall(L, 0, 0, 0);
+
     window = std::make_unique<sf::RenderWindow>(sf::VideoMode(1280,720), "Luna");
 
     while (window->isOpen()) {
@@ -26,6 +29,10 @@ int main() {
 
 
         window->clear();
+
+        lua_getglobal(L, "render");
+        lua_pcall(L, 0, 0, 0);
+
         window->display();
 
     }
