@@ -2,8 +2,8 @@
 
 
 int main(int argc, char **argv) {
-    Sketch sketch(argc > 1 ? argv[1] : nullptr);
+    //Sketch sketch(argc > 1 ? argv[1] : nullptr);
 
-    sketch.setup();
-    sketch.loop();
+    Sketch::instance()->setup();
+    Sketch::instance()->loop();
 }

@@ -1,12 +1,20 @@
 #include "Sketch.hpp"
 
-Sketch::Sketch(const char* lua_main) {
+// Allocate pointer, not the object
+Sketch *Sketch::s_instance = 0;
+Sketch* Sketch::instance() {
+    if(!s_instance)
+        s_instance = new Sketch;
+    return s_instance;
+}
+
+Sketch::Sketch() {
     window = std::make_unique<sf::RenderWindow>(sf::VideoMode(1280,720), "Luna");
     
     L = luaL_newstate();
     // Load lua/main.lua
     luaL_openlibs(L);
-    luaL_loadfile(L, lua_main ? lua_main : "lua/main.lua");
+    luaL_loadfile(L, "lua/main.lua");
     lua_pcall(L, 0, 0, 0);
 }
 
