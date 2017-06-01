@@ -11,10 +11,11 @@ class Sketch {
     Sketch();
     
 public:
-    ~Sketch();
 
+    bool preload(const char* lua_main);
     void setup();
     void loop();
+    void cleanup();
 
     static Sketch* instance();
 };
