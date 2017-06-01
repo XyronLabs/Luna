@@ -18,4 +18,7 @@ public:
     void cleanup();
 
     static Sketch* instance();
+
+    void createWindow(int width, int height, const char* title);
 };
+

@@ -1,7 +1,8 @@
 
 --[[ Setup function runs only once at startup ]]--
 function setup()
-    --io.write("This is the sketch file!\n")
+    size(1280, 720, "Luna sketch!")
+
 end
 
 --[[ Render function runs once per frame (ex. 60fps) ]]--
