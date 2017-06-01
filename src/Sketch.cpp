@@ -1,12 +1,12 @@
 #include "Sketch.hpp"
 
-Sketch::Sketch() {
+Sketch::Sketch(const char* lua_main) {
     window = std::make_unique<sf::RenderWindow>(sf::VideoMode(1280,720), "Luna");
     
     L = luaL_newstate();
     // Load lua/main.lua
     luaL_openlibs(L);
-    luaL_loadfile(L, "lua/main.lua");
+    luaL_loadfile(L, lua_main ? lua_main : "lua/main.lua");
     lua_pcall(L, 0, 0, 0);
 }
 

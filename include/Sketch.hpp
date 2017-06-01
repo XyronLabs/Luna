@@ -8,7 +8,7 @@ class Sketch {
     lua_State *L;
     
 public:
-    Sketch();
+    Sketch(const char* lua_main);
     ~Sketch();
 
     void setup();
