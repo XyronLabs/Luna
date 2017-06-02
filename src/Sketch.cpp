@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Sketch.hpp"
 #include "luna_lua.hpp"
 
@@ -21,19 +22,37 @@ Sketch::Sketch() {
 bool Sketch::preload(const char* lua_main) {
     // Load lua/main.lua
     luaL_loadfile(L, lua_main ? lua_main : "lua/main.lua");
-    lua_pcall(L, 0, 0, 0);
+    if (lua_pcall(L, 0, 0, 0)) {
+        std::cerr << "Error loading main script!" << std::endl;
+        return true;
+    }
+
+    return false;
 }
 
-void Sketch::setup() {
+bool Sketch::setup() {
     lua_getglobal(L, "setup");
-    lua_pcall(L, 0, 0, 0);
+    if (lua_pcall(L, 0, 0, 0)) {
+        std::cerr << "Error: Setup function not found!" << std::endl;
+        return true;
+    }
 
     // Create a default window if 'size' is not called
-    if (!window)
-        window = std::make_unique<sf::RenderWindow>(sf::VideoMode(1024, 600), "Luna");
+    if (!window) {
+        std::cerr << "Error: Window was not created, use size(width, height, title)" << std::endl;
+        return true;
+    }
+
+    return false;
 }
 
 void Sketch::loop() {
+    // Cleanup and exit if render function is not found
+    if (!lua_getglobal(L, "render")) {
+        std::cerr << "Render function not found!" << std::endl;
+        return;
+    }
+
     while (window->isOpen()) {
         sf::Event ev;
         while(window->pollEvent(ev)) {
@@ -50,6 +69,7 @@ void Sketch::loop() {
 
         window->display();
     }
+
 }
 
 void Sketch::cleanup() {

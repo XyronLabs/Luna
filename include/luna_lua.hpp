@@ -1,6 +1,5 @@
 #pragma once
 #include <lua.hpp>
-
 #include "Sketch.hpp"
 
 // For defining Lua functions

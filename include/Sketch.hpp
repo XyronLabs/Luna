@@ -13,7 +13,7 @@ class Sketch {
 public:
 
     bool preload(const char* lua_main);
-    void setup();
+    bool setup();
     void loop();
     void cleanup();
 
