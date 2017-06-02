@@ -16,6 +16,7 @@ Sketch::Sketch() {
 
     /* Register lua functions */
     lua_register(L, "size", lunaL::size);
+    lua_register(L, "color", lunaL::color);
     lua_register(L, "text", lunaL::text);
     lua_register(L, "rect", lunaL::rect);
 
@@ -23,9 +24,10 @@ Sketch::Sketch() {
 
 bool Sketch::preload(const char* lua_main) {
     default_font.loadFromFile("res/font/Roboto-Regular.ttf");
+    current_color = sf::Color::White;
 
     // Load lua/main.lua
-    luaL_loadfile(L, lua_main ? lua_main : "lua/main.lua");
+    luaL_loadfile(L, lua_main ? lua_main : "main.lua");
     if (lua_pcall(L, 0, 0, 0)) {
         std::cerr << "Error loading main script!" << std::endl;
         return true;
@@ -80,17 +82,23 @@ void Sketch::cleanup() {
     lua_close(L);
 }
 
+
+
 void Sketch::createWindow(int width, int height, const char* title) {
     if (!window)
         window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title);
 }
 
+void Sketch::setColor(sf::Color newColor) {
+    this->current_color = newColor;
+}
 
 void Sketch::text(const char* str, int size) {
     sf::Text t;
     t.setString(str);
     t.setFont(default_font);
     t.setCharacterSize(size);
+    t.setFillColor(current_color);
 
     window->draw(t);
 }
@@ -98,6 +106,7 @@ void Sketch::text(const char* str, int size) {
 void Sketch::rect(sf::Vector2f p1, sf::Vector2f p2) {
     sf::RectangleShape box(p2);
     box.move(p1.x, p1.y);
+    box.setFillColor(current_color);
 
     window->draw(box);
 }
