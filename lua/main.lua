@@ -8,4 +8,5 @@ end
 --[[ Render function runs once per frame (ex. 60fps) ]]--
 function render()
     text("Rendering!", 40)
+    rect(100, 100, 200, 150)
 end

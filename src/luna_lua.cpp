@@ -18,3 +18,17 @@ int lunaL::text(lua_State *L) {
 
     return 0;
 }
+
+int lunaL::rect(lua_State *L) {
+    int x1 = luaL_checkinteger(L, 1);
+    int y1 = luaL_checkinteger(L, 2);
+    int x2 = luaL_checkinteger(L, 3);
+    int y2 = luaL_checkinteger(L, 4);
+
+    sf::Vector2f p1(x1, y1);
+    sf::Vector2f p2(x2, y2);
+
+    Sketch::instance()->rect(p1, p2);
+
+    return 0;
+}

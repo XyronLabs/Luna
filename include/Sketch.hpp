@@ -23,5 +23,6 @@ public:
 
     void createWindow(int width, int height, const char* title);
     void text(const char* str, int size);
+    void rect(sf::Vector2f p1, sf::Vector2f p2);
 };
 

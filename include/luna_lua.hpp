@@ -14,4 +14,7 @@ namespace lunaL {
     /* Render a string of text */
     int text(lua_State *L);
 
+    /* Render a rectangle */
+    int rect(lua_State *L);
+
 };

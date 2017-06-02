@@ -17,6 +17,7 @@ Sketch::Sketch() {
     /* Register lua functions */
     lua_register(L, "size", lunaL::size);
     lua_register(L, "text", lunaL::text);
+    lua_register(L, "rect", lunaL::rect);
 
 }
 
@@ -92,4 +93,11 @@ void Sketch::text(const char* str, int size) {
     t.setCharacterSize(size);
 
     window->draw(t);
+}
+
+void Sketch::rect(sf::Vector2f p1, sf::Vector2f p2) {
+    sf::RectangleShape box(p2);
+    box.move(p1.x, p1.y);
+
+    window->draw(box);
 }
