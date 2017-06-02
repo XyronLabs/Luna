@@ -16,10 +16,13 @@ Sketch::Sketch() {
 
     /* Register lua functions */
     lua_register(L, "size", lunaL::size);
+    lua_register(L, "text", lunaL::text);
 
 }
 
 bool Sketch::preload(const char* lua_main) {
+    default_font.loadFromFile("res/font/Roboto-Regular.ttf");
+
     // Load lua/main.lua
     luaL_loadfile(L, lua_main ? lua_main : "lua/main.lua");
     if (lua_pcall(L, 0, 0, 0)) {
@@ -79,4 +82,14 @@ void Sketch::cleanup() {
 void Sketch::createWindow(int width, int height, const char* title) {
     if (!window)
         window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title);
+}
+
+
+void Sketch::text(const char* str, int size) {
+    sf::Text t;
+    t.setString(str);
+    t.setFont(default_font);
+    t.setCharacterSize(size);
+
+    window->draw(t);
 }

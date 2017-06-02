@@ -7,5 +7,5 @@ end
 
 --[[ Render function runs once per frame (ex. 60fps) ]]--
 function render()
-    --io.write("Rendering!")
+    text("Rendering!", 40)
 end

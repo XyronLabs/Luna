@@ -9,3 +9,12 @@ int lunaL::size(lua_State *L) {
 
     return 0;
 }
+
+int lunaL::text(lua_State *L) {
+    const char* str = luaL_checkstring(L, 1);
+    int size = luaL_checkinteger(L, 2);
+
+    Sketch::instance()->text(str, size);
+
+    return 0;
+}
