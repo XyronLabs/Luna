@@ -87,6 +87,7 @@ void Sketch::cleanup() {
 void Sketch::createWindow(int width, int height, const char* title) {
     if (!window)
         window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title);
+    window->setVerticalSyncEnabled(true);
 }
 
 void Sketch::setColor(sf::Color newColor) {

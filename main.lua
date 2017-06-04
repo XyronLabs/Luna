@@ -1,5 +1,6 @@
 -- Temporary: require colors table
 require 'lua.colors'
+local x, y = 0, 0
 
 --[[ Setup function runs only once at startup ]]--
 function setup()
@@ -13,5 +14,7 @@ function render()
     text("Rendering!", 40)
     
     color(colors.red)
-    rect(100, 100, 200, 150)
+    rect(100 + x, 100 + y, 200, 150)
+    x = x + 1
+    y = y + 1
 end
