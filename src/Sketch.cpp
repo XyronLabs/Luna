@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Sketch.hpp"
 #include "luna_lua.hpp"
+#include "Logger.hpp"
 
 // Allocate pointer, not the object
 Sketch *Sketch::s_instance = 0;
@@ -29,7 +30,7 @@ bool Sketch::preload(const char* lua_main) {
     // Load lua/main.lua
     luaL_loadfile(L, lua_main ? lua_main : "main.lua");
     if (lua_pcall(L, 0, 0, 0)) {
-        std::cerr << "Error loading main script!" << std::endl;
+        logErr("Error loading main script!", L);
         return true;
     }
 
@@ -39,13 +40,13 @@ bool Sketch::preload(const char* lua_main) {
 bool Sketch::setup() {
     lua_getglobal(L, "setup");
     if (lua_pcall(L, 0, 0, 0)) {
-        std::cerr << "Error: Setup function not found!" << std::endl;
+        logErr("Error: Setup function not found!", L);
         return true;
     }
 
     // Create a default window if 'size' is not called
     if (!window) {
-        std::cerr << "Error: Window was not created, use size(width, height, title)" << std::endl;
+        logErr("Error: Window was not created, use size(width, height, title)");
         return true;
     }
 
@@ -55,7 +56,7 @@ bool Sketch::setup() {
 void Sketch::loop() {
     // Cleanup and exit if render function is not found
     if (!lua_getglobal(L, "render")) {
-        std::cerr << "Render function not found!" << std::endl;
+        logErr("Render function not found!");
         return;
     }
 
