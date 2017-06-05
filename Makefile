@@ -12,7 +12,7 @@ CXXFLAGS := -std=c++14
 
 all: $(BIN)/$(EXE)
 
-$(BIN)/$(EXE): $(SRC)/$(MAIN)
+$(BIN)/$(EXE): $(sources)
 	$(CXX) $(CXXFLAGS) $(sources) -o $@ -I$(INCLUDE) $(libs)
 
 clean:
