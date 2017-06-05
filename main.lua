@@ -19,4 +19,7 @@ function render()
     rect2:render()
 
     rect2:setPos(rect2.x+1, rect2.y)
+
+    color(colors.white)
+    circ(500, 20, 50)
 end

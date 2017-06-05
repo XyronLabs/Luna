@@ -20,4 +20,7 @@ namespace lunaL {
     /* Render a rectangle */
     int rect(lua_State *L);
 
+    /* Render a rectangle */
+    int circ(lua_State *L);
+
 };

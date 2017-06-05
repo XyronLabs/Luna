@@ -75,3 +75,15 @@ int lunaL::rect(lua_State *L) {
 
     return 0;
 }
+
+int lunaL::circ(lua_State *L) {
+    int x = luaL_checkinteger(L, 1);
+    int y = luaL_checkinteger(L, 2);
+    float r = luaL_checknumber(L, 3);
+
+    sf::Vector2f pos(x, y);
+
+    Sketch::instance()->circ(pos, r);
+
+    return 0;
+}

@@ -20,6 +20,7 @@ Sketch::Sketch() {
     lua_register(L, "color", lunaL::color);
     lua_register(L, "text", lunaL::text);
     lua_register(L, "rect", lunaL::rect);
+    lua_register(L, "circ", lunaL::circ);
 
 }
 
@@ -111,4 +112,13 @@ void Sketch::rect(sf::Vector2f p1, sf::Vector2f p2) {
     box.setFillColor(current_color);
 
     window->draw(box);
+}
+
+
+void Sketch::circ(sf::Vector2f pos, float r) {
+    sf::CircleShape circle(r);
+    circle.move(pos.x, pos.y);
+    circle.setFillColor(current_color);
+
+    window->draw(circle);
 }

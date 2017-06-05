@@ -26,5 +26,6 @@ public:
     void setColor(sf::Color newColor);
     void text(const char* str, int size);
     void rect(sf::Vector2f p1, sf::Vector2f p2);
+    void circ(sf::Vector2f pos, float r);
 };
 
