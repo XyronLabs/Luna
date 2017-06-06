@@ -11,6 +11,9 @@ namespace lunaL {
     /* Set size and title of the window */
     int size(lua_State *L);
 
+     /* Clear the window */
+    int clear(lua_State *L);
+
     /* Set fill color */
     int color(lua_State *L);
 

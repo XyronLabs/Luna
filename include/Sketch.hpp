@@ -23,6 +23,7 @@ public:
     static Sketch* instance();
 
     void createWindow(int width, int height, const char* title);
+    sf::RenderWindow& getWindow();
     void setColor(sf::Color newColor);
     void text(const char* str, int size);
     void rect(sf::Vector2f p1, sf::Vector2f p2);

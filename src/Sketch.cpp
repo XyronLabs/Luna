@@ -17,6 +17,7 @@ Sketch::Sketch() {
 
     /* Register lua functions */
     lua_register(L, "size", lunaL::size);
+    lua_register(L, "clear", lunaL::clear);
     lua_register(L, "color", lunaL::color);
     lua_register(L, "text", lunaL::text);
     lua_register(L, "rect", lunaL::rect);
@@ -70,8 +71,6 @@ void Sketch::loop() {
             }
         }
 
-        window->clear();
-
         lua_getglobal(L, "render");
         lua_pcall(L, 0, 0, 0);
 
@@ -84,7 +83,9 @@ void Sketch::cleanup() {
     lua_close(L);
 }
 
-
+sf::RenderWindow& Sketch::getWindow() {
+    return *window;
+}
 
 void Sketch::createWindow(int width, int height, const char* title) {
     if (!window)

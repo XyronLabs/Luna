@@ -17,6 +17,9 @@ end
 
 --[[ Render function runs once per frame (ex. 60fps) ]]--
 function render()
+    --[ Manual window clear ]--
+    --clear()
+
     --color(colors.cyan)
     --text("Rendering!", 40)
 
@@ -27,7 +30,7 @@ function render()
 
     --circle1:render()
 
-    circ(x1 + 1280/2, y1 + 720/2, 10)
+    circ(x1 + 1280/2, y1 + 720/2, 1)
     x1 = math.sin(a) * 100
     y1 = math.cos(a) * 100
     a = a + 0.01

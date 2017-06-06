@@ -10,6 +10,13 @@ int lunaL::size(lua_State *L) {
     return 0;
 }
 
+int lunaL::clear(lua_State *L) {
+    
+    Sketch::instance()->getWindow().clear();
+    
+    return 0;
+}
+
 int lunaL::color(lua_State *L) {
     int lcolor = luaL_checkinteger(L, 1);
     sf::Color newColor;
