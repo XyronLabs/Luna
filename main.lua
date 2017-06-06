@@ -8,6 +8,8 @@ local rect2 = rectangle:new{}:setPos(400, 400):setSize(10, 10):setColor(colors.b
 
 local circle1 = circle:new{ x=500, y=100, radius=25 }
 
+local x1, y1, a = 0, 0, 0
+
 --[[ Setup function runs only once at startup ]]--
 function setup()
     size(1280, 720, "Luna sketch!")
@@ -15,13 +17,18 @@ end
 
 --[[ Render function runs once per frame (ex. 60fps) ]]--
 function render()
-    color(colors.cyan)
-    text("Rendering!", 40)
+    --color(colors.cyan)
+    --text("Rendering!", 40)
 
-    rect1:render()
-    rect2:render()
+    --rect1:render()
+    --rect2:render()
 
-    rect2:setPos(rect2.x+1, rect2.y)
+    --rect2:setPos(rect2.x+1, rect2.y)
 
-    circle1:render()
+    --circle1:render()
+
+    circ(x1 + 1280/2, y1 + 720/2, 10)
+    x1 = math.sin(a) * 100
+    y1 = math.cos(a) * 100
+    a = a + 0.01
 end
