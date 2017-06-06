@@ -63,10 +63,10 @@ int lunaL::text(lua_State *L) {
 }
 
 int lunaL::rect(lua_State *L) {
-    int x1 = luaL_checkinteger(L, 1);
-    int y1 = luaL_checkinteger(L, 2);
-    int x2 = luaL_checkinteger(L, 3);
-    int y2 = luaL_checkinteger(L, 4);
+    float x1 = luaL_checknumber(L, 1);
+    float y1 = luaL_checknumber(L, 2);
+    float x2 = luaL_checknumber(L, 3);
+    float y2 = luaL_checknumber(L, 4);
 
     sf::Vector2f p1(x1, y1);
     sf::Vector2f p2(x2, y2);
@@ -77,8 +77,8 @@ int lunaL::rect(lua_State *L) {
 }
 
 int lunaL::circ(lua_State *L) {
-    int x = luaL_checkinteger(L, 1);
-    int y = luaL_checkinteger(L, 2);
+    float x = luaL_checknumber(L, 1);
+    float y = luaL_checknumber(L, 2);
     float r = luaL_checknumber(L, 3);
 
     sf::Vector2f pos(x, y);
