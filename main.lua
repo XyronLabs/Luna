@@ -1,8 +1,3 @@
--- Temporary: require libraries manually
-require 'lua.colors'
-require 'lua.rectangle'
-require 'lua.circle'
-
 local rect1 = rectangle:new{ x=20, y=80, width=100, height=100, color=colors.green }
 local rect2 = rectangle:new{}:setPos(400, 400):setSize(10, 10):setColor(colors.blue)
 

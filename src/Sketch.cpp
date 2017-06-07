@@ -15,7 +15,7 @@ Sketch::Sketch() {
     L = luaL_newstate();
     luaL_openlibs(L);
 
-    /* Register lua functions */
+    /* Register Lua functions */
     lua_register(L, "size", lunaL::size);
     lua_register(L, "clear", lunaL::clear);
     lua_register(L, "color", lunaL::color);
@@ -23,6 +23,10 @@ Sketch::Sketch() {
     lua_register(L, "rect", lunaL::rect);
     lua_register(L, "circ", lunaL::circ);
 
+    /* Load Lua libraries */
+    luaL_loadfile(L, "lua/colors.lua");     lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "lua/rectangle.lua");  lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "lua/circle.lua");     lua_pcall(L, 0, 0, 0);
 }
 
 bool Sketch::preload(const char* lua_main) {
