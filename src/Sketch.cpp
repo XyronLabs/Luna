@@ -30,6 +30,7 @@ Sketch::Sketch() {
 }
 
 bool Sketch::preload(const char* lua_main) {
+    // Set default values to variables
     default_font.loadFromFile("res/font/Roboto-Regular.ttf");
     current_color = sf::Color::White;
 
@@ -44,13 +45,14 @@ bool Sketch::preload(const char* lua_main) {
 }
 
 bool Sketch::setup() {
+    // Call Lua setup function, exit if not found
     lua_getglobal(L, "setup");
     if (lua_pcall(L, 0, 0, 0)) {
         logErr("Error: Setup function not found!", L);
         return true;
     }
 
-    // Create a default window if 'size' is not called
+    // Exit if 'size' is not called
     if (!window) {
         logErr("Error: Window was not created, use size(width, height, title)");
         return true;
@@ -66,7 +68,9 @@ void Sketch::loop() {
         return;
     }
 
+    // Main loop
     while (window->isOpen()) {
+        // Check if window has to close
         sf::Event ev;
         while(window->pollEvent(ev)) {
             switch(ev.type) {
@@ -75,9 +79,11 @@ void Sketch::loop() {
             }
         }
 
+        // Call Lua render function
         lua_getglobal(L, "render");
         lua_pcall(L, 0, 0, 0);
 
+        // Show the new frame
         window->display();
     }
 
@@ -94,6 +100,8 @@ sf::RenderWindow& Sketch::getWindow() {
 void Sketch::createWindow(int width, int height, const char* title) {
     sf::ContextSettings s;
     s.antialiasingLevel = 8;
+
+    // Only create window the first time size(w,h,t) is called
     if (!window)
         window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title, sf::Style::Default, s);
     window->setVerticalSyncEnabled(true);
