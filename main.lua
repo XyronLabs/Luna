@@ -31,7 +31,7 @@ function render()
     --circle1:render()
 
     circ(x1 + 1280/2, y1 + 720/2, 1)
-    x1 = math.sin(a) * 100
-    y1 = math.cos(a) * 100
+    x1 = math.tan(a) * 50
+    y1 = math.sin(a) * 100
     a = a + 0.01
 end

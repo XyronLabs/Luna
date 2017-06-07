@@ -88,8 +88,10 @@ sf::RenderWindow& Sketch::getWindow() {
 }
 
 void Sketch::createWindow(int width, int height, const char* title) {
+    sf::ContextSettings s;
+    s.antialiasingLevel = 8;
     if (!window)
-        window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title);
+        window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title, sf::Style::Default, s);
     window->setVerticalSyncEnabled(true);
 }
 
