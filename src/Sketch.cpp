@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Sketch.hpp"
 #include "luna_lua.hpp"
 #include "Logger.hpp"

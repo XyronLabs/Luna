@@ -6,14 +6,11 @@ int lunaL::size(lua_State *L) {
     const char* t = luaL_checkstring(L, 3);
 
     Sketch::instance()->createWindow(w, h, t);
-
     return 0;
 }
 
 int lunaL::clear(lua_State *L) {
-    
-    Sketch::instance()->getWindow().clear();
-    
+    Sketch::instance()->getWindow().clear();    
     return 0;
 }
 
@@ -22,41 +19,19 @@ int lunaL::color(lua_State *L) {
     sf::Color newColor;
 
     switch(lcolor) {
-        case 0:
-            newColor = sf::Color::Black;
-            break;
-        case 1:
-            newColor = sf::Color::White;
-            break;
-        case 2:
-            newColor = sf::Color::Red;
-            break;
-        case 3:
-            newColor = sf::Color::Green;
-            break;
-        case 4:
-            newColor = sf::Color::Blue;
-            break;
-        case 5:
-            newColor = sf::Color::Yellow;
-            break;
-        case 6:
-            newColor = sf::Color::Magenta;
-            break;
-        case 7:
-            newColor = sf::Color::Cyan;
-            break;
-        case 8:
-            newColor = sf::Color::Transparent;
-            break;
-        
-        default:
-            newColor = sf::Color::White;
-            break;
+        case 0: newColor = sf::Color::Black;        break;
+        case 1: newColor = sf::Color::White;        break;
+        case 2: newColor = sf::Color::Red;          break;
+        case 3: newColor = sf::Color::Green;        break;
+        case 4: newColor = sf::Color::Blue;         break;
+        case 5: newColor = sf::Color::Yellow;       break;
+        case 6: newColor = sf::Color::Magenta;      break;
+        case 7: newColor = sf::Color::Cyan;         break;
+        case 8: newColor = sf::Color::Transparent;  break;
+        default: newColor = sf::Color::White;       break;
     }
 
     Sketch::instance()->setColor(newColor);
-
     return 0;
 }
 
@@ -65,7 +40,6 @@ int lunaL::text(lua_State *L) {
     int size = luaL_checkinteger(L, 2);
 
     Sketch::instance()->text(str, size);
-
     return 0;
 }
 
@@ -79,7 +53,6 @@ int lunaL::rect(lua_State *L) {
     sf::Vector2f p2(x2, y2);
 
     Sketch::instance()->rect(p1, p2);
-
     return 0;
 }
 
@@ -91,6 +64,5 @@ int lunaL::circ(lua_State *L) {
     sf::Vector2f pos(x, y);
 
     Sketch::instance()->circ(pos, r);
-
     return 0;
 }
