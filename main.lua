@@ -17,13 +17,14 @@ function render()
 
     --color(colors.cyan)
     --text("Rendering!", 40)
-
     --rect1:render()
     --rect2:render()
 
     --rect2:setPos(rect2.x+1, rect2.y)
 
     --circle1:render()
+
+    line(1280/2,0,70,80)
 
     circ(x1 + 1280/2, y1 + 720/2, 1)
     x1 = math.tan(a) * 50

@@ -56,6 +56,19 @@ int lunaL::rect(lua_State *L) {
     return 0;
 }
 
+int lunaL::line(lua_State *L) {
+    float x1 = luaL_checknumber(L, 1);
+    float y1 = luaL_checknumber(L, 2);
+    float x2 = luaL_checknumber(L, 3);
+    float y2 = luaL_checknumber(L, 4);
+
+    sf::Vector2f p1(x1, y1);
+    sf::Vector2f p2(x2, y2);
+
+    Sketch::instance()->line(p1, p2);
+    return 0;  
+}
+
 int lunaL::circ(lua_State *L) {
     float x = luaL_checknumber(L, 1);
     float y = luaL_checknumber(L, 2);

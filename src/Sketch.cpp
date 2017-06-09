@@ -20,6 +20,7 @@ Sketch::Sketch() {
     lua_register(L, "color", lunaL::color);
     lua_register(L, "text", lunaL::text);
     lua_register(L, "rect", lunaL::rect);
+    lua_register(L, "line", lunaL::line);
     lua_register(L, "circ", lunaL::circ);
 
     /* Load Lua libraries */
@@ -128,6 +129,15 @@ void Sketch::rect(sf::Vector2f p1, sf::Vector2f p2) {
     window->draw(box);
 }
 
+void Sketch::line(sf::Vector2f p1, sf::Vector2f p2) {
+    sf::Vertex line[] =
+    {
+        sf::Vertex(p1),
+        sf::Vertex(p2)
+    };
+
+    window->draw(line, 2, sf::Lines);
+}
 
 void Sketch::circ(sf::Vector2f pos, float r) {
     sf::CircleShape circle(r);

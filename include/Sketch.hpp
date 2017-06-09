@@ -108,6 +108,12 @@ public:
     void rect(sf::Vector2f p1, sf::Vector2f p2);
 
     /*
+        Draw a line between points 'p1' and 'p2',
+        called from line(x1,y1,x2,y2) Lua function 
+    */
+    void line(sf::Vector2f p1, sf::Vector2f p2);
+
+    /*
         Draw a circle with center at point 'pos'
         and radius 'r', called from
         circ(x,y,r) Lua function
