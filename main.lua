@@ -8,6 +8,8 @@ local x1, y1, a = 0, 0, 0
 --[[ Setup function runs only once at startup ]]--
 function setup()
     size(1280, 720, "Luna sketch!")
+
+    print("WIDTH: " .. width .. ", HEIGHT: " .. height)
 end
 
 --[[ Render function runs once per frame (ex. 60fps) ]]--
@@ -24,9 +26,9 @@ function render()
 
     --circle1:render()
 
-    line(1280/2,0,70,80)
+    line(width/2,0,x1,height/2)
 
-    circ(x1 + 1280/2, y1 + 720/2, 1)
+    circ(x1 + width/2, y1 + height/2, 1)
     x1 = math.tan(a) * 50
     y1 = math.sin(a) * 100
     a = a + 0.01
