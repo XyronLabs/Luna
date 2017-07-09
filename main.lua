@@ -5,6 +5,8 @@ local circle1 = circle:new{ x=500, y=100, radius=25 }
 
 local x1, y1, a = 0, 0, 0
 
+local lastKey = nil
+
 --[[ Setup function runs only once at startup ]]--
 function setup()
     size(1280, 720, "Luna sketch!")
@@ -15,7 +17,7 @@ end
 --[[ Render function runs once per frame (ex. 60fps) ]]--
 function render()
     --[ Manual window clear ]--
-    --clear()
+    clear()
 
     --color(colors.cyan)
     --text("Rendering!", 40)
@@ -32,4 +34,13 @@ function render()
     x1 = math.tan(a) * 50
     y1 = math.sin(a) * 100
     a = a + 0.01
+
+    text("Last key: " .. keys[lastKey], 40)
+end
+
+function input()
+    if key and key ~= lastKey then
+        --print("Key: ", keys[key])
+        lastKey = key
+    end
 end

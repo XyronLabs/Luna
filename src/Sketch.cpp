@@ -27,6 +27,7 @@ Sketch::Sketch() {
     luaL_loadfile(L, "lua/colors.lua");     lua_pcall(L, 0, 0, 0);
     luaL_loadfile(L, "lua/rectangle.lua");  lua_pcall(L, 0, 0, 0);
     luaL_loadfile(L, "lua/circle.lua");     lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "lua/keys.lua");     lua_pcall(L, 0, 0, 0);
 }
 
 bool Sketch::preload(const char* lua_main) {
@@ -76,11 +77,29 @@ void Sketch::loop() {
             switch(ev.type) {
                 case sf::Event::Closed:
                     window->close();
+                    break;
+
+                case sf::Event::KeyPressed:
+                    lua_pushinteger(L, ev.key.code);
+                    lua_setglobal(L, "key");
+                    break;
+
+                case sf::Event::KeyReleased:
+                    lua_pushnil(L);
+                    lua_setglobal(L, "key");
+                    break;
+
+                default:
+                    break;
             }
         }
 
         // Call Lua render function
         lua_getglobal(L, "render");
+        lua_pcall(L, 0, 0, 0);
+
+        // Call Lua render function
+        lua_getglobal(L, "input");
         lua_pcall(L, 0, 0, 0);
 
         // Show the new frame
