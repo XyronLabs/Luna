@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include <lua.hpp>
+#include <lua5.3/lua.hpp>
 
 /*
     Log a message to std::cout

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <lua.hpp>
+#include <lua5.3/lua.hpp>
 
 /**
     Main Luna class, this class manages

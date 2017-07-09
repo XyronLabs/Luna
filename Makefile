@@ -6,7 +6,7 @@ EXE := luna
 MAIN := main.cpp
 
 sources := $(wildcard src/*.cpp)
-libs := -llua -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
+libs := -llua5.3 -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
 
 CXXFLAGS := -std=c++14
 

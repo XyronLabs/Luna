@@ -116,7 +116,7 @@ void Sketch::text(const char* str, int size) {
     t.setString(str);
     t.setFont(default_font);
     t.setCharacterSize(size);
-    t.setFillColor(current_color);
+    //t.setFillColor(current_color);
 
     window->draw(t);
 }
