@@ -12,11 +12,17 @@ CXXFLAGS := -std=c++14
 
 all: $(BIN)/$(EXE)
 
-$(BIN)/$(EXE): $(sources)
+$(BIN)/$(EXE): $(sources) $(BIN)
 	$(CXX) $(CXXFLAGS) $(sources) -o $@ -I$(INCLUDE) $(libs)
+
+$(BIN):
+	mkdir $(BIN)
 
 clean:
 	-@rm $(BIN)/$(EXE)
 
 run: all
 	./$(BIN)/$(EXE)
+
+install: all
+	cp $(BIN)/$(EXE) /usr/local/bin/
