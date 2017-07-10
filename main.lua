@@ -1,46 +1,44 @@
-local rect1 = rectangle:new{ x=20, y=80, width=100, height=100, color=colors.green }
-local rect2 = rectangle:new{}:setPos(400, 400):setSize(10, 10):setColor(colors.blue)
+local player = {
+    name = "Alex",
+    x = 1,
+    y = 1,
+    dirx = 1,
+    diry = 1,
+    speed = 2,
+    rad = 20
+}
 
-local circle1 = circle:new{ x=500, y=100, radius=25 }
-
-local x1, y1, a = 0, 0, 0
-
-local lastKey = nil
-
---[[ Setup function runs only once at startup ]]--
 function setup()
-    size(1280, 720, "Luna sketch!")
-
-    print("WIDTH: " .. width .. ", HEIGHT: " .. height)
+    size(1280, 720, "Test Game!")
 end
 
---[[ Render function runs once per frame (ex. 60fps) ]]--
 function render()
-    --[ Manual window clear ]--
     clear()
+    
+    -- Check collisions
+    if player.x + player.rad * 2  >= width or player.x <= 0 then
+        player.dirx = player.dirx * -1
+    end
+    if player.y + player.rad * 2 >= height or player.y <= 0 then
+        player.diry = player.diry * -1
+    end
 
-    --color(colors.cyan)
-    --text("Rendering!", 40)
-    --rect1:render()
-    --rect2:render()
+    -- Update position
+    player.x = player.x + player.dirx * player.speed
+    player.y = player.y + player.diry * player.speed
 
-    --rect2:setPos(rect2.x+1, rect2.y)
-
-    --circle1:render()
-
-    line(width/2,0,x1,height/2)
-
-    circ(x1 + width/2, y1 + height/2, 1)
-    x1 = math.tan(a) * 50
-    y1 = math.sin(a) * 100
-    a = a + 0.01
-
-    text("Last key: " .. keys[lastKey], 40)
+    -- Render
+    text("Player: " .. player.name, 32)
+    color(colors.yellow)
+    circ(player.x, player.y, player.rad)
 end
 
 function input()
-    if key and key ~= lastKey then
-        --print("Key: ", keys[key])
-        lastKey = key
-    end
+    if keys[key] == 'Up'    then player.diry = -1 end
+    if keys[key] == 'Down'  then player.diry =  1 end
+    if keys[key] == 'Left'  then player.dirx = -1 end
+    if keys[key] == 'Right' then player.dirx =  1 end
+    
+    if keys[key] == 'Period' then player.speed = player.speed + 0.1 end
+    if keys[key] == 'Comma' then player.speed = player.speed - 0.1 end
 end
