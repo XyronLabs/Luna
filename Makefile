@@ -10,27 +10,40 @@ libs := -llua5.3 -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
 
 CXXFLAGS := -std=c++14
 
+
 all: $(BIN)/$(EXE)
+
+
+$(BIN)/$(EXE): $(sources) $(BIN)
+	$(CXX) $(CXXFLAGS) -O3 $(sources) -o $@ -I$(INCLUDE) $(libs)
 
 debug: $(sources) $(BIN)
 	$(CXX) $(CXXFLAGS) $(sources) -o $(BIN)/$(EXE)-$@ -I$(INCLUDE) $(libs) -DLUNA_DEBUG
 
-$(BIN)/$(EXE): $(sources) $(BIN)
-	$(CXX) $(CXXFLAGS) $(sources) -o $@ -I$(INCLUDE) $(libs)
 
 $(BIN):
 	mkdir $(BIN)
 
 clean:
-	-@rm $(BIN)/$(EXE)
+	-@rm $(BIN)/*
 
-run: all
-	./$(BIN)/$(EXE)
+run: debug
+	./$(BIN)/$(EXE)-debug
 
-install: all
+
+install:
 	-rm /usr/local/bin/$(EXE)
 	cp $(BIN)/$(EXE) /usr/local/bin/
 	-mkdir /usr/local/luna
 	-cp -rf lua/ /usr/local/luna/
 	-cp -rf res/ /usr/local/luna/
-	
+
+
+deb: all
+	mkdir -p deb/usr/local/bin/ deb/usr/local/luna/ deb/DEBIAN/
+	cp $(BIN)/$(EXE) deb/usr/local/bin/
+	cp control deb/DEBIAN/
+	cp -rf lua/ deb/usr/local/luna/
+	cp -rf res/ deb/usr/local/luna/
+	dpkg-deb -b deb luna.deb
+	rm -rf deb
