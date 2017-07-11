@@ -24,15 +24,26 @@ Sketch::Sketch() {
     lua_register(L, "circ", lunaL::circ);
 
     /* Load Lua libraries */
+#ifdef LUNA_DEBUG
     luaL_loadfile(L, "lua/colors.lua");     lua_pcall(L, 0, 0, 0);
     luaL_loadfile(L, "lua/rectangle.lua");  lua_pcall(L, 0, 0, 0);
     luaL_loadfile(L, "lua/circle.lua");     lua_pcall(L, 0, 0, 0);
     luaL_loadfile(L, "lua/keys.lua");     lua_pcall(L, 0, 0, 0);
+#else
+    luaL_loadfile(L, "/usr/local/luna/lua/colors.lua");     lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "/usr/local/luna/lua/rectangle.lua");  lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "/usr/local/luna/lua/circle.lua");     lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "/usr/local/luna/lua/keys.lua");     lua_pcall(L, 0, 0, 0);
+#endif
 }
 
 bool Sketch::preload(const char* lua_main) {
     // Set default values to variables
+#ifdef LUNA_DEBUG
     default_font.loadFromFile("res/font/Roboto-Regular.ttf");
+#else
+    default_font.loadFromFile("/usr/local/luna/res/font/Roboto-Regular.ttf");
+#endif
     current_color = sf::Color::White;
 
     // Load lua/main.lua
