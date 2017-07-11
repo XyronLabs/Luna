@@ -1,0 +1,12 @@
+Package: luna
+Version: 1.0-1
+Section: base
+Priority: optional
+Architecture: amd64
+Depends: liblua5.3-dev , libsfml-dev
+Maintainer: Alejandro Charte Luque <acharluk@gmail.com>
+Provides: luna
+Replaces: luna
+Description: Luna graphic sketches
+ Luna lets you create simple graphic sketches
+ written in Lua and using SFML
