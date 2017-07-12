@@ -1,8 +1,8 @@
 Package: luna
-Version: 1.0-1
+Version: 0.1-1
 Section: base
 Priority: optional
-Architecture: amd64
+Architecture: all
 Depends: liblua5.3-dev , libsfml-dev
 Maintainer: Alejandro Charte Luque <acharluk@gmail.com>
 Provides: luna
