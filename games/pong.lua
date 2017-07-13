@@ -47,15 +47,15 @@ function render()
 end
 
 function input()
-    if keys[key] == 'Q' then
+    if keys['Q'] then
         player1.y = player1.y - 5
-    elseif keys[key] == 'A' then
+    elseif keys['A'] then
         player1.y = player1.y + 5
     end
 
-    if keys[key] == 'P' then
+    if keys['P'] then
         player2.y = player2.y - 5
-    elseif keys[key] == 'L' then
+    elseif keys['L'] then
         player2.y = player2.y + 5
     end
 end
