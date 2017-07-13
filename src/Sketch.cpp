@@ -49,7 +49,7 @@ bool Sketch::preload(const char* lua_main) {
     // Load lua/main.lua
     luaL_loadfile(L, lua_main ? lua_main : "main.lua");
     if (lua_pcall(L, 0, 0, 0)) {
-        logErr("Error loading main script!", L);
+        logErr("Error: Main.lua was not found!", L);
         return true;
     }
 
@@ -90,12 +90,14 @@ void Sketch::loop() {
                     window->close();
                     break;
 
+                // Set keys[X] true
                 case sf::Event::KeyPressed:
                     lua_getglobal(L, "pressKey");
                     lua_pushinteger(L, ev.key.code);
                     lua_pcall(L, 1, 0, 0);
                     break;
 
+                // Set keys[X] false
                 case sf::Event::KeyReleased:
                     lua_getglobal(L, "releaseKey");
                     lua_pushinteger(L, ev.key.code);
@@ -111,7 +113,7 @@ void Sketch::loop() {
         lua_getglobal(L, "render");
         lua_pcall(L, 0, 0, 0);
 
-        // Call Lua render function
+        // Call Lua input function
         lua_getglobal(L, "input");
         lua_pcall(L, 0, 0, 0);
 
@@ -143,11 +145,12 @@ void Sketch::setColor(sf::Color newColor) {
     this->current_color = newColor;
 }
 
-void Sketch::text(const char* str, int size) {
+void Sketch::text(const char* str, int size, float posx, float posy) {
     sf::Text t;
     t.setString(str);
     t.setFont(default_font);
     t.setCharacterSize(size);
+    t.move(posx, posy);
     //t.setFillColor(current_color);
 
     window->draw(t);

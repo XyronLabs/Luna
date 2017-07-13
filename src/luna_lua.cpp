@@ -44,8 +44,10 @@ int lunaL::color(lua_State *L) {
 int lunaL::text(lua_State *L) {
     const char* str = luaL_checkstring(L, 1);
     int size = luaL_checkinteger(L, 2);
+    float posx = luaL_checknumber(L, 3);
+    float posy = luaL_checknumber(L, 4);
 
-    Sketch::instance()->text(str, size);
+    Sketch::instance()->text(str, size, posx, posy);
     return 0;
 }
 
