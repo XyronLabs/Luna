@@ -1,4 +1,4 @@
-keys = {
+local _keys = {
 	[-1] = 'UNKNOWN',
 	[0] = 'A',
 	'B', 
@@ -103,3 +103,17 @@ keys = {
 	'Pause', 
 	'KeyCount' 	
 }
+
+keys = {}
+
+for k, v in pairs(_keys) do
+	keys[v] = false
+end
+
+function pressKey(k)
+	keys[_keys[k]] = true
+end
+
+function releaseKey(k)
+	keys[_keys[k]] = false
+end

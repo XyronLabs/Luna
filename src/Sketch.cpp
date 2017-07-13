@@ -91,13 +91,15 @@ void Sketch::loop() {
                     break;
 
                 case sf::Event::KeyPressed:
+                    lua_getglobal(L, "pressKey");
                     lua_pushinteger(L, ev.key.code);
-                    lua_setglobal(L, "key");
+                    lua_pcall(L, 1, 0, 0);
                     break;
 
                 case sf::Event::KeyReleased:
-                    lua_pushnil(L);
-                    lua_setglobal(L, "key");
+                    lua_getglobal(L, "releaseKey");
+                    lua_pushinteger(L, ev.key.code);
+                    lua_pcall(L, 1, 0, 0);
                     break;
 
                 default:
