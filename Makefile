@@ -5,42 +5,46 @@ INCLUDE := include
 OBJ 	:= obj
 OUT 	:= out
 
-EXE	 := luna
+# Configurations #
+DEBUG   := debug
+RELEASE := release
+
+EXE  := luna
 MAIN := main.cpp
 
 # Files needed for compiling #
-sources   := $(wildcard src/*.cpp)
+sources   := $(wildcard $(SRC)/*.cpp)
 objects   := $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(sources))
-objects-d := $(patsubst %.o, %-d.o, $(objects))
+objects-d := $(patsubst %.o, %-$(DEBUG).o, $(objects))
 
 # Libraries #
-libs := -llua5.3 -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
+libraries := -llua5.3 -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
 
 # Compiler options for each configuration #
-CXXFLAGS		 := -std=c++14 -Wall
+CXXFLAGS         := -std=c++14 -Wall
 CXXFLAGS_RELEASE := -O3
 CXXFLAGS_DEBUG   := -DLUNA_DEBUG
 
 
-all: release
+all: $(RELEASE)
 
 
 #-------------------------------------------------------------------#
 #                       Release configuration                       #
 #-------------------------------------------------------------------#
-release: $(objects) DIRS
-	$(CXX) $(objects) -o $(BIN)/$(EXE)-$@ $(libs)
+$(RELEASE): $(objects) DIRS
+	$(CXX) $(objects) -o $(BIN)/$(EXE)-$@ $(libraries)
 
-$(OBJ)/%.o: $(SRC)/%.cpp
+$(OBJ)/%.o: $(SRC)/%.cpp DIRS
 	$(CXX) $(CXXFLAGS) $(CXXFLAGS_RELEASE) $< -c -o $@ -I$(INCLUDE)
 
 #-------------------------------------------------------------------#
 #                        Debug configuration                        #
 #-------------------------------------------------------------------#
-debug: $(objects-d) DIRS
-	$(CXX) $(objects-d) -o $(BIN)/$(EXE)-$@ $(libs)
+$(DEBUG): $(objects-d) DIRS
+	$(CXX) $(objects-d) -o $(BIN)/$(EXE)-$@ $(libraries)
 
-$(OBJ)/%-d.o: $(SRC)/%.cpp
+$(OBJ)/%-$(DEBUG).o: $(SRC)/%.cpp DIRS
 	$(CXX) $(CXXFLAGS) $(CXXFLAGS_DEBUG) $< -c -o $@ -I$(INCLUDE)
 
 
@@ -52,21 +56,21 @@ clean:
 	-rm -f $(BIN)/* $(OBJ)/* $(OUT)/*
 	-rm -rf deb
 
-run: debug
-	./$(BIN)/$(EXE)-debug
+run: $(DEBUG)
+	./$(BIN)/$(EXE)-$(DEBUG)
 
 
 install:
 	-rm /usr/local/bin/$(EXE)
-	cp $(BIN)/$(EXE)-release /usr/local/bin/$(EXE)
+	cp $(BIN)/$(EXE)-$(RELEASE) /usr/local/bin/$(EXE)
 	-mkdir /usr/local/luna
 	-cp -rf lua/ /usr/local/luna/
 	-cp -rf res/ /usr/local/luna/
 
 
-deb: release DIRS
+deb: $(RELEASE) DIRS
 	mkdir -p deb/usr/local/bin/ deb/usr/local/luna/ deb/DEBIAN/
-	cp $(BIN)/$(EXE)-release deb/usr/local/bin/$(EXE)
+	cp $(BIN)/$(EXE)-$(RELEASE) deb/usr/local/bin/$(EXE)
 	cp control deb/DEBIAN/
 	cp -rf lua/ deb/usr/local/luna/
 	cp -rf res/ deb/usr/local/luna/
