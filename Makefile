@@ -8,44 +8,41 @@ OUT 	:= out
 # Configurations #
 DEBUG   := debug
 RELEASE := release
+CONFIG  := release
 
 EXE  := luna
 MAIN := main.cpp
 
 # Files needed for compiling #
-sources   := $(wildcard $(SRC)/*.cpp)
-objects   := $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(sources))
-objects-d := $(patsubst %.o, %-$(DEBUG).o, $(objects))
+sources           := $(wildcard $(SRC)/*.cpp)
+objects-$(CONFIG) := $(patsubst $(SRC)/%.cpp, $(OBJ)/%-$(CONFIG).o, $(sources))
 
 # Libraries #
 libraries := -llua5.3 -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
 
 # Compiler options for each configuration #
-CXXFLAGS         := -std=c++14 -Wall
-CXXFLAGS_RELEASE := -O3
-CXXFLAGS_DEBUG   := -DLUNA_DEBUG
+CXXFLAGS            := -std=c++14 -Wall
+CXXFLAGS_$(RELEASE) := -O3
+CXXFLAGS_$(DEBUG)   := -DLUNA_DEBUG
 
 
-all: $(RELEASE)
+all: $(CONFIG)
+
+#-- Shortcuts --#
+r:
+	$(MAKE) -j4 CONFIG=release
+d:
+	$(MAKE) -j4 CONFIG=debug
 
 
 #-------------------------------------------------------------------#
-#                       Release configuration                       #
+#                           Configuration                           #
 #-------------------------------------------------------------------#
-$(RELEASE): $(objects) DIRS
-	$(CXX) $(objects) -o $(BIN)/$(EXE)-$@ $(libraries)
+$(CONFIG): $(objects-$(CONFIG)) DIRS
+	$(CXX) $(objects-$(CONFIG)) -o $(BIN)/$(EXE)-$@ $(libraries)
 
-$(OBJ)/%.o: $(SRC)/%.cpp DIRS
-	$(CXX) $(CXXFLAGS) $(CXXFLAGS_RELEASE) $< -c -o $@ -I$(INCLUDE)
-
-#-------------------------------------------------------------------#
-#                        Debug configuration                        #
-#-------------------------------------------------------------------#
-$(DEBUG): $(objects-d) DIRS
-	$(CXX) $(objects-d) -o $(BIN)/$(EXE)-$@ $(libraries)
-
-$(OBJ)/%-$(DEBUG).o: $(SRC)/%.cpp DIRS
-	$(CXX) $(CXXFLAGS) $(CXXFLAGS_DEBUG) $< -c -o $@ -I$(INCLUDE)
+$(OBJ)/%-$(CONFIG).o: $(SRC)/%.cpp DIRS
+	$(CXX) $(CXXFLAGS) $(CXXFLAGS_$(CONFIG)) $< -c -o $@ -I$(INCLUDE)
 
 
 # Directories #
