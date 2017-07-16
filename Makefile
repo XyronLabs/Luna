@@ -1,17 +1,28 @@
 # Directories #
 BIN 	:= bin
-SRC 	:= src
+DEB     := deb
 INCLUDE := include
 OBJ 	:= obj
 OUT 	:= out
+SRC 	:= src
+
 
 # Configurations #
-DEBUG   := debug
 RELEASE := release
+DEBUG   := debug
+
+# Default configuration #
 CONFIG  := release
 
 EXE  := luna
 MAIN := main.cpp
+
+
+# Installation paths #
+BASE_PATH := usr/local
+INSTALL_PATH := $(BASE_PATH)/$(EXE)
+EXE_PATH := $(BASE_PATH)/bin/$(EXE)
+
 
 # Files needed for compiling #
 sources           := $(wildcard $(SRC)/*.cpp)
@@ -26,6 +37,9 @@ CXXFLAGS_$(RELEASE) := -O3
 CXXFLAGS_$(DEBUG)   := -DLUNA_DEBUG
 
 
+
+#----------------------------  Targets  ----------------------------#
+
 all: $(CONFIG)
 
 #-- Shortcuts --#
@@ -33,6 +47,8 @@ r:
 	$(MAKE) -j4 CONFIG=release
 d:
 	$(MAKE) -j4 CONFIG=debug
+o:
+	$(MAKE) -j4 deb
 
 
 #-------------------------------------------------------------------#
@@ -45,31 +61,39 @@ $(OBJ)/%-$(CONFIG).o: $(SRC)/%.cpp DIRS
 	$(CXX) $(CXXFLAGS) $(CXXFLAGS_$(CONFIG)) $< -c -o $@ -I$(INCLUDE)
 
 
-# Directories #
+# Directory creation #
 DIRS:
 	mkdir -p $(BIN) $(OBJ) $(OUT)
 
-clean:
-	-rm -f $(BIN)/* $(OBJ)/* $(OUT)/*
-	-rm -rf deb
+# Clean #
+clean: clean-$(BIN) clean-$(OBJ) clean-$(OUT) clean-$(DEB)
 
-run: $(DEBUG)
-	./$(BIN)/$(EXE)-$(DEBUG)
+clean-$(BIN):
+	-rm -f $(BIN)/*
+clean-$(OBJ):
+	-rm -f $(OBJ)/*
+clean-$(OUT):
+	-rm -f $(OUT)/*
+clean-$(DEB):
+	-rm -rf $(DEB)
 
 
-install:
-	-rm /usr/local/bin/$(EXE)
-	cp $(BIN)/$(EXE)-$(RELEASE) /usr/local/bin/$(EXE)
-	-mkdir /usr/local/luna
-	-cp -rf lua/ /usr/local/luna/
-	-cp -rf res/ /usr/local/luna/
+uninstall:
+	-rm -f /$(EXE_PATH)
+	-rm -rf /$(INSTALL_PATH)
+
+install: uninstall
+	cp $(BIN)/$(EXE)-$(RELEASE) /$(EXE_PATH)
+	-mkdir /$(INSTALL_PATH)
+	-cp -rf lua/ /$(INSTALL_PATH)
+	-cp -rf res/ /$(INSTALL_PATH)
 
 
 deb: $(RELEASE) DIRS
-	mkdir -p deb/usr/local/bin/ deb/usr/local/luna/ deb/DEBIAN/
-	cp $(BIN)/$(EXE)-$(RELEASE) deb/usr/local/bin/$(EXE)
-	cp control deb/DEBIAN/
-	cp -rf lua/ deb/usr/local/luna/
-	cp -rf res/ deb/usr/local/luna/
-	dpkg-deb -b deb out/luna.deb
-	rm -rf deb
+	mkdir -p $(DEB)/$(BASE_PATH)/bin/ $(DEB)/$(INSTALL_PATH) $(DEB)/DEBIAN/
+	cp $(BIN)/$(EXE)-$(RELEASE) $(DEB)/$(EXE_PATH)
+	cp control $(DEB)/DEBIAN/
+	cp -rf lua/ $(DEB)/$(INSTALL_PATH)
+	cp -rf res/ $(DEB)/$(INSTALL_PATH)
+	dpkg-deb -b $(DEB) $(OUT)/$(EXE).deb
+	$(MAKE) clean-$(OBJ) clean-$(DEB)
