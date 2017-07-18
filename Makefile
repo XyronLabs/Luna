@@ -44,11 +44,11 @@ all: $(CONFIG)
 
 #-- Shortcuts --#
 r:
-	$(MAKE) -j4 CONFIG=release
+	$(MAKE) -j8 CONFIG=release
 d:
-	$(MAKE) -j4 CONFIG=debug
+	$(MAKE) -j8 CONFIG=debug
 o:
-	$(MAKE) -j4 deb
+	$(MAKE) -j8 deb
 
 
 #-------------------------------------------------------------------#
