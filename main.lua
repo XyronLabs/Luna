@@ -28,17 +28,17 @@ function render()
     player.y = player.y + player.diry * player.speed
 
     -- Render
-    text("Player: " .. player.name, 32)
+    text("Player: " .. player.name, 32, 10, 10)
     color(colors.yellow)
     circ(player.x, player.y, player.rad)
 end
 
 function input()
-    if keys[key] == 'Up'    then player.diry = -1 end
-    if keys[key] == 'Down'  then player.diry =  1 end
-    if keys[key] == 'Left'  then player.dirx = -1 end
-    if keys[key] == 'Right' then player.dirx =  1 end
+    if keys['Up']    then player.diry = -1 end
+    if keys['Down']  then player.diry =  1 end
+    if keys['Left']  then player.dirx = -1 end
+    if keys['Right'] then player.dirx =  1 end
     
-    if keys[key] == 'Period' then player.speed = player.speed + 0.1 end
-    if keys[key] == 'Comma' then player.speed = player.speed - 0.1 end
+    if keys['Period'] then player.speed = player.speed + 0.1 end
+    if keys['Comma']  then player.speed = player.speed - 0.1 end
 end
