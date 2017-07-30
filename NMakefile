@@ -1,3 +1,3 @@
 win:
-	cl src/*.cpp wlib/* /Febin\Luna.exe /I include /I winclude /std:c++latest /EHsc /W4 /DLUNA_DEBUG
+	cl src/*.cpp wlib/* /Febin\Luna.exe /I include /I winclude /std:c++latest /EHsc /W2 /D LUNA_DEBUG
 	del *.obj
