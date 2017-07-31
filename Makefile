@@ -85,7 +85,6 @@ uninstall:
 install: uninstall
 	cp $(BIN)/$(EXE)-$(RELEASE) /$(EXE_PATH)
 	-mkdir /$(INSTALL_PATH)
-	-cp -rf lua/ /$(INSTALL_PATH)
 	-cp -rf res/ /$(INSTALL_PATH)
 
 
@@ -93,7 +92,6 @@ deb: $(RELEASE) DIRS
 	mkdir -p $(DEB)/$(BASE_PATH)/bin/ $(DEB)/$(INSTALL_PATH) $(DEB)/DEBIAN/
 	cp $(BIN)/$(EXE)-$(RELEASE) $(DEB)/$(EXE_PATH)
 	cp control $(DEB)/DEBIAN/
-	cp -rf lua/ $(DEB)/$(INSTALL_PATH)
 	cp -rf res/ $(DEB)/$(INSTALL_PATH)
 	dpkg-deb -b $(DEB) $(OUT)/$(EXE).deb
 	$(MAKE) clean-$(OBJ) clean-$(DEB)

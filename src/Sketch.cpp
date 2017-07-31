@@ -25,15 +25,15 @@ Sketch::Sketch() {
 
     /* Load Lua libraries */
 #ifdef LUNA_DEBUG
-    luaL_loadfile(L, "lua/colors.lua");     lua_pcall(L, 0, 0, 0);
-    luaL_loadfile(L, "lua/rectangle.lua");  lua_pcall(L, 0, 0, 0);
-    luaL_loadfile(L, "lua/circle.lua");     lua_pcall(L, 0, 0, 0);
-    luaL_loadfile(L, "lua/keys.lua");     lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "res/lua/colors.lua");     lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "res/lua/rectangle.lua");  lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "res/lua/circle.lua");     lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "res/lua/keys.lua");     lua_pcall(L, 0, 0, 0);
 #else
-    luaL_loadfile(L, "/usr/local/luna/lua/colors.lua");     lua_pcall(L, 0, 0, 0);
-    luaL_loadfile(L, "/usr/local/luna/lua/rectangle.lua");  lua_pcall(L, 0, 0, 0);
-    luaL_loadfile(L, "/usr/local/luna/lua/circle.lua");     lua_pcall(L, 0, 0, 0);
-    luaL_loadfile(L, "/usr/local/luna/lua/keys.lua");     lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "/usr/local/luna/res/lua/colors.lua");     lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "/usr/local/luna/res/lua/rectangle.lua");  lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "/usr/local/luna/res/lua/circle.lua");     lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "/usr/local/luna/res/lua/keys.lua");     lua_pcall(L, 0, 0, 0);
 #endif
 }
 
