@@ -61,6 +61,7 @@ function render()
 	color(0xaaaaaaff)
 	circ(ball.x, ball.y, ball.radius)
 	rect(player.x, height - 30, player.sizex, 20)
+	text("Points: " .. 105 - #bricks, 32, 10, 10)
 
 	frames = frames + 0.000000001
 end
