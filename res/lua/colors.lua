@@ -1,11 +1,12 @@
+--[[ Color format: RGBA ]]--
 colors = {
-    ["black"] = 0,
-    ["white"] = 1,
-    ["red"] = 2,
-    ["green"] = 3,
-    ["blue"] = 4,
-    ["yellow"] = 5,
-    ["magenta"] = 6,
-    ["cyan"] = 7,
-    ["transparent"] = 8,
+    ["black"]       = 0x000000ff,
+    ["white"]       = 0xffffffff,
+    ["red"]         = 0xff0000ff,
+    ["green"]       = 0x00ff00ff,
+    ["blue"]        = 0x0000ffff,
+    ["yellow"]      = 0xffff00ff,
+    ["magenta"]     = 0xff00ffff,
+    ["cyan"]        = 0x00ffffff,
+    ["transparent"] = 0x00000000,
 }

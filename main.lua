@@ -29,7 +29,7 @@ function render()
 
     -- Render
     text("Player: " .. player.name, 32, 10, 10)
-    color(colors.yellow)
+    color(0x2233aaff)
     circ(player.x, player.y, player.rad)
 end
 
