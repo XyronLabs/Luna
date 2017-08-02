@@ -73,3 +73,15 @@ int lunaL::circ(lua_State *L) {
     Sketch::instance().circ(pos, r);
     return 0;
 }
+
+int lunaL::addShape(lua_State *L) {
+    return 0;
+}
+
+int lunaL::renderShape(lua_State *L) {
+    return 0;
+}
+
+int lunaL::removeShape(lua_State *L) {
+    return 0;
+}

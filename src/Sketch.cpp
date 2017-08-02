@@ -128,6 +128,10 @@ sf::RenderWindow& Sketch::getWindow() {
     return *window;
 }
 
+auto& Sketch::getShapeMap() {
+    return shapeMap;
+}
+
 void Sketch::createWindow(int width, int height, const char* title) {
     sf::ContextSettings s;
     s.antialiasingLevel = 8;

@@ -28,4 +28,11 @@ namespace lunaL {
 
     /* Render a rectangle */
     int circ(lua_State *L);
+
+    /*
+     * Methods for handling shapeMap
+     */
+     int addShape(lua_State *L);
+     int renderShape(lua_State *L);
+     int removeShape(lua_State *L);
 };

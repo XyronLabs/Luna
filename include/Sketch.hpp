@@ -31,6 +31,11 @@ class Sketch {
     sf::Color current_color;
 
     /*
+        Shape map for Lua objects
+    */
+    std::map<std::string, std::unique_ptr<sf::Shape>> shapeMap;
+
+    /*
         Private constructor for singleton
         All Lua functions and libraries are
         loaded here
@@ -83,6 +88,11 @@ public:
         Return window reference, used in luna_lua functions
     */
     sf::RenderWindow& getWindow();
+
+    /*
+        Return shapeMap reference, used in luna_lua functions
+    */
+    auto& getShapeMap();
 
     /*
         Set value of 'current_color', called
