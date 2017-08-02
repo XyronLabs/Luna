@@ -11,19 +11,19 @@ int lunaL::size(lua_State *L) {
     lua_pushinteger(L, h);
     lua_setglobal(L, "height");
 
-    Sketch::instance()->createWindow(w, h, t);
+    Sketch::instance().createWindow(w, h, t);
     return 0;
 }
 
 int lunaL::clear(lua_State *L) {
-    Sketch::instance()->getWindow().clear();    
+    Sketch::instance().getWindow().clear();    
     return 0;
 }
 
 int lunaL::color(lua_State *L) {
     unsigned int newColor = luaL_checkinteger(L, 1);
 
-    Sketch::instance()->setColor(sf::Color(newColor));
+    Sketch::instance().setColor(sf::Color(newColor));
     return 0;
 }
 
@@ -33,7 +33,7 @@ int lunaL::text(lua_State *L) {
     float posx = luaL_checknumber(L, 3);
     float posy = luaL_checknumber(L, 4);
 
-    Sketch::instance()->text(str, size, posx, posy);
+    Sketch::instance().text(str, size, posx, posy);
     return 0;
 }
 
@@ -46,7 +46,7 @@ int lunaL::rect(lua_State *L) {
     sf::Vector2f p1(x1, y1);
     sf::Vector2f p2(x2, y2);
 
-    Sketch::instance()->rect(p1, p2);
+    Sketch::instance().rect(p1, p2);
     return 0;
 }
 
@@ -59,7 +59,7 @@ int lunaL::line(lua_State *L) {
     sf::Vector2f p1(x1, y1);
     sf::Vector2f p2(x2, y2);
 
-    Sketch::instance()->line(p1, p2);
+    Sketch::instance().line(p1, p2);
     return 0;  
 }
 
@@ -70,6 +70,6 @@ int lunaL::circ(lua_State *L) {
 
     sf::Vector2f pos(x, y);
 
-    Sketch::instance()->circ(pos, r);
+    Sketch::instance().circ(pos, r);
     return 0;
 }

@@ -2,11 +2,8 @@
 #include "luna_lua.hpp"
 #include "Logger.hpp"
 
-// Allocate pointer, not the object
-Sketch *Sketch::s_instance = 0;
-Sketch* Sketch::instance() {
-    if(!s_instance)
-        s_instance = new Sketch;
+Sketch& Sketch::instance() {
+    static Sketch s_instance;
     return s_instance;
 }
 

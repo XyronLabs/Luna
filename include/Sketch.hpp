@@ -31,11 +31,6 @@ class Sketch {
     sf::Color current_color;
 
     /*
-        Sketch instance for singleton
-    */
-    static Sketch *s_instance;
-
-    /*
         Private constructor for singleton
         All Lua functions and libraries are
         loaded here
@@ -75,7 +70,7 @@ public:
     /*
         Return Sketch instance, singleton
     */
-    static Sketch* instance();
+    static Sketch& instance();
 
     /*
         Called by size(w,h,t) Lua function
