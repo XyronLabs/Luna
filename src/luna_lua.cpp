@@ -115,12 +115,22 @@ int lunaL::editShape(lua_State *L) {
         float height = luaL_checknumber(L, 4);
 
         // TODO: Fix raw pointer workaround
-        (dynamic_cast<sf::RectangleShape*>(&*Sketch::instance().getShapeMap()[key]))->setSize(sf::Vector2f(width, height));
+        sf::RectangleShape *s = dynamic_cast<sf::RectangleShape*>(&*Sketch::instance().getShapeMap()[key]);
+        if (s)
+            s->setSize(sf::Vector2f(width, height));
+        else
+            Logger::instance().logWarning("Tried to edit radius of a non-rectangular shape");
+            
+       
     } else if (property == "radius") {
         float radius = luaL_checknumber(L, 3);
 
         // TODO: Fix raw pointer workaround
-        (dynamic_cast<sf::CircleShape*>(&*Sketch::instance().getShapeMap()[key]))->setRadius(radius);
+        sf::CircleShape *s = dynamic_cast<sf::CircleShape*>(&*Sketch::instance().getShapeMap()[key]);
+        if (s)
+            s->setRadius(radius);
+        else
+            Logger::instance().logWarning("Tried to edit radius of a non-circular shape");
     } else {
         Logger::instance().logError("Property not found");
     }
