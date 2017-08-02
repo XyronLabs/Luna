@@ -3,19 +3,37 @@
 #include <iostream>
 #include <lua5.3/lua.hpp>
 
-/*
-    Log a message to std::cout
-*/
-void log(const char* msg);
+class Logger {
+public:
+    /*
+        Log levels
+    */
+    enum Level { FATAL, ERROR, WARNING, INFO, DEBUG };
 
-/*
-    Log a message to std::cerr
-*/
-void logErr(const char* msg);
+private:
+    /*
+        Current log level
+    */
+    Level logLevel;
 
-/*
-    Used for Lua errors,
-    Log a message to std::cerr
-    and Lua error at -1
-*/
-void logErr(const char* msg, lua_State *L);
+private:
+    /*
+        Private constructor for singleton
+    */
+    Logger();
+
+public:
+    /*
+        Return Logger instance, singleton
+    */
+    static Logger& instance();
+
+    void setLevel(Level level);
+
+    void logFatal(const char* msg, lua_State *L = nullptr);
+    void logError(const char* msg, lua_State *L = nullptr);
+    void logWarning(const char* msg, lua_State *L = nullptr);
+    void logInfo(const char* msg, lua_State *L = nullptr);
+    void logDebug(const char* msg, lua_State *L = nullptr);
+
+};
