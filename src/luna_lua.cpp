@@ -104,12 +104,27 @@ int lunaL::addShape(lua_State *L) {
 int lunaL::editShape(lua_State *L) {
     std::string key = luaL_checkstring(L, 1);
     std::string property = luaL_checkstring(L, 2);
-    float arg1 = luaL_checknumber(L, 3);
-    float arg2 = luaL_checknumber(L, 4);
     
     if (property == "position") {
-        Sketch::instance().getShapeMap()[key]->setPosition(arg1, arg2);
+        float x = luaL_checknumber(L, 3);
+        float y = luaL_checknumber(L, 4);
+
+        Sketch::instance().getShapeMap()[key]->setPosition(x, y);
+    } else if (property == "size") {
+        float width = luaL_checknumber(L, 3);
+        float height = luaL_checknumber(L, 4);
+
+        // TODO: Fix raw pointer workaround
+        (dynamic_cast<sf::RectangleShape*>(&*Sketch::instance().getShapeMap()[key]))->setSize(sf::Vector2f(width, height));
+    } else if (property == "radius") {
+        float radius = luaL_checknumber(L, 3);
+
+        // TODO: Fix raw pointer workaround
+        (dynamic_cast<sf::CircleShape*>(&*Sketch::instance().getShapeMap()[key]))->setRadius(radius);
+    } else {
+        Logger::instance().logError("Property not found");
     }
+    
     
     return 0;
 }
