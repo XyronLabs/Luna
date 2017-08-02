@@ -5,27 +5,33 @@ local rectangle_mt = { __index = rectangle }
 --[[ Constructor ]]--
 function rectangle:new(dat)
     local obj = {}
+    obj.id = 'rectangle_' .. math.random()
     
-    obj.x = dat.x or 0
-    obj.y = dat.y or 0
-    obj.width = dat.width or 0
-    obj.height = dat.height or 0
-    obj.color = dat.color or colors.white
+    for k, v in pairs(dat) do
+        obj[k] = v
+    end
+
+    obj.x = obj.x or 0
+    obj.y = obj.y or 0
+    obj.width = obj.width or 0
+    obj.height = obj.height or 0
+    obj.color = obj.color or colors.white
 
     setmetatable(obj, rectangle_mt)
+    addShape(obj.id, 'rectangle', obj.x, obj.y, obj.width, obj.height)
     return obj
 end
 
 --[[ Render ]]--
 function rectangle:render()
-    color(self.color)
-    rect(self.x, self.y, self.width, self.height)
+    renderShape(self.id)
 end
 
 --[[ Setters ]]--
 function rectangle:setPos(x, y)
     self.x = x or self.x
     self.y = y or self.y
+    editShape(self.id, 'position', self.x, self.y)
     return self
 end
 

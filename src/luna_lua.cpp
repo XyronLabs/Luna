@@ -94,7 +94,7 @@ int lunaL::addShape(lua_State *L) {
     }
 
     if (shape) {
-        shape->move(x, y);
+        shape->setPosition(x, y);
         Sketch::instance().getShapeMap()[key] = std::move(shape);
     }
 
@@ -108,7 +108,7 @@ int lunaL::editShape(lua_State *L) {
     float arg2 = luaL_checknumber(L, 4);
     
     if (property == "position") {
-        (Sketch::instance().getShapeMap()[key])->setPosition(arg1, arg2);
+        Sketch::instance().getShapeMap()[key]->setPosition(arg1, arg2);
     }
     
     return 0;

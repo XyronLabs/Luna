@@ -5,11 +5,12 @@ local circle_mt = { __index = circle }
 --[[ Constructor ]]--
 function circle:new(dat)
     local obj = {}
-    obj.id = 'circle_' .. os.time()
+    obj.id = 'circle_' .. math.random()
     
-    for k,v in pairs(dat) do
+    for k, v in pairs(dat) do
         obj[k] = v
     end
+
     obj.x = obj.x or 0
     obj.y = obj.y or 0
     obj.radius = obj.radius or 0
@@ -30,6 +31,7 @@ end
 function circle:setPos(x, y)
     self.x = x or self.x
     self.y = y or self.y
+    editShape(self.id, 'position', self.x, self.y)
     return self
 end
 

@@ -155,7 +155,7 @@ void Sketch::text(const char* str, int size, float posx, float posy) {
     t.setString(str);
     t.setFont(default_font);
     t.setCharacterSize(size);
-    t.move(posx, posy);
+    t.setPosition(posx, posy);
     //t.setFillColor(current_color);
 
     window->draw(t);
@@ -163,7 +163,7 @@ void Sketch::text(const char* str, int size, float posx, float posy) {
 
 void Sketch::rect(sf::Vector2f p1, sf::Vector2f p2) {
     sf::RectangleShape box(p2);
-    box.move(p1.x, p1.y);
+    box.setPosition(p1.x, p1.y);
     box.setFillColor(current_color);
 
     window->draw(box);
@@ -181,7 +181,7 @@ void Sketch::line(sf::Vector2f p1, sf::Vector2f p2) {
 
 void Sketch::circ(sf::Vector2f pos, float r) {
     sf::CircleShape circle(r);
-    circle.move(pos.x, pos.y);
+    circle.setPosition(pos.x, pos.y);
     circle.setFillColor(current_color);
 
     window->draw(circle);
