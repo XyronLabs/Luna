@@ -7,7 +7,7 @@ function setup()
     player1 = { x = 20, y = height / 2, points = 0 }
     player2 = { x = width - 40, y = height / 2, points = 0 }
 
-    ball = { x = width / 2, y = height / 2, dirx = 1, diry = 1, radius = 20, speed = 5 }
+    ball = circle:new{ x = width / 2, y = height / 2, dirx = 1, diry = 1, radius = 20, speed = 5 }
 end
 
 function render()
@@ -36,13 +36,13 @@ function render()
     end
 
     -- Update position
-    ball.x = ball.x + ball.dirx * ball.speed
-    ball.y = ball.y + ball.diry * ball.speed
+    ball:setPos(ball.x + ball.dirx * ball.speed, ball.y + ball.diry * ball.speed)
 
     color(colors.white)
     rect(player1.x, player1.y, 20, 100)
     rect(player2.x, player2.y, 20, 100)
 
+    ball:render()
     circ(ball.x, ball.y, ball.radius)
 end
 

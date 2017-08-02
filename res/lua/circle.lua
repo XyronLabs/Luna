@@ -5,20 +5,25 @@ local circle_mt = { __index = circle }
 --[[ Constructor ]]--
 function circle:new(dat)
     local obj = {}
+    obj.id = 'circle_' .. os.time()
     
-    obj.x = dat.x or 0
-    obj.y = dat.y or 0
-    obj.radius = dat.radius or 0
-    obj.color = dat.color or colors.white
+    for k,v in pairs(dat) do
+        obj[k] = v
+    end
+    obj.x = obj.x or 0
+    obj.y = obj.y or 0
+    obj.radius = obj.radius or 0
+    obj.color = obj.color or colors.white
+
 
     setmetatable(obj, circle_mt)
+    addShape(obj.id, 'circle', obj.x, obj.y, obj.radius, 0)
     return obj
 end
 
 --[[ Render ]]--
 function circle:render()
-    color(self.color)
-    circ(self.x, self.y, self.radius)
+    renderShape(self.id)
 end
 
 --[[ Setters ]]--
