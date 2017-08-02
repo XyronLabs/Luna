@@ -1,4 +1,5 @@
 #include "luna_lua.hpp"
+#include "Logger.hpp"
 
 int lunaL::size(lua_State *L) {
     int w = luaL_checkinteger(L, 1);
@@ -75,13 +76,45 @@ int lunaL::circ(lua_State *L) {
 }
 
 int lunaL::addShape(lua_State *L) {
+    std::string key = luaL_checkstring(L, 1);
+    std::string shapeType = luaL_checkstring(L, 2);
+    float x = luaL_checknumber(L, 3);
+    float y = luaL_checknumber(L, 4);
+    float sizex = luaL_checknumber(L, 5);
+    float sizey = luaL_checknumber(L, 6);
+
+    std::unique_ptr<sf::Shape> shape;
+
+    if (shapeType == "rectangle") {
+        shape = std::make_unique<sf::RectangleShape>(sf::Vector2f(sizex, sizey));
+    } else if (shapeType == "circle") {
+        shape = std::make_unique<sf::CircleShape>(sizex);
+    } else {
+        Logger::instance().logError("Shape type error");
+    }
+
+    if (shape) {
+        shape->move(x, y);
+        Sketch::instance().getShapeMap()[key] = std::move(shape);
+    }
+
     return 0;
 }
 
 int lunaL::renderShape(lua_State *L) {
+    std::string key = luaL_checkstring(L, 1);
+    
+    if (Sketch::instance().getShapeMap()[key])
+        Sketch::instance().getWindow().draw( *Sketch::instance().getShapeMap()[key] );
+
     return 0;
 }
 
 int lunaL::removeShape(lua_State *L) {
+    std::string key = luaL_checkstring(L, 1);
+
+    if (Sketch::instance().getShapeMap()[key])
+        Sketch::instance().getShapeMap().erase(key);
+
     return 0;
 }

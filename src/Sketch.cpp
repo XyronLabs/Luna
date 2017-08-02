@@ -128,7 +128,7 @@ sf::RenderWindow& Sketch::getWindow() {
     return *window;
 }
 
-auto& Sketch::getShapeMap() {
+std::map<std::string, std::unique_ptr<sf::Shape>>& Sketch::getShapeMap() {
     return shapeMap;
 }
 

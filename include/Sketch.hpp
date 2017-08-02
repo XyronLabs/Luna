@@ -92,7 +92,7 @@ public:
     /*
         Return shapeMap reference, used in luna_lua functions
     */
-    auto& getShapeMap();
+    std::map<std::string, std::unique_ptr<sf::Shape>>& getShapeMap();
 
     /*
         Set value of 'current_color', called
