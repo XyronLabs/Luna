@@ -4,8 +4,8 @@ local ball
 function setup()
     size(800, 600, "Pong!")
 
-    player1 = { x = 20, y = height / 2, points = 0 }
-    player2 = { x = width - 40, y = height / 2, points = 0 }
+    player1 = rectangle:new{ x = 20, y = height / 2, width = 20, height = 100, points = 0 }
+    player2 = rectangle:new{ x = width - 40, y = height / 2, width = 20, height = 100, points = 0 }
 
     ball = circle:new{ x = width / 2, y = height / 2, dirx = 1, diry = 1, radius = 20, speed = 5 }
 end
@@ -39,23 +39,22 @@ function render()
     ball:setPos(ball.x + ball.dirx * ball.speed, ball.y + ball.diry * ball.speed)
 
     color(colors.white)
-    rect(player1.x, player1.y, 20, 100)
-    rect(player2.x, player2.y, 20, 100)
+    player1:render()
+    player2:render()
 
     ball:render()
-    circ(ball.x, ball.y, ball.radius)
 end
 
 function input()
     if keys['Q'] then
-        player1.y = player1.y - 5
+        player1:setPos(nil, player1.y - 5)
     elseif keys['A'] then
-        player1.y = player1.y + 5
+        player1:setPos(nil, player1.y + 5)
     end
 
     if keys['P'] then
-        player2.y = player2.y - 5
+        player2:setPos(nil, player2.y - 5)
     elseif keys['L'] then
-        player2.y = player2.y + 5
+        player2:setPos(nil, player2.y + 5)
     end
 end
