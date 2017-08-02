@@ -4,7 +4,7 @@ local player
 local frames = 0
 
 function newBrick(x, y)
-	return { x = x, y = y, sizex = 40, sizey = 20 }
+	return rectangle:new{ x = x, y = y, width = 40, height = 20 }
 end
 
 function setup()
@@ -16,8 +16,8 @@ function setup()
 		end
 	end
 
-	ball = { x = width / 2, y = height - 50, dirx = 1, diry = -1, speed = 5, radius = 20 }
-	player = { x = width / 2 - 100, sizex = 200 }
+	ball = circle:new{ x = width / 2, y = height - 50, dirx = 1, diry = -1, speed = 5, radius = 20 }
+	player = rectangle:new{ x = width / 2 - 100, y = height - 30, width = 200, height = 20 }
 end
 
 function render()
@@ -36,11 +36,12 @@ function render()
         ball.diry = -1
     end
 
-	ball.x = ball.x + ball.dirx * ball.speed
-	ball.y = ball.y + ball.diry * ball.speed
+	-- ball.x = ball.x + ball.dirx * ball.speed
+	-- ball.y = ball.y + ball.diry * ball.speed
+	ball:setPos(ball.x + ball.dirx * ball.speed, ball.y + ball.diry * ball.speed)
 
 	if ball.y + ball.radius * 2 > height - 30 then
-		if ball.x + ball.radius >= player.x and ball.x + ball.radius <= player.x + player.sizex then
+		if ball.x + ball.radius >= player.x and ball.x + ball.radius <= player.x + player.width then
 			ball.diry = -1
 		end
 	end
@@ -50,23 +51,24 @@ function render()
 
 	color(bit32.lshift( bit32.lrotate(0xff0000, math.floor(math.sin(frames) * 0xff0000)), 4) + 0xff)
 	for k, v in pairs(bricks) do
-		if ball.y <= v.y + v.sizey and ball.y + ball.radius * 2 >= v.y
-			and ball.x <= v.x + v.sizex and ball.x + ball.radius * 2 >= v.x then
+		if ball.y <= v.y + v.height and ball.y + ball.radius * 2 >= v.y
+			and ball.x <= v.x + v.width and ball.x + ball.radius * 2 >= v.x then
 			ball.diry = 1
 			table.remove(bricks, k)
+			removeShape(v.id) -- remove shape from shapeMap
 		end
-		rect(v.x, v.y, v.sizex, v.sizey)
+		v:render() --rect(v.x, v.y, v.width, v.height)
 	end
 
 	color(0xaaaaaaff)
-	circ(ball.x, ball.y, ball.radius)
-	rect(player.x, height - 30, player.sizex, 20)
+	ball:render() --circ(ball.x, ball.y, ball.radius)
+	player:render() --rect(player.x, height - 30, player.width, 20)
 	text("Points: " .. 105 - #bricks, 32, 10, 10)
 
 	frames = frames + 0.000000001
 end
 
 function input()
-	if keys['Left']  then player.x = player.x - 10 end
-	if keys['Right'] then player.x = player.x + 10 end
+	if keys['Left']  then player:setPos(player.x - 10) end
+	if keys['Right'] then player:setPos(player.x + 10) end
 end
