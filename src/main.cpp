@@ -1,6 +1,10 @@
 #include "Sketch.hpp"
+#include "Logger.hpp"
 
 int main(int argc, char **argv) {
+    Logger::instance().setLevel(Logger::Level::DEBUG);
+    Logger::instance().logInfo("Starting Luna...");
+
     if (Sketch::instance().preload(argc > 1 ? argv[1] : nullptr))
         return EXIT_FAILURE;
     
@@ -10,5 +14,7 @@ int main(int argc, char **argv) {
     Sketch::instance().loop();
     Sketch::instance().cleanup();
 
+
+    Logger::instance().logInfo("Exiting Luna...");
     return EXIT_SUCCESS;
 }
