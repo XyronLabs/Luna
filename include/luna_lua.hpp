@@ -33,6 +33,7 @@ namespace lunaL {
      * Methods for handling shapeMap
      */
      int addShape(lua_State *L);
+     int editShape(lua_State *L);
      int renderShape(lua_State *L);
      int removeShape(lua_State *L);
 };

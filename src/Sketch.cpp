@@ -20,6 +20,7 @@ Sketch::Sketch() {
     lua_register(L, "line", lunaL::line);
     lua_register(L, "circ", lunaL::circ);
     lua_register(L, "addShape", lunaL::addShape);
+    lua_register(L, "editShape", lunaL::editShape);
     lua_register(L, "renderShape", lunaL::renderShape);
     lua_register(L, "removeShape", lunaL::removeShape);
 

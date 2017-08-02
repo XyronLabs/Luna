@@ -101,6 +101,19 @@ int lunaL::addShape(lua_State *L) {
     return 0;
 }
 
+int lunaL::editShape(lua_State *L) {
+    std::string key = luaL_checkstring(L, 1);
+    std::string property = luaL_checkstring(L, 2);
+    float arg1 = luaL_checknumber(L, 3);
+    float arg2 = luaL_checknumber(L, 4);
+    
+    if (property == "position") {
+        (Sketch::instance().getShapeMap()[key])->setPosition(arg1, arg2);
+    }
+    
+    return 0;
+}
+
 int lunaL::renderShape(lua_State *L) {
     std::string key = luaL_checkstring(L, 1);
     
