@@ -36,6 +36,11 @@ class Sketch {
     std::map<std::string, std::unique_ptr<sf::Shape>> shapeMap;
 
     /*
+        Texture cache for shapes
+    */
+    std::map<std::string, sf::Texture*> textureCache;
+
+    /*
         Private constructor for singleton
         All Lua functions and libraries are
         loaded here
@@ -93,6 +98,11 @@ public:
         Return shapeMap reference, used in luna_lua functions
     */
     std::map<std::string, std::unique_ptr<sf::Shape>>& getShapeMap();
+
+    /*
+        Return textureCache reference, used in luna_lua functions
+    */
+    std::map<std::string, sf::Texture*>& getTextureCache();
 
     /*
         Set value of 'current_color', called

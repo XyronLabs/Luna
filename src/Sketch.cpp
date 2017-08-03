@@ -126,6 +126,10 @@ void Sketch::loop() {
 
 void Sketch::cleanup() {
     lua_close(L);
+    for (auto& t : textureCache) {
+        Logger::instance().logDebug("Deleting texture");
+        delete t.second;
+    }
 }
 
 sf::RenderWindow& Sketch::getWindow() {
@@ -134,6 +138,10 @@ sf::RenderWindow& Sketch::getWindow() {
 
 std::map<std::string, std::unique_ptr<sf::Shape>>& Sketch::getShapeMap() {
     return shapeMap;
+}
+
+std::map<std::string, sf::Texture*>& Sketch::getTextureCache() {
+    return textureCache;
 }
 
 void Sketch::createWindow(int width, int height, const char* title) {

@@ -134,10 +134,15 @@ int lunaL::editShape(lua_State *L) {
     } else if (property == "texture") {
         std::string filePath = luaL_checkstring(L, 3);
 
-        sf::Texture *tex = new sf::Texture;
-        tex->loadFromFile(filePath);
-        Sketch::instance().getShapeMap()[key]->setTexture(tex);
-        
+        std::map<std::string, sf::Texture*>& tc = Sketch::instance().getTextureCache();
+        if (!tc[filePath]) {
+            sf::Texture *tex = new sf::Texture;
+            tex->loadFromFile(filePath);
+            tc[filePath] = tex;
+            Logger::instance().logDebug("Loading new texture");
+        }
+        Sketch::instance().getShapeMap()[key]->setTexture(tc[filePath]);
+
     } else {
         Logger::instance().logError("Property not found");
     }
