@@ -38,6 +38,7 @@ end
 function rectangle:setSize(width, height)
     self.width = width or self.width
     self.height = height or self.height
+    editShape(self.id, 'size', self.width, self.height)
     return self
 end
 

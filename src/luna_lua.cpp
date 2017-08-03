@@ -80,15 +80,18 @@ int lunaL::addShape(lua_State *L) {
     std::string shapeType = luaL_checkstring(L, 2);
     float x = luaL_checknumber(L, 3);
     float y = luaL_checknumber(L, 4);
-    float sizex = luaL_checknumber(L, 5);
-    float sizey = luaL_checknumber(L, 6);
 
     std::unique_ptr<sf::Shape> shape;
 
     if (shapeType == "rectangle") {
+        float sizex = luaL_checknumber(L, 5);
+        float sizey = luaL_checknumber(L, 6);
+
         shape = std::make_unique<sf::RectangleShape>(sf::Vector2f(sizex, sizey));
     } else if (shapeType == "circle") {
-        shape = std::make_unique<sf::CircleShape>(sizex);
+        float radius = luaL_checknumber(L, 5);
+
+        shape = std::make_unique<sf::CircleShape>(radius);
     } else {
         Logger::instance().logError("Shape type error");
     }
@@ -96,6 +99,8 @@ int lunaL::addShape(lua_State *L) {
     if (shape) {
         shape->setPosition(x, y);
         Sketch::instance().getShapeMap()[key] = std::move(shape);
+    } else {
+        Logger::instance().logWarning("Shape not created");
     }
 
     return 0;
@@ -104,7 +109,7 @@ int lunaL::addShape(lua_State *L) {
 int lunaL::editShape(lua_State *L) {
     std::string key = luaL_checkstring(L, 1);
     std::string property = luaL_checkstring(L, 2);
-    
+
     if (property == "position") {
         float x = luaL_checknumber(L, 3);
         float y = luaL_checknumber(L, 4);
@@ -120,7 +125,7 @@ int lunaL::editShape(lua_State *L) {
             s->setSize(sf::Vector2f(width, height));
         else
             Logger::instance().logWarning("Tried to edit radius of a non-rectangular shape");
-            
+
     } else if (property == "radius") {
         float radius = luaL_checknumber(L, 3);
 
@@ -130,10 +135,10 @@ int lunaL::editShape(lua_State *L) {
             s->setRadius(radius);
         else
             Logger::instance().logWarning("Tried to edit radius of a non-circular shape");
-            
+
     } else if (property == "color") {
         int color = luaL_checkinteger(L, 3);
-        
+
         Sketch::instance().getShapeMap()[key]->setFillColor(sf::Color(color));
 
     } else if (property == "texture") {
@@ -151,14 +156,13 @@ int lunaL::editShape(lua_State *L) {
     } else {
         Logger::instance().logError("Property not found");
     }
-    
-    
+
     return 0;
 }
 
 int lunaL::renderShape(lua_State *L) {
     std::string key = luaL_checkstring(L, 1);
-    
+
     if (Sketch::instance().getShapeMap()[key])
         Sketch::instance().getWindow().draw( *Sketch::instance().getShapeMap()[key] );
 

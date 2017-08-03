@@ -29,12 +29,12 @@ Sketch::Sketch() {
     luaL_loadfile(L, "res/lua/colors.lua");     lua_pcall(L, 0, 0, 0);
     luaL_loadfile(L, "res/lua/rectangle.lua");  lua_pcall(L, 0, 0, 0);
     luaL_loadfile(L, "res/lua/circle.lua");     lua_pcall(L, 0, 0, 0);
-    luaL_loadfile(L, "res/lua/keys.lua");     lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "res/lua/keys.lua");       lua_pcall(L, 0, 0, 0);
 #else
     luaL_loadfile(L, "/usr/local/luna/res/lua/colors.lua");     lua_pcall(L, 0, 0, 0);
     luaL_loadfile(L, "/usr/local/luna/res/lua/rectangle.lua");  lua_pcall(L, 0, 0, 0);
     luaL_loadfile(L, "/usr/local/luna/res/lua/circle.lua");     lua_pcall(L, 0, 0, 0);
-    luaL_loadfile(L, "/usr/local/luna/res/lua/keys.lua");     lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "/usr/local/luna/res/lua/keys.lua");       lua_pcall(L, 0, 0, 0);
 #endif
 }
 
@@ -121,7 +121,6 @@ void Sketch::loop() {
         // Show the new frame
         window->display();
     }
-
 }
 
 void Sketch::cleanup() {
@@ -164,7 +163,6 @@ void Sketch::text(const char* str, int size, float posx, float posy) {
     t.setFont(default_font);
     t.setCharacterSize(size);
     t.setPosition(posx, posy);
-    //t.setFillColor(current_color);
 
     window->draw(t);
 }
