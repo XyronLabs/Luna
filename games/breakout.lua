@@ -4,9 +4,7 @@ local player
 local frames = 0
 
 function newBrick(x, y)
-	local o = rectangle:new{ x = x, y = y, width = 40, height = 20 }
-	editShape(o.id, 'texture', "test/textures/brick.png")
-	return o
+	return rectangle:new{ x = x, y = y, width = 40, height = 20 }:setTexture("test/textures/brick.png")
 end
 
 function setup()
@@ -19,8 +17,7 @@ function setup()
 	end
 
 	ball = circle:new{ x = width / 2, y = height - 50, dirx = 1, diry = -1, speed = 5, radius = 20 }
-	player = rectangle:new{ x = width / 2 - 100, y = height - 30, width = 200, height = 20 }
-	editShape(player.id, 'texture', "test/textures/player.png")
+	player = rectangle:new{ x = width / 2 - 100, y = height - 30, width = 200, height = 20 }:setTexture("test/textures/player.png")
 	
 end
 
