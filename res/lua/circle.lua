@@ -44,3 +44,8 @@ function circle:setColor(color)
     self.color = color
     return self
 end
+
+function rectangle:setTexture(texturePath)
+    editShape(self.id, 'texture', texturePath)
+    return self
+end
