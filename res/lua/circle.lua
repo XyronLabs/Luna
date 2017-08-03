@@ -41,7 +41,8 @@ function circle:setRadius(radius)
 end
 
 function circle:setColor(color)
-    self.color = color
+    self.color = color or self.color
+    editShape(self.id, 'color', self.color)
     return self
 end
 

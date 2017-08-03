@@ -42,7 +42,8 @@ function rectangle:setSize(width, height)
 end
 
 function rectangle:setColor(color)
-    self.color = color
+    self.color = color or self.color
+    editShape(self.id, 'color', self.color)
     return self
 end
 
