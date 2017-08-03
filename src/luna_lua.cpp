@@ -121,7 +121,6 @@ int lunaL::editShape(lua_State *L) {
         else
             Logger::instance().logWarning("Tried to edit radius of a non-rectangular shape");
             
-       
     } else if (property == "radius") {
         float radius = luaL_checknumber(L, 3);
 
@@ -131,6 +130,14 @@ int lunaL::editShape(lua_State *L) {
             s->setRadius(radius);
         else
             Logger::instance().logWarning("Tried to edit radius of a non-circular shape");
+
+    } else if (property == "texture") {
+        std::string filePath = luaL_checkstring(L, 3);
+
+        sf::Texture *tex = new sf::Texture;
+        tex->loadFromFile(filePath);
+        Sketch::instance().getShapeMap()[key]->setTexture(tex);
+        
     } else {
         Logger::instance().logError("Property not found");
     }
