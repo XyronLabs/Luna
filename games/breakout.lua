@@ -16,7 +16,7 @@ function setup()
 		end
 	end
 
-	ball = circle:new{ x = width / 2, y = height - 50, dirx = 1, diry = -1, speed = 5, radius = 20 }
+	ball = circle:new{ x = width / 2, y = height - 50, dirx = 1, diry = -1, speed = 5, radius = 20 }:setColor(colors.cyan)
 	player = rectangle:new{ x = width / 2 - 100, y = height - 30, width = 200, height = 20 }:setTexture("test/textures/player.png")
 	
 end

@@ -37,6 +37,7 @@ end
 
 function circle:setRadius(radius)
     self.radius = radius or self.radius
+    editShape(self.id, 'radius', self.radius)
     return self
 end
 
