@@ -18,11 +18,11 @@ function setup()
 
 	ball = circle:new{ x = width / 2, y = height - 50, dirx = 1, diry = -1, speed = 5, radius = 20 }:setColor(colors.cyan)
 	player = rectangle:new{ x = width / 2 - 100, y = height - 30, width = 200, height = 20 }:setTexture("test/textures/player.png")
-	
+	addShape("dasdad", 'r', 2, 2)
 end
 
 function render()
-
+	
 	if ball.x + ball.radius * 2  >= width or ball.x <= 0 then
 		ball.dirx = ball.dirx * -1
 	end
@@ -41,7 +41,7 @@ function render()
 	-- ball.y = ball.y + ball.diry * ball.speed
 	ball:setPos(ball.x + ball.dirx * ball.speed, ball.y + ball.diry * ball.speed)
 
-	if ball.y + ball.radius * 2 > height - 30 then
+	if ball.y + ball.radius * 2 > player.y and ball.y < player.y + player.height then
 		if ball.x + ball.radius >= player.x and ball.x + ball.radius <= player.x + player.width then
 			ball.diry = -1
 		end
@@ -67,9 +67,10 @@ function render()
 	text("Points: " .. 105 - #bricks, 32, 10, 10)
 
 	frames = frames + 0.000000001
+	player:setPos(mouseX - player.width / 2, mouseY - player.height / 2)
 end
 
 function input()
-	if keys['Left']  then player:setPos(player.x - 10) end
-	if keys['Right'] then player:setPos(player.x + 10) end
+	-- if keys['Left']  then player:setPos(player.x - 10) end
+	-- if keys['Right'] then player:setPos(player.x + 10) end
 end
