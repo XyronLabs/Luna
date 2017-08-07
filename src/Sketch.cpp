@@ -105,6 +105,15 @@ void Sketch::loop() {
                     lua_pcall(L, 1, 0, 0);
                     break;
 
+                case sf::Event::MouseMoved: {
+                    sf::Vector2i pos = sf::Mouse::getPosition(*window);
+                    lua_pushinteger(L, pos.x);
+                    lua_setglobal(L, "mouseX");
+                    lua_pushinteger(L, pos.y);
+                    lua_setglobal(L, "mouseY");
+                    break;
+                }
+
                 default:
                     break;
             }
