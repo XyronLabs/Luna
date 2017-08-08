@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <lua5.3/lua.hpp>
 
 /**
@@ -39,6 +40,11 @@ class Sketch {
         Texture cache for shapes
     */
     std::map<std::string, sf::Texture*> textureCache;
+
+    /*
+        Sound cache
+    */
+    std::map<std::string, std::unique_ptr<sf::Sound>> soundCache;
 
     /*
         Private constructor for singleton
@@ -103,6 +109,11 @@ public:
         Return textureCache reference, used in luna_lua functions
     */
     std::map<std::string, sf::Texture*>& getTextureCache();
+    
+    /*
+        Return soundCache reference, used in luna_lua functions
+    */
+    std::map<std::string, std::unique_ptr<sf::Sound>>& getSoundCache();
 
     /*
         Set value of 'current_color', called

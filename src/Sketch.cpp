@@ -23,6 +23,7 @@ Sketch::Sketch() {
     lua_register(L, "editShape", lunaL::editShape);
     lua_register(L, "renderShape", lunaL::renderShape);
     lua_register(L, "removeShape", lunaL::removeShape);
+    lua_register(L, "playSound", lunaL::playSound);
 
     /* Load Lua libraries */
 #ifdef LUNA_DEBUG
@@ -134,9 +135,15 @@ void Sketch::loop() {
 
 void Sketch::cleanup() {
     lua_close(L);
+    
     for (auto& t : textureCache) {
         Logger::instance().logDebug("Deleting texture");
         delete t.second;
+    }
+
+    for (auto& t : soundCache) {
+        Logger::instance().logDebug("Deleting sound");
+        delete t.second->getBuffer();
     }
 }
 
@@ -150,6 +157,10 @@ std::map<std::string, std::unique_ptr<sf::Shape>>& Sketch::getShapeMap() {
 
 std::map<std::string, sf::Texture*>& Sketch::getTextureCache() {
     return textureCache;
+}
+
+std::map<std::string, std::unique_ptr<sf::Sound>>& Sketch::getSoundCache() {
+    return soundCache;
 }
 
 void Sketch::createWindow(int width, int height, const char* title) {

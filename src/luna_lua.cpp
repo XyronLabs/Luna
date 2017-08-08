@@ -177,3 +177,24 @@ int lunaL::removeShape(lua_State *L) {
 
     return 0;
 }
+
+int lunaL::playSound(lua_State *L) {
+    std::string soundPath = luaL_checkstring(L, 1);
+
+    if (!Sketch::instance().getSoundCache()[soundPath]) {
+        sf::SoundBuffer *bf = new sf::SoundBuffer;
+        if (!bf->loadFromFile(soundPath)) {
+            Logger::instance().logError("Couldn't load sound");
+            return 0;
+        }
+
+        std::unique_ptr<sf::Sound> s = std::make_unique<sf::Sound>(*bf);
+        s->setVolume(100.0f);
+        Sketch::instance().getSoundCache()[soundPath] = std::move(s);
+        Logger::instance().logDebug("Loading new sound");
+    }
+
+    Sketch::instance().getSoundCache()[soundPath]->play();
+
+    return 0;
+}
