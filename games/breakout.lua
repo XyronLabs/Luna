@@ -18,7 +18,7 @@ function setup()
 
 	ball = circle:new{ x = width / 2, y = height - 50, dirx = 1, diry = -1, speed = 5, radius = 20 }:setColor(colors.cyan)
 	player = rectangle:new{ x = width / 2 - 100, y = height - 30, width = 200, height = 20 }:setTexture("test/textures/player.png")
-	addShape("dasdad", 'r', 2, 2)
+
 end
 
 function render()
@@ -37,13 +37,12 @@ function render()
         ball.diry = -1
     end
 
-	-- ball.x = ball.x + ball.dirx * ball.speed
-	-- ball.y = ball.y + ball.diry * ball.speed
 	ball:setPos(ball.x + ball.dirx * ball.speed, ball.y + ball.diry * ball.speed)
 
 	if ball.y + ball.radius * 2 > player.y and ball.y < player.y + player.height then
 		if ball.x + ball.radius >= player.x and ball.x + ball.radius <= player.x + player.width then
 			ball.diry = -1
+			playSound("test/pop.wav")
 		end
 	end
 
@@ -58,12 +57,12 @@ function render()
 			table.remove(bricks, k)
 			removeShape(v.id) -- remove shape from shapeMap
 		end
-		v:render() --rect(v.x, v.y, v.width, v.height)
+		v:render()
 	end
 
 	color(0xaaaaaaff)
-	ball:render() --circ(ball.x, ball.y, ball.radius)
-	player:render() --rect(player.x, height - 30, player.width, 20)
+	ball:render()
+	player:render()
 	text("Points: " .. 105 - #bricks, 32, 10, 10)
 
 	frames = frames + 0.000000001
