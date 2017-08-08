@@ -2,7 +2,7 @@
 #include "Logger.hpp"
 
 int main(int argc, char **argv) {
-    Logger::instance().setLevel(Logger::Level::DEBUG);
+    Logger::instance().setLevel(Logger::Level::INFO);
     Logger::instance().logInfo("Starting Luna...");
 
     if (Sketch::instance().preload(argc > 1 ? argv[1] : nullptr))
