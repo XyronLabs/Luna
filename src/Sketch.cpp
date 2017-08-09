@@ -23,7 +23,9 @@ Sketch::Sketch() {
     lua_register(L, "editShape", lunaL::editShape);
     lua_register(L, "renderShape", lunaL::renderShape);
     lua_register(L, "removeShape", lunaL::removeShape);
+    lua_register(L, "addSound", lunaL::addSound);
     lua_register(L, "playSound", lunaL::playSound);
+    lua_register(L, "pauseSound", lunaL::pauseSound);
 
     /* Load Lua libraries */
 #ifdef LUNA_DEBUG
@@ -31,11 +33,13 @@ Sketch::Sketch() {
     luaL_loadfile(L, "res/lua/rectangle.lua");  lua_pcall(L, 0, 0, 0);
     luaL_loadfile(L, "res/lua/circle.lua");     lua_pcall(L, 0, 0, 0);
     luaL_loadfile(L, "res/lua/keys.lua");       lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "res/lua/sound.lua");       lua_pcall(L, 0, 0, 0);
 #else
     luaL_loadfile(L, "/usr/local/luna/res/lua/colors.lua");     lua_pcall(L, 0, 0, 0);
     luaL_loadfile(L, "/usr/local/luna/res/lua/rectangle.lua");  lua_pcall(L, 0, 0, 0);
     luaL_loadfile(L, "/usr/local/luna/res/lua/circle.lua");     lua_pcall(L, 0, 0, 0);
     luaL_loadfile(L, "/usr/local/luna/res/lua/keys.lua");       lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "/usr/local/luna/res/lua/sound.lua");      lua_pcall(L, 0, 0, 0);
 #endif
 }
 
