@@ -3,6 +3,8 @@ local ball
 local player
 local frames = 0
 
+local popSound
+
 function newBrick(x, y)
 	return rectangle:new{ x = x, y = y, width = 40, height = 20 }:setTexture("test/textures/brick.png")
 end
@@ -19,6 +21,7 @@ function setup()
 	ball = circle:new{ x = width / 2, y = height - 50, dirx = 1, diry = -1, speed = 5, radius = 20 }:setColor(colors.cyan)
 	player = rectangle:new{ x = width / 2 - 100, y = height - 30, width = 200, height = 20 }:setTexture("test/textures/player.png")
 
+	popSound = sound:new{ path = "test/pop.wav" }
 end
 
 function render()
@@ -42,7 +45,7 @@ function render()
 	if ball.y + ball.radius * 2 > player.y and ball.y < player.y + player.height then
 		if ball.x + ball.radius >= player.x and ball.x + ball.radius <= player.x + player.width then
 			ball.diry = -1
-			playSound("test/pop.wav")
+			popSound:play()
 		end
 	end
 
