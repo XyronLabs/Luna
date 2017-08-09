@@ -37,5 +37,7 @@ namespace lunaL {
     int renderShape(lua_State *L);
     int removeShape(lua_State *L);
 
+    int addSound(lua_State *L);
     int playSound(lua_State *L);
+    int pauseSound(lua_State *L);
 };

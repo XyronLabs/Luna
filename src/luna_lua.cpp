@@ -178,10 +178,11 @@ int lunaL::removeShape(lua_State *L) {
     return 0;
 }
 
-int lunaL::playSound(lua_State *L) {
-    std::string soundPath = luaL_checkstring(L, 1);
+int lunaL::addSound(lua_State *L) {
+    std::string soundID = luaL_checkstring(L, 1);
+    std::string soundPath = luaL_checkstring(L, 2);
 
-    if (!Sketch::instance().getSoundCache()[soundPath]) {
+    if (!Sketch::instance().getSoundCache()[soundID]) {
         sf::SoundBuffer *bf = new sf::SoundBuffer;
         if (!bf->loadFromFile(soundPath)) {
             Logger::instance().logError("Couldn't load sound");
@@ -189,12 +190,35 @@ int lunaL::playSound(lua_State *L) {
         }
 
         std::unique_ptr<sf::Sound> s = std::make_unique<sf::Sound>(*bf);
-        s->setVolume(100.0f);
-        Sketch::instance().getSoundCache()[soundPath] = std::move(s);
+        Sketch::instance().getSoundCache()[soundID] = std::move(s);
         Logger::instance().logDebug("Loading new sound");
+    } else {
+        Logger::instance().logError("A sound with the same id is already registered");
     }
 
-    Sketch::instance().getSoundCache()[soundPath]->play();
+    return 0;
+}
+
+int lunaL::playSound(lua_State *L) {
+    std::string soundID = luaL_checkstring(L, 1);
+
+    if (Sketch::instance().getSoundCache()[soundID]) {
+        Sketch::instance().getSoundCache()[soundID]->play();
+    } else {
+        Logger::instance().logError("Sound not found");
+    }
+
+    return 0;
+}
+
+int lunaL::pauseSound(lua_State *L) {
+    std::string soundID = luaL_checkstring(L, 1);
+
+    if (Sketch::instance().getSoundCache()[soundID]) {
+        Sketch::instance().getSoundCache()[soundID]->pause();
+    } else {
+        Logger::instance().logError("Sound not found");
+    }
 
     return 0;
 }
