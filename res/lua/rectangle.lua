@@ -19,6 +19,7 @@ function rectangle:new(dat)
 
     setmetatable(obj, rectangle_mt)
     addShape(obj.id, 'rectangle', obj.x, obj.y, obj.width, obj.height)
+    editShape(obj.id, 'color', obj.color)
     return obj
 end
 
