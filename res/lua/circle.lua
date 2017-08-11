@@ -20,6 +20,7 @@ function circle:new(dat)
     setmetatable(obj, circle_mt)
     addShape(obj.id, 'circle', obj.x, obj.y, obj.radius, 0)
     editShape(obj.id, 'color', obj.color)
+    if obj.texture then editShape(obj.id, 'texture', obj.texture) end
     return obj
 end
 
