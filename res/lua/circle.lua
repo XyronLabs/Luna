@@ -48,7 +48,15 @@ function circle:setColor(color)
     return self
 end
 
-function rectangle:setTexture(texturePath)
+function circle:setTexture(texturePath)
     editShape(self.id, 'texture', texturePath)
     return self
+end
+
+function circle:dist(other)
+    return math.sqrt( (other.x - self.x) * (other.x - self.x) + (other.y - self.y) * (other.y - self.y) )
+end
+
+function circle:collide(other)
+    return self:dist(other) < self.radius + other.radius
 end

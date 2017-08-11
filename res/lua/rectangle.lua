@@ -53,3 +53,10 @@ function rectangle:setTexture(texturePath)
     editShape(self.id, 'texture', texturePath)
     return self
 end
+
+function rectangle:collide(other)
+    return self.x < other.x + other.width and
+            self.x + self.width > other.x and
+            self.y < other.y + other.height and
+            self.y + self.height > other.y
+end
