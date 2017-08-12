@@ -20,14 +20,11 @@ Sketch::Sketch() {
     registerLunaFunction(rect);
     registerLunaFunction(line);
     registerLunaFunction(circ);
+    
     registerLunaFunction(registerObject);
     registerLunaFunction(editObject);
     registerLunaFunction(renderObject);
     registerLunaFunction(removeObject);
-    registerLunaFunction(addSound);
-    registerLunaFunction(playSound);
-    registerLunaFunction(pauseSound);
-    registerLunaFunction(stopSound);
 
     /* Load Lua libraries */
     luaL_loadfile(L, getLunaResource("lua/modules.lua"));

@@ -79,11 +79,12 @@ int lunaL::circ(lua_State *L) {
 int lunaL::registerObject(lua_State *L) {
     std::string key = luaL_checkstring(L, 1);
     std::string shapeType = luaL_checkstring(L, 2);
-    float x = luaL_checknumber(L, 3);
-    float y = luaL_checknumber(L, 4);
+    
 
     if (shapeType == "rectangle") {
         std::unique_ptr<sf::Shape> shape;
+        float x = luaL_checknumber(L, 3);
+        float y = luaL_checknumber(L, 4);
         float sizex = luaL_checknumber(L, 5);
         float sizey = luaL_checknumber(L, 6);
 
@@ -93,6 +94,8 @@ int lunaL::registerObject(lua_State *L) {
 
     } else if (shapeType == "circle") {
         std::unique_ptr<sf::Shape> shape;
+        float x = luaL_checknumber(L, 3);
+        float y = luaL_checknumber(L, 4);
         float radius = luaL_checknumber(L, 5);
 
         shape = std::make_unique<sf::CircleShape>(radius);
@@ -100,12 +103,31 @@ int lunaL::registerObject(lua_State *L) {
         Sketch::instance().getShapeMap()[key] = std::move(shape);
 
     } else if (shapeType == "text") {
+        float x = luaL_checknumber(L, 3);
+        float y = luaL_checknumber(L, 4);
         std::string text = luaL_checkstring(L, 5);
         unsigned int textSize = luaL_checkinteger(L, 6);
 
         std::unique_ptr<sf::Text> textBox = std::make_unique<sf::Text>(text, Sketch::instance().getDefaultFont(), textSize);
         textBox->setPosition(x, y);
         Sketch::instance().getTextCache()[key] = std::move(textBox);
+
+    } else if (shapeType == "sound") {
+        std::string soundPath = luaL_checkstring(L, 3);
+    
+        if (!Sketch::instance().getSoundCache()[key]) {
+            sf::SoundBuffer *bf = new sf::SoundBuffer;
+            if (!bf->loadFromFile(soundPath)) {
+                Logger::instance().logError("Couldn't load sound");
+                return 0;
+            }
+    
+            std::unique_ptr<sf::Sound> s = std::make_unique<sf::Sound>(*bf);
+            Sketch::instance().getSoundCache()[key] = std::move(s);
+            Logger::instance().logDebug("Loading new sound");
+        } else {
+            Logger::instance().logError("A sound with the same id is already registered");
+        }
 
     } else {
         Logger::instance().logError("Shape type error");
@@ -146,7 +168,7 @@ int lunaL::editObject(lua_State *L) {
 
     } else if (property == "color") {
         int color = luaL_checkinteger(L, 3);
-        
+
         if (Sketch::instance().getShapeMap()[key])
             Sketch::instance().getShapeMap()[key]->setFillColor(sf::Color(color));
         else if (Sketch::instance().getTextCache()[key])
@@ -172,6 +194,32 @@ int lunaL::editObject(lua_State *L) {
         unsigned int textSize = luaL_checkinteger(L, 3);
         
         Sketch::instance().getTextCache()[key]->setCharacterSize(textSize);
+    } else if (property == "play") {
+        
+        if (Sketch::instance().getSoundCache()[key]) {
+            Sketch::instance().getSoundCache()[key]->play();
+        } else {
+            Logger::instance().logError("Sound not found");
+        }
+
+    } else if (property == "pause") {
+        std::string soundID = luaL_checkstring(L, 3);
+        
+        if (Sketch::instance().getSoundCache()[key]) {
+            Sketch::instance().getSoundCache()[key]->pause();
+        } else {
+            Logger::instance().logError("Sound not found");
+        }
+
+    } else if (property == "stop") {
+        std::string soundID = luaL_checkstring(L, 3);
+        
+        if (Sketch::instance().getSoundCache()[key]) {
+            Sketch::instance().getSoundCache()[key]->stop();
+        } else {
+            Logger::instance().logError("Sound not found");
+        }
+
     } else {
         Logger::instance().logError("Property not found");
     }
@@ -195,63 +243,10 @@ int lunaL::removeObject(lua_State *L) {
 
     if (Sketch::instance().getShapeMap()[key])
         Sketch::instance().getShapeMap().erase(key);
-
-    return 0;
-}
-
-int lunaL::addSound(lua_State *L) {
-    std::string soundID = luaL_checkstring(L, 1);
-    std::string soundPath = luaL_checkstring(L, 2);
-
-    if (!Sketch::instance().getSoundCache()[soundID]) {
-        sf::SoundBuffer *bf = new sf::SoundBuffer;
-        if (!bf->loadFromFile(soundPath)) {
-            Logger::instance().logError("Couldn't load sound");
-            return 0;
-        }
-
-        std::unique_ptr<sf::Sound> s = std::make_unique<sf::Sound>(*bf);
-        Sketch::instance().getSoundCache()[soundID] = std::move(s);
-        Logger::instance().logDebug("Loading new sound");
-    } else {
-        Logger::instance().logError("A sound with the same id is already registered");
-    }
-
-    return 0;
-}
-
-int lunaL::playSound(lua_State *L) {
-    std::string soundID = luaL_checkstring(L, 1);
-
-    if (Sketch::instance().getSoundCache()[soundID]) {
-        Sketch::instance().getSoundCache()[soundID]->play();
-    } else {
-        Logger::instance().logError("Sound not found");
-    }
-
-    return 0;
-}
-
-int lunaL::pauseSound(lua_State *L) {
-    std::string soundID = luaL_checkstring(L, 1);
-
-    if (Sketch::instance().getSoundCache()[soundID]) {
-        Sketch::instance().getSoundCache()[soundID]->pause();
-    } else {
-        Logger::instance().logError("Sound not found");
-    }
-
-    return 0;
-}
-
-int lunaL::stopSound(lua_State *L) {
-    std::string soundID = luaL_checkstring(L, 1);
-
-    if (Sketch::instance().getSoundCache()[soundID]) {
-        Sketch::instance().getSoundCache()[soundID]->stop();
-    } else {
-        Logger::instance().logError("Sound not found");
-    }
+    if (Sketch::instance().getTextCache()[key])
+        Sketch::instance().getTextCache().erase(key);
+    if (Sketch::instance().getSoundCache()[key])
+        Sketch::instance().getSoundCache().erase(key);
 
     return 0;
 }

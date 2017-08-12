@@ -36,9 +36,4 @@ namespace lunaL {
     int editObject(lua_State *L);
     int renderObject(lua_State *L);
     int removeObject(lua_State *L);
-
-    int addSound(lua_State *L);
-    int playSound(lua_State *L);
-    int pauseSound(lua_State *L);
-    int stopSound(lua_State *L);
 };
