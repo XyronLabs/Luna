@@ -10,6 +10,7 @@ function textbox:new(dat)
     obj.y = dat.y or 0
     obj.txt = dat.txt or ""
     obj.size = dat.size or 12
+    obj.color = dat.color or colors.red
 
     setmetatable(obj, textbox_mt)
     return obj
@@ -17,7 +18,7 @@ end
 
 --[[ Render ]]--
 function textbox:render()
-    text(self.txt, self.size, self.x, self.y)
+    text(self.txt, self.size, self.x, self.y, self.color)
 end
 
 --[[ Setters ]]--

@@ -125,7 +125,7 @@ public:
         Draw a string of text on the screen, called
         from text(t,s,x,y) Lua function
     */
-    void text(const char* str, int size, float posx, float posy);
+    void text(const char* str, int size, float posx, float posy, unsigned int color);
 
     /*
         Draw a rectangle starting at point 'p1',
