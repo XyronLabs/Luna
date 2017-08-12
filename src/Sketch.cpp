@@ -141,8 +141,8 @@ sf::RenderWindow& Sketch::getWindow() {
     return *window;
 }
 
-std::map<std::string, std::unique_ptr<sf::Shape>>& Sketch::getShapeMap() {
-    return shapeMap;
+std::map<std::string, std::unique_ptr<sf::Shape>>& Sketch::getShapeCache() {
+    return shapeCache;
 }
 
 std::map<std::string, sf::Texture*>& Sketch::getTextureCache() {

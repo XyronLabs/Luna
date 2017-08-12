@@ -90,7 +90,7 @@ int lunaL::registerObject(lua_State *L) {
 
         shape = std::make_unique<sf::RectangleShape>(sf::Vector2f(sizex, sizey));
         shape->setPosition(x, y);
-        Sketch::instance().getShapeMap()[key] = std::move(shape);
+        Sketch::instance().getShapeCache()[key] = std::move(shape);
 
     } else if (objectType == "circle") {
         std::unique_ptr<sf::Shape> shape;
@@ -100,7 +100,7 @@ int lunaL::registerObject(lua_State *L) {
 
         shape = std::make_unique<sf::CircleShape>(radius);
         shape->setPosition(x, y);
-        Sketch::instance().getShapeMap()[key] = std::move(shape);
+        Sketch::instance().getShapeCache()[key] = std::move(shape);
 
     } else if (objectType == "text") {
         std::unique_ptr<sf::Text> textBox;
@@ -145,8 +145,8 @@ int lunaL::editObject(lua_State *L) {
         float x = luaL_checknumber(L, 3);
         float y = luaL_checknumber(L, 4);
 
-        if (Sketch::instance().getShapeMap()[key])
-            Sketch::instance().getShapeMap()[key]->setPosition(x, y);
+        if (Sketch::instance().getShapeCache()[key])
+            Sketch::instance().getShapeCache()[key]->setPosition(x, y);
         else if (Sketch::instance().getTextCache()[key])
             Sketch::instance().getTextCache()[key]->setPosition(x, y);
     } else if (property == "size") {
@@ -154,7 +154,7 @@ int lunaL::editObject(lua_State *L) {
         float height = luaL_checknumber(L, 4);
 
         // TODO: Fix raw pointer workaround
-        sf::RectangleShape *s = dynamic_cast<sf::RectangleShape*>(&*Sketch::instance().getShapeMap()[key]);
+        sf::RectangleShape *s = dynamic_cast<sf::RectangleShape*>(&*Sketch::instance().getShapeCache()[key]);
         if (s)
             s->setSize(sf::Vector2f(width, height));
         else
@@ -164,7 +164,7 @@ int lunaL::editObject(lua_State *L) {
         float radius = luaL_checknumber(L, 3);
 
         // TODO: Fix raw pointer workaround
-        sf::CircleShape *s = dynamic_cast<sf::CircleShape*>(&*Sketch::instance().getShapeMap()[key]);
+        sf::CircleShape *s = dynamic_cast<sf::CircleShape*>(&*Sketch::instance().getShapeCache()[key]);
         if (s)
             s->setRadius(radius);
         else
@@ -173,8 +173,8 @@ int lunaL::editObject(lua_State *L) {
     } else if (property == "color") {
         int color = luaL_checkinteger(L, 3);
 
-        if (Sketch::instance().getShapeMap()[key])
-            Sketch::instance().getShapeMap()[key]->setFillColor(sf::Color(color));
+        if (Sketch::instance().getShapeCache()[key])
+            Sketch::instance().getShapeCache()[key]->setFillColor(sf::Color(color));
         else if (Sketch::instance().getTextCache()[key])
             Sketch::instance().getTextCache()[key]->setFillColor(sf::Color(color));
 
@@ -188,7 +188,7 @@ int lunaL::editObject(lua_State *L) {
             tc[filePath] = tex;
             Logger::instance().logDebug("Loading new texture");
         }
-        Sketch::instance().getShapeMap()[key]->setTexture(tc[filePath]);
+        Sketch::instance().getShapeCache()[key]->setTexture(tc[filePath]);
 
     } else if (property == "text") {
         std::string text = luaL_checkstring(L, 3);
@@ -234,8 +234,8 @@ int lunaL::editObject(lua_State *L) {
 int lunaL::renderObject(lua_State *L) {
     std::string key = luaL_checkstring(L, 1);
 
-    if (Sketch::instance().getShapeMap()[key])
-        Sketch::instance().getWindow().draw( *Sketch::instance().getShapeMap()[key] );
+    if (Sketch::instance().getShapeCache()[key])
+        Sketch::instance().getWindow().draw( *Sketch::instance().getShapeCache()[key] );
     else if (Sketch::instance().getTextCache()[key])
         Sketch::instance().getWindow().draw( *Sketch::instance().getTextCache()[key] );
 
@@ -245,8 +245,8 @@ int lunaL::renderObject(lua_State *L) {
 int lunaL::removeObject(lua_State *L) {
     std::string key = luaL_checkstring(L, 1);
 
-    if (Sketch::instance().getShapeMap()[key])
-        Sketch::instance().getShapeMap().erase(key);
+    if (Sketch::instance().getShapeCache()[key])
+        Sketch::instance().getShapeCache().erase(key);
     if (Sketch::instance().getTextCache()[key])
         Sketch::instance().getTextCache().erase(key);
     if (Sketch::instance().getSoundCache()[key])

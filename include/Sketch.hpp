@@ -32,23 +32,11 @@ class Sketch {
     sf::Color current_color;
 
     /*
-        Shape map for Lua objects
+        Caches for Lua objects
     */
-    std::map<std::string, std::unique_ptr<sf::Shape>> shapeMap;
-
-    /*
-        Texture cache for shapes
-    */
+    std::map<std::string, std::unique_ptr<sf::Shape>> shapeCache;
     std::map<std::string, sf::Texture*> textureCache;
-
-    /*
-        Sound cache
-    */
     std::map<std::string, std::unique_ptr<sf::Sound>> soundCache;
-
-    /*
-        Text cache
-    */
     std::map<std::string, std::unique_ptr<sf::Text>> textCache;
 
     /*
@@ -108,7 +96,7 @@ public:
     /*
         Return shapeMap reference, used in luna_lua functions
     */
-    std::map<std::string, std::unique_ptr<sf::Shape>>& getShapeMap();
+    std::map<std::string, std::unique_ptr<sf::Shape>>& getShapeCache();
 
     /*
         Return textureCache reference, used in luna_lua functions
