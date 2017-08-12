@@ -96,6 +96,20 @@ void Sketch::loop() {
                     lua_pcall(L, 1, 0, 0);
                     break;
 
+                // Set mousekeys[X] true
+                case sf::Event::MouseButtonPressed:
+                    lua_getglobal(L, "pressMouseKey");
+                    lua_pushinteger(L, ev.mouseButton.button);
+                    lua_pcall(L, 1, 0, 0);
+                    break;
+
+                // Set mousekeys[X] false
+                case sf::Event::MouseButtonReleased:
+                    lua_getglobal(L, "releaseMouseKey");
+                    lua_pushinteger(L, ev.mouseButton.button);
+                    lua_pcall(L, 1, 0, 0);
+                    break;
+
                 case sf::Event::MouseMoved: {
                     sf::Vector2i pos = sf::Mouse::getPosition(*window);
                     lua_pushinteger(L, pos.x);
