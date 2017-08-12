@@ -101,8 +101,9 @@ int lunaL::registerObject(lua_State *L) {
 
     } else if (shapeType == "text") {
         std::string text = luaL_checkstring(L, 5);
+        unsigned int textSize = luaL_checkinteger(L, 6);
 
-        std::unique_ptr<sf::Text> textBox = std::make_unique<sf::Text>(text, Sketch::instance().getDefaultFont());
+        std::unique_ptr<sf::Text> textBox = std::make_unique<sf::Text>(text, Sketch::instance().getDefaultFont(), textSize);
         textBox->setPosition(x, y);
         Sketch::instance().getTextCache()[key] = std::move(textBox);
 
@@ -145,8 +146,11 @@ int lunaL::editObject(lua_State *L) {
 
     } else if (property == "color") {
         int color = luaL_checkinteger(L, 3);
-
-        Sketch::instance().getShapeMap()[key]->setFillColor(sf::Color(color));
+        
+        if (Sketch::instance().getShapeMap()[key])
+            Sketch::instance().getShapeMap()[key]->setFillColor(sf::Color(color));
+        else if (Sketch::instance().getTextCache()[key])
+            Sketch::instance().getTextCache()[key]->setFillColor(sf::Color(color));
 
     } else if (property == "texture") {
         std::string filePath = luaL_checkstring(L, 3);
@@ -160,6 +164,14 @@ int lunaL::editObject(lua_State *L) {
         }
         Sketch::instance().getShapeMap()[key]->setTexture(tc[filePath]);
 
+    } else if (property == "text") {
+        std::string text = luaL_checkstring(L, 3);
+
+        Sketch::instance().getTextCache()[key]->setString(text);
+    } else if (property == "textSize") {
+        unsigned int textSize = luaL_checkinteger(L, 3);
+        
+        Sketch::instance().getTextCache()[key]->setCharacterSize(textSize);
     } else {
         Logger::instance().logError("Property not found");
     }
