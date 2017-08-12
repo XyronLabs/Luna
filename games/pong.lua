@@ -12,7 +12,7 @@ end
 
 function render()
     clear()
-    text(player1.points .. " : " .. player2.points, 50, width / 2 - 50, 10)
+    text(player1.points .. " : " .. player2.points, 50, width / 2 - 50, 10, colors.blue)
 
     -- Check collisions
     if ball.x + ball.radius * 2  >= width then

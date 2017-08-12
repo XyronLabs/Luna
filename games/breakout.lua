@@ -66,7 +66,7 @@ function render()
 	color(0xaaaaaaff)
 	ball:render()
 	player:render()
-	text("Points: " .. 105 - #bricks, 32, 10, 10)
+	text("Points: " .. 105 - #bricks, 32, 10, 10, colors.white)
 
 	frames = frames + 0.000000001
 	player:setPos(mouseX - player.width / 2, mouseY - player.height / 2)
