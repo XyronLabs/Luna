@@ -145,7 +145,10 @@ int lunaL::editObject(lua_State *L) {
         float x = luaL_checknumber(L, 3);
         float y = luaL_checknumber(L, 4);
 
-        Sketch::instance().getShapeMap()[key]->setPosition(x, y);
+        if (Sketch::instance().getShapeMap()[key])
+            Sketch::instance().getShapeMap()[key]->setPosition(x, y);
+        else if (Sketch::instance().getTextCache()[key])
+            Sketch::instance().getTextCache()[key]->setPosition(x, y);
     } else if (property == "size") {
         float width = luaL_checknumber(L, 3);
         float height = luaL_checknumber(L, 4);

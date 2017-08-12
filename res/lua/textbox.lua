@@ -5,6 +5,7 @@ local textbox_mt = { __index = textbox }
 --[[ Constructor ]]--
 function textbox:new(dat)
     local obj = {}
+    obj.id = 'text_' .. math.random()
     
     obj.x = dat.x or 0
     obj.y = dat.y or 0
@@ -13,14 +14,14 @@ function textbox:new(dat)
     obj.color = dat.color or colors.white
 
     setmetatable(obj, textbox_mt)
-    registerObject(obj.id, 'text', obj.text, obj.size)
+    registerObject(obj.id, 'text', obj.x, obj.y, obj.text, obj.size)
     editObject(obj.id, 'color', obj.color)
     return obj
 end
 
 --[[ Render ]]--
 function textbox:render()
-    -- text(self.text, self.size, self.x, self.y, self.color)
+    renderObject(self.id)
 end
 
 --[[ Setters ]]--
