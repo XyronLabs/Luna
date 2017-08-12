@@ -149,6 +149,7 @@ int lunaL::editObject(lua_State *L) {
             Sketch::instance().getShapeCache()[key]->setPosition(x, y);
         else if (Sketch::instance().getTextCache()[key])
             Sketch::instance().getTextCache()[key]->setPosition(x, y);
+
     } else if (property == "size") {
         float width = luaL_checknumber(L, 3);
         float height = luaL_checknumber(L, 4);
@@ -194,10 +195,12 @@ int lunaL::editObject(lua_State *L) {
         std::string text = luaL_checkstring(L, 3);
 
         Sketch::instance().getTextCache()[key]->setString(text);
+
     } else if (property == "textSize") {
         unsigned int textSize = luaL_checkinteger(L, 3);
         
         Sketch::instance().getTextCache()[key]->setCharacterSize(textSize);
+
     } else if (property == "play") {
         
         if (Sketch::instance().getSoundCache()[key]) {

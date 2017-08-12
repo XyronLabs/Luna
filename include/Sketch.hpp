@@ -94,23 +94,11 @@ public:
     sf::RenderWindow& getWindow();
 
     /*
-        Return shapeMap reference, used in luna_lua functions
+        Return caches reference, used in luna_lua functions
     */
     std::map<std::string, std::unique_ptr<sf::Shape>>& getShapeCache();
-
-    /*
-        Return textureCache reference, used in luna_lua functions
-    */
     std::map<std::string, sf::Texture*>& getTextureCache();
-    
-    /*
-        Return soundCache reference, used in luna_lua functions
-    */
     std::map<std::string, std::unique_ptr<sf::Sound>>& getSoundCache();
-
-    /*
-        Return textCache reference, used in luna_lua functions
-    */
     std::map<std::string, std::unique_ptr<sf::Text>>& getTextCache();
 
     /*
