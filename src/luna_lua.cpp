@@ -78,10 +78,10 @@ int lunaL::circ(lua_State *L) {
 
 int lunaL::registerObject(lua_State *L) {
     std::string key = luaL_checkstring(L, 1);
-    std::string shapeType = luaL_checkstring(L, 2);
+    std::string objectType = luaL_checkstring(L, 2);
     
 
-    if (shapeType == "rectangle") {
+    if (objectType == "rectangle") {
         std::unique_ptr<sf::Shape> shape;
         float x = luaL_checknumber(L, 3);
         float y = luaL_checknumber(L, 4);
@@ -92,7 +92,7 @@ int lunaL::registerObject(lua_State *L) {
         shape->setPosition(x, y);
         Sketch::instance().getShapeMap()[key] = std::move(shape);
 
-    } else if (shapeType == "circle") {
+    } else if (objectType == "circle") {
         std::unique_ptr<sf::Shape> shape;
         float x = luaL_checknumber(L, 3);
         float y = luaL_checknumber(L, 4);
@@ -102,17 +102,18 @@ int lunaL::registerObject(lua_State *L) {
         shape->setPosition(x, y);
         Sketch::instance().getShapeMap()[key] = std::move(shape);
 
-    } else if (shapeType == "text") {
+    } else if (objectType == "text") {
+        std::unique_ptr<sf::Text> textBox;
         float x = luaL_checknumber(L, 3);
         float y = luaL_checknumber(L, 4);
         std::string text = luaL_checkstring(L, 5);
         unsigned int textSize = luaL_checkinteger(L, 6);
 
-        std::unique_ptr<sf::Text> textBox = std::make_unique<sf::Text>(text, Sketch::instance().getDefaultFont(), textSize);
+        textBox = std::make_unique<sf::Text>(text, Sketch::instance().getDefaultFont(), textSize);
         textBox->setPosition(x, y);
         Sketch::instance().getTextCache()[key] = std::move(textBox);
 
-    } else if (shapeType == "sound") {
+    } else if (objectType == "sound") {
         std::string soundPath = luaL_checkstring(L, 3);
     
         if (!Sketch::instance().getSoundCache()[key]) {
