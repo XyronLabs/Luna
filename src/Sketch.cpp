@@ -1,6 +1,7 @@
 #include "Sketch.hpp"
 #include "luna_lua.hpp"
 #include "Logger.hpp"
+#include "Defines.hpp"
 
 Sketch& Sketch::instance() {
     static Sketch s_instance;
@@ -12,43 +13,32 @@ Sketch::Sketch() {
     luaL_openlibs(L);
 
     /* Register Lua functions */
-    lua_register(L, "size", lunaL::size);
-    lua_register(L, "clear", lunaL::clear);
-    lua_register(L, "color", lunaL::color);
-    lua_register(L, "text", lunaL::text);
-    lua_register(L, "rect", lunaL::rect);
-    lua_register(L, "line", lunaL::line);
-    lua_register(L, "circ", lunaL::circ);
-    lua_register(L, "addShape", lunaL::addShape);
-    lua_register(L, "editShape", lunaL::editShape);
-    lua_register(L, "renderShape", lunaL::renderShape);
-    lua_register(L, "removeShape", lunaL::removeShape);
-    lua_register(L, "addSound", lunaL::addSound);
-    lua_register(L, "playSound", lunaL::playSound);
-    lua_register(L, "pauseSound", lunaL::pauseSound);
-    lua_register(L, "stopSound", lunaL::stopSound);
+    registerLunaFunction(size);
+    registerLunaFunction(clear);
+    registerLunaFunction(color);
+    registerLunaFunction(text);
+    registerLunaFunction(rect);
+    registerLunaFunction(line);
+    registerLunaFunction(circ);
+    registerLunaFunction(addShape);
+    registerLunaFunction(editShape);
+    registerLunaFunction(renderShape);
+    registerLunaFunction(removeShape);
+    registerLunaFunction(addSound);
+    registerLunaFunction(playSound);
+    registerLunaFunction(pauseSound);
+    registerLunaFunction(stopSound);
 
     /* Load Lua libraries */
-#ifdef LUNA_DEBUG
-    luaL_loadfile(L, "res/lua/modules.lua");
+    luaL_loadfile(L, getLunaResource("lua/modules.lua"));
     if (lua_pcall(L, 0, 0, 0)) {
         Logger::instance().logFatal("Error loading Lua modules");
     }
-#else
-    luaL_loadfile(L, "/usr/local/luna/res/lua/modules.lua");
-    if (lua_pcall(L, 0, 0, 0)) {
-        Logger::instance().logFatal("Error loading Lua modules!", L);
-    }
-#endif
 }
 
 bool Sketch::preload(const char* lua_main) {
     // Set default values to variables
-#ifdef LUNA_DEBUG
-    default_font.loadFromFile("res/font/Roboto-Regular.ttf");
-#else
-    default_font.loadFromFile("/usr/local/luna/res/font/Roboto-Regular.ttf");
-#endif
+    default_font.loadFromFile(getLunaResource("font/Roboto-Regular.ttf"));
     current_color = sf::Color::White;
 
     // Load lua/main.lua
@@ -117,6 +107,9 @@ void Sketch::loop() {
                     lua_setglobal(L, "mouseY");
                     break;
                 }
+
+                case sf::Event::MouseButtonPressed:
+
 
                 default:
                     break;
