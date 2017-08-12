@@ -18,39 +18,39 @@ function circle:new(dat)
 
 
     setmetatable(obj, circle_mt)
-    addShape(obj.id, 'circle', obj.x, obj.y, obj.radius, 0)
-    editShape(obj.id, 'color', obj.color)
+    registerObject(obj.id, 'circle', obj.x, obj.y, obj.radius, 0)
+    editObject(obj.id, 'color', obj.color)
     if obj.texture then editShape(obj.id, 'texture', obj.texture) end
     return obj
 end
 
 --[[ Render ]]--
 function circle:render()
-    renderShape(self.id)
+    renderObject(self.id)
 end
 
 --[[ Setters ]]--
 function circle:setPos(x, y)
     self.x = x or self.x
     self.y = y or self.y
-    editShape(self.id, 'position', self.x, self.y)
+    editObject(self.id, 'position', self.x, self.y)
     return self
 end
 
 function circle:setRadius(radius)
     self.radius = radius or self.radius
-    editShape(self.id, 'radius', self.radius)
+    editObject(self.id, 'radius', self.radius)
     return self
 end
 
 function circle:setColor(color)
     self.color = color or self.color
-    editShape(self.id, 'color', self.color)
+    editObject(self.id, 'color', self.color)
     return self
 end
 
 function circle:setTexture(texturePath)
-    editShape(self.id, 'texture', texturePath)
+    editObject(self.id, 'texture', texturePath)
     return self
 end
 

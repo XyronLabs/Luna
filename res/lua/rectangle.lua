@@ -18,40 +18,40 @@ function rectangle:new(dat)
     obj.color = obj.color or colors.white
 
     setmetatable(obj, rectangle_mt)
-    addShape(obj.id, 'rectangle', obj.x, obj.y, obj.width, obj.height)
-    editShape(obj.id, 'color', obj.color)
-    if obj.texture then editShape(obj.id, 'texture', obj.texture) end
+    registerObject(obj.id, 'rectangle', obj.x, obj.y, obj.width, obj.height)
+    editObject(obj.id, 'color', obj.color)
+    if obj.texture then editObject(obj.id, 'texture', obj.texture) end
     return obj
 end
 
 --[[ Render ]]--
 function rectangle:render()
-    renderShape(self.id)
+    renderObject(self.id)
 end
 
 --[[ Setters ]]--
 function rectangle:setPos(x, y)
     self.x = x or self.x
     self.y = y or self.y
-    editShape(self.id, 'position', self.x, self.y)
+    editObject(self.id, 'position', self.x, self.y)
     return self
 end
 
 function rectangle:setSize(width, height)
     self.width = width or self.width
     self.height = height or self.height
-    editShape(self.id, 'size', self.width, self.height)
+    editObject(self.id, 'size', self.width, self.height)
     return self
 end
 
 function rectangle:setColor(color)
     self.color = color or self.color
-    editShape(self.id, 'color', self.color)
+    editObject(self.id, 'color', self.color)
     return self
 end
 
 function rectangle:setTexture(texturePath)
-    editShape(self.id, 'texture', texturePath)
+    editObject(self.id, 'texture', texturePath)
     return self
 end
 
