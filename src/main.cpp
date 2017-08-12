@@ -1,3 +1,5 @@
+#include <cstring>
+
 #include "Sketch.hpp"
 #include "Logger.hpp"
 #include "Defines.hpp"
