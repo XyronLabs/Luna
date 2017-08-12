@@ -20,10 +20,10 @@ Sketch::Sketch() {
     registerLunaFunction(rect);
     registerLunaFunction(line);
     registerLunaFunction(circ);
-    registerLunaFunction(addShape);
-    registerLunaFunction(editShape);
-    registerLunaFunction(renderShape);
-    registerLunaFunction(removeShape);
+    registerLunaFunction(registerObject);
+    registerLunaFunction(editObject);
+    registerLunaFunction(renderObject);
+    registerLunaFunction(removeObject);
     registerLunaFunction(addSound);
     registerLunaFunction(playSound);
     registerLunaFunction(pauseSound);

@@ -76,48 +76,44 @@ int lunaL::circ(lua_State *L) {
     return 0;
 }
 
-int lunaL::addShape(lua_State *L) {
+int lunaL::registerObject(lua_State *L) {
     std::string key = luaL_checkstring(L, 1);
     std::string shapeType = luaL_checkstring(L, 2);
     float x = luaL_checknumber(L, 3);
     float y = luaL_checknumber(L, 4);
 
-    std::unique_ptr<sf::Shape> shape;
-
     if (shapeType == "rectangle") {
+        std::unique_ptr<sf::Shape> shape;
         float sizex = luaL_checknumber(L, 5);
         float sizey = luaL_checknumber(L, 6);
 
         shape = std::make_unique<sf::RectangleShape>(sf::Vector2f(sizex, sizey));
         shape->setPosition(x, y);
         Sketch::instance().getShapeMap()[key] = std::move(shape);
+
     } else if (shapeType == "circle") {
+        std::unique_ptr<sf::Shape> shape;
         float radius = luaL_checknumber(L, 5);
 
         shape = std::make_unique<sf::CircleShape>(radius);
         shape->setPosition(x, y);
         Sketch::instance().getShapeMap()[key] = std::move(shape);
+
     } else if (shapeType == "text") {
         std::string text = luaL_checkstring(L, 5);
 
         std::unique_ptr<sf::Text> textBox = std::make_unique<sf::Text>(text, Sketch::instance().getDefaultFont());
         textBox->setPosition(x, y);
         Sketch::instance().getTextCache()[key] = std::move(textBox);
+
     } else {
         Logger::instance().logError("Shape type error");
     }
 
-    // if (shape) {
-    //     shape->setPosition(x, y);
-    //     Sketch::instance().getShapeMap()[key] = std::move(shape);
-    // } else {
-    //     Logger::instance().logWarning("Shape not created");
-    // }
-
     return 0;
 }
 
-int lunaL::editShape(lua_State *L) {
+int lunaL::editObject(lua_State *L) {
     std::string key = luaL_checkstring(L, 1);
     std::string property = luaL_checkstring(L, 2);
 
@@ -171,7 +167,7 @@ int lunaL::editShape(lua_State *L) {
     return 0;
 }
 
-int lunaL::renderShape(lua_State *L) {
+int lunaL::renderObject(lua_State *L) {
     std::string key = luaL_checkstring(L, 1);
 
     if (Sketch::instance().getShapeMap()[key])
@@ -182,7 +178,7 @@ int lunaL::renderShape(lua_State *L) {
     return 0;
 }
 
-int lunaL::removeShape(lua_State *L) {
+int lunaL::removeObject(lua_State *L) {
     std::string key = luaL_checkstring(L, 1);
 
     if (Sketch::instance().getShapeMap()[key])

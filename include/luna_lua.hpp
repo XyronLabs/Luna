@@ -30,12 +30,12 @@ namespace lunaL {
     int circ(lua_State *L);
 
     /*
-     * Methods for handling shapeMap
+     * Methods for handling objects (RectangleShape, CircleShape, Text)
      */
-    int addShape(lua_State *L);
-    int editShape(lua_State *L);
-    int renderShape(lua_State *L);
-    int removeShape(lua_State *L);
+    int registerObject(lua_State *L);
+    int editObject(lua_State *L);
+    int renderObject(lua_State *L);
+    int removeObject(lua_State *L);
 
     int addSound(lua_State *L);
     int playSound(lua_State *L);
