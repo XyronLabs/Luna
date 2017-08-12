@@ -43,3 +43,9 @@ function textbox:setSize(size)
     editObject(obj.id, 'textSize', obj.size)
     return self
 end
+
+function textbox:setColor(color)
+    self.color = color or self.color
+    editObject(self.id, 'color', self.color)
+    return self
+end
