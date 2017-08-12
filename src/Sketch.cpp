@@ -108,9 +108,6 @@ void Sketch::loop() {
                     break;
                 }
 
-                case sf::Event::MouseButtonPressed:
-
-
                 default:
                     break;
             }
