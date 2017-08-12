@@ -30,17 +30,15 @@ Sketch::Sketch() {
 
     /* Load Lua libraries */
 #ifdef LUNA_DEBUG
-    luaL_loadfile(L, "res/lua/colors.lua");     lua_pcall(L, 0, 0, 0);
-    luaL_loadfile(L, "res/lua/rectangle.lua");  lua_pcall(L, 0, 0, 0);
-    luaL_loadfile(L, "res/lua/circle.lua");     lua_pcall(L, 0, 0, 0);
-    luaL_loadfile(L, "res/lua/keys.lua");       lua_pcall(L, 0, 0, 0);
-    luaL_loadfile(L, "res/lua/sound.lua");       lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "res/lua/modules.lua");
+    if (lua_pcall(L, 0, 0, 0)) {
+        Logger::instance().logFatal("Error loading Lua modules");
+    }
 #else
-    luaL_loadfile(L, "/usr/local/luna/res/lua/colors.lua");     lua_pcall(L, 0, 0, 0);
-    luaL_loadfile(L, "/usr/local/luna/res/lua/rectangle.lua");  lua_pcall(L, 0, 0, 0);
-    luaL_loadfile(L, "/usr/local/luna/res/lua/circle.lua");     lua_pcall(L, 0, 0, 0);
-    luaL_loadfile(L, "/usr/local/luna/res/lua/keys.lua");       lua_pcall(L, 0, 0, 0);
-    luaL_loadfile(L, "/usr/local/luna/res/lua/sound.lua");      lua_pcall(L, 0, 0, 0);
+    luaL_loadfile(L, "/usr/local/luna/res/lua/modules.lua");
+    if (lua_pcall(L, 0, 0, 0)) {
+        Logger::instance().logFatal("Error loading Lua modules!", L);
+    }
 #endif
 }
 
