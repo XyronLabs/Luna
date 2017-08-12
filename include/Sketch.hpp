@@ -47,6 +47,11 @@ class Sketch {
     std::map<std::string, std::unique_ptr<sf::Sound>> soundCache;
 
     /*
+        Text cache
+    */
+    std::map<std::string, std::unique_ptr<sf::Text>> textCache;
+
+    /*
         Private constructor for singleton
         All Lua functions and libraries are
         loaded here
@@ -114,6 +119,16 @@ public:
         Return soundCache reference, used in luna_lua functions
     */
     std::map<std::string, std::unique_ptr<sf::Sound>>& getSoundCache();
+
+    /*
+        Return textCache reference, used in luna_lua functions
+    */
+    std::map<std::string, std::unique_ptr<sf::Text>>& getTextCache();
+
+    /*
+        Return default font reference, used in luna_lua functions
+    */
+    sf::Font& getDefaultFont();
 
     /*
         Set value of 'current_color', called

@@ -156,6 +156,14 @@ std::map<std::string, std::unique_ptr<sf::Sound>>& Sketch::getSoundCache() {
     return soundCache;
 }
 
+std::map<std::string, std::unique_ptr<sf::Text>>& Sketch::getTextCache() {
+    return textCache;
+}
+
+sf::Font& Sketch::getDefaultFont() {
+    return default_font;
+}
+
 void Sketch::createWindow(int width, int height, const char* title) {
     sf::ContextSettings s;
     s.antialiasingLevel = 8;

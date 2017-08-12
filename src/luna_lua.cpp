@@ -89,20 +89,30 @@ int lunaL::addShape(lua_State *L) {
         float sizey = luaL_checknumber(L, 6);
 
         shape = std::make_unique<sf::RectangleShape>(sf::Vector2f(sizex, sizey));
+        shape->setPosition(x, y);
+        Sketch::instance().getShapeMap()[key] = std::move(shape);
     } else if (shapeType == "circle") {
         float radius = luaL_checknumber(L, 5);
 
         shape = std::make_unique<sf::CircleShape>(radius);
+        shape->setPosition(x, y);
+        Sketch::instance().getShapeMap()[key] = std::move(shape);
+    } else if (shapeType == "text") {
+        std::string text = luaL_checkstring(L, 5);
+
+        std::unique_ptr<sf::Text> textBox = std::make_unique<sf::Text>(text, Sketch::instance().getDefaultFont());
+        textBox->setPosition(x, y);
+        Sketch::instance().getTextCache()[key] = std::move(textBox);
     } else {
         Logger::instance().logError("Shape type error");
     }
 
-    if (shape) {
-        shape->setPosition(x, y);
-        Sketch::instance().getShapeMap()[key] = std::move(shape);
-    } else {
-        Logger::instance().logWarning("Shape not created");
-    }
+    // if (shape) {
+    //     shape->setPosition(x, y);
+    //     Sketch::instance().getShapeMap()[key] = std::move(shape);
+    // } else {
+    //     Logger::instance().logWarning("Shape not created");
+    // }
 
     return 0;
 }
@@ -166,6 +176,8 @@ int lunaL::renderShape(lua_State *L) {
 
     if (Sketch::instance().getShapeMap()[key])
         Sketch::instance().getWindow().draw( *Sketch::instance().getShapeMap()[key] );
+    else if (Sketch::instance().getTextCache()[key])
+        Sketch::instance().getWindow().draw( *Sketch::instance().getTextCache()[key] );
 
     return 0;
 }
