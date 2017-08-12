@@ -26,6 +26,7 @@ Sketch::Sketch() {
     lua_register(L, "addSound", lunaL::addSound);
     lua_register(L, "playSound", lunaL::playSound);
     lua_register(L, "pauseSound", lunaL::pauseSound);
+    lua_register(L, "stopSound", lunaL::stopSound);
 
     /* Load Lua libraries */
 #ifdef LUNA_DEBUG

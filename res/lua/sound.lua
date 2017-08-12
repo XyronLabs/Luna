@@ -26,3 +26,7 @@ end
 function sound:pause()
     pauseSound(self.id)
 end
+
+function sound:stop()
+    stopSound(self.id)
+end

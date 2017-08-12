@@ -222,3 +222,15 @@ int lunaL::pauseSound(lua_State *L) {
 
     return 0;
 }
+
+int lunaL::stopSound(lua_State *L) {
+    std::string soundID = luaL_checkstring(L, 1);
+
+    if (Sketch::instance().getSoundCache()[soundID]) {
+        Sketch::instance().getSoundCache()[soundID]->stop();
+    } else {
+        Logger::instance().logError("Sound not found");
+    }
+
+    return 0;
+}

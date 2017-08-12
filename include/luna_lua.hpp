@@ -40,4 +40,5 @@ namespace lunaL {
     int addSound(lua_State *L);
     int playSound(lua_State *L);
     int pauseSound(lua_State *L);
+    int stopSound(lua_State *L);
 };
