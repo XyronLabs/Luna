@@ -14,19 +14,19 @@ function sound:new(dat)
     obj.path = obj.path or nil
 
     setmetatable(obj, sound_mt)
-    addSound(obj.id, obj.path)
+    registerObject(obj.id, 'sound', obj.path)
     return obj
 end
 
 --[[ Play/Pause ]]--
 function sound:play()
-    playSound(self.id)
+    editObject(self.id, 'play')
 end
 
 function sound:pause()
-    pauseSound(self.id)
+    editObject(self.id, 'pause')
 end
 
 function sound:stop()
-    stopSound(self.id)
+    editObject(self.id, 'stop')
 end
