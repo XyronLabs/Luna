@@ -1,7 +1,14 @@
 #include "Sketch.hpp"
 #include "Logger.hpp"
+#include "Defines.hpp"
 
 int main(int argc, char **argv) {
+    
+    if (argc == 2 && (strcmp(argv[1], "-v") == 0 || strcmp(argv[1], "--version") == 0)) {
+        std::cout << "Luna version: " << LUNA_VERSION << " | build date: " << __DATE__ << " " << __TIME__ << std::endl;
+        return EXIT_SUCCESS;
+    }
+
     Logger::instance().setLevel(Logger::Level::INFO);
     Logger::instance().logInfo("Starting Luna...");
 
@@ -16,5 +23,6 @@ int main(int argc, char **argv) {
 
 
     Logger::instance().logInfo("Exiting Luna...");
+    
     return EXIT_SUCCESS;
 }
