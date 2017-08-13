@@ -119,19 +119,19 @@ int lunaL::registerObject(lua_State *L) {
         if (!Sketch::instance().getSoundCache()[key]) {
             sf::SoundBuffer *bf = new sf::SoundBuffer;
             if (!bf->loadFromFile(soundPath)) {
-                Logger::instance().logError("Couldn't load sound");
+                Logger::instance().log(Logger::Level::ERROR, {"Couldn't load sound"});
                 return 0;
             }
     
             std::unique_ptr<sf::Sound> s = std::make_unique<sf::Sound>(*bf);
             Sketch::instance().getSoundCache()[key] = std::move(s);
-            Logger::instance().logDebug("Loading new sound");
+            Logger::instance().log(Logger::Level::DEBUG, {"Loading new sound"});
         } else {
-            Logger::instance().logError("A sound with the same id is already registered");
+            Logger::instance().log(Logger::Level::ERROR, {"A sound with the same id is already registered"});
         }
 
     } else {
-        Logger::instance().logError("Shape type error");
+        Logger::instance().log(Logger::Level::ERROR, {"Object type error: id=", key, " type=", objectType});
     }
 
     return 0;
@@ -159,7 +159,7 @@ int lunaL::editObject(lua_State *L) {
         if (s)
             s->setSize(sf::Vector2f(width, height));
         else
-            Logger::instance().logWarning("Tried to edit radius of a non-rectangular shape");
+            Logger::instance().log(Logger::Level::WARNING, {"Tried to edit radius of a non-rectangular shape"});
 
     } else if (property == "radius") {
         float radius = luaL_checknumber(L, 3);
@@ -169,7 +169,7 @@ int lunaL::editObject(lua_State *L) {
         if (s)
             s->setRadius(radius);
         else
-            Logger::instance().logWarning("Tried to edit radius of a non-circular shape");
+            Logger::instance().log(Logger::Level::WARNING, {"Tried to edit radius of a non-circular shape"});
 
     } else if (property == "color") {
         int color = luaL_checkinteger(L, 3);
@@ -187,7 +187,7 @@ int lunaL::editObject(lua_State *L) {
             sf::Texture *tex = new sf::Texture;
             tex->loadFromFile(filePath);
             tc[filePath] = tex;
-            Logger::instance().logDebug("Loading new texture");
+            Logger::instance().log(Logger::Level::DEBUG, {"Loading new texture"});
         }
         Sketch::instance().getShapeCache()[key]->setTexture(tc[filePath]);
 
@@ -206,7 +206,7 @@ int lunaL::editObject(lua_State *L) {
         if (Sketch::instance().getSoundCache()[key]) {
             Sketch::instance().getSoundCache()[key]->play();
         } else {
-            Logger::instance().logError("Sound not found");
+            Logger::instance().log(Logger::Level::ERROR, {"Sound not found"});
         }
 
     } else if (property == "pause") {
@@ -215,7 +215,7 @@ int lunaL::editObject(lua_State *L) {
         if (Sketch::instance().getSoundCache()[key]) {
             Sketch::instance().getSoundCache()[key]->pause();
         } else {
-            Logger::instance().logError("Sound not found");
+            Logger::instance().log(Logger::Level::ERROR, {"Sound not found"});
         }
 
     } else if (property == "stop") {
@@ -224,11 +224,11 @@ int lunaL::editObject(lua_State *L) {
         if (Sketch::instance().getSoundCache()[key]) {
             Sketch::instance().getSoundCache()[key]->stop();
         } else {
-            Logger::instance().logError("Sound not found");
+            Logger::instance().log(Logger::Level::ERROR, {"Sound not found"});
         }
 
     } else {
-        Logger::instance().logError("Property not found");
+        Logger::instance().log(Logger::Level::ERROR, {"Property not found"});
     }
 
     return 0;

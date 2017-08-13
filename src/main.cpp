@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
     }
 
     Logger::instance().setLevel(Logger::Level::INFO);
-    Logger::instance().logInfo("Starting Luna...");
+    Logger::instance().log(Logger::Level::INFO, {"Starting Luna..."});
 
     if (Sketch::instance().preload(argc > 1 ? argv[1] : nullptr))
         return EXIT_FAILURE;
@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
     Sketch::instance().cleanup();
 
 
-    Logger::instance().logInfo("Exiting Luna...");
+    Logger::instance().log(Logger::Level::INFO, {"Exiting Luna..."});
     
     return EXIT_SUCCESS;
 }

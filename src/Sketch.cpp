@@ -29,7 +29,7 @@ Sketch::Sketch() {
     /* Load Lua libraries */
     luaL_loadfile(L, getLunaResource("lua/modules.lua"));
     if (lua_pcall(L, 0, 0, 0)) {
-        Logger::instance().logFatal("Error loading Lua modules");
+        Logger::instance().log(Logger::Level::FATAL, {"Error loading Lua modules"});
     }
 }
 
@@ -41,7 +41,7 @@ bool Sketch::preload(const char* lua_main) {
     // Load lua/main.lua
     luaL_loadfile(L, lua_main ? lua_main : "main.lua");
     if (lua_pcall(L, 0, 0, 0)) {
-        Logger::instance().logFatal("Main.lua was not found!", L);
+        Logger::instance().log(Logger::Level::FATAL, {"Main.lua was not found!"}, L);
         return true;
     }
 
@@ -52,13 +52,13 @@ bool Sketch::setup() {
     // Call Lua setup function, exit if not found
     lua_getglobal(L, "setup");
     if (lua_pcall(L, 0, 0, 0)) {
-        Logger::instance().logFatal("Setup function not found!", L);
+        Logger::instance().log(Logger::Level::FATAL, {"Setup function not found!"}, L);
         return true;
     }
 
     // Exit if 'size' is not called
     if (!window) {
-        Logger::instance().logFatal("Window was not created, use size(width, height, title)");
+        Logger::instance().log(Logger::Level::FATAL, {"Window was not created, use size(width, height, title)"});
         return true;
     }
 
@@ -68,7 +68,7 @@ bool Sketch::setup() {
 void Sketch::loop() {
     // Cleanup and exit if render function is not found
     if (!lua_getglobal(L, "render")) {
-        Logger::instance().logFatal("Render function not found!");
+        Logger::instance().log(Logger::Level::FATAL, {"Render function not found!"});
         return;
     }
 
@@ -141,12 +141,12 @@ void Sketch::cleanup() {
     lua_close(L);
     
     for (auto& t : textureCache) {
-        Logger::instance().logDebug("Deleting texture");
+        Logger::instance().log(Logger::Level::DEBUG, {"Deleting texture"});
         delete t.second;
     }
 
     for (auto& t : soundCache) {
-        Logger::instance().logDebug("Deleting sound");
+        Logger::instance().log(Logger::Level::DEBUG, {"Deleting sound"});
         delete t.second->getBuffer();
     }
 }
