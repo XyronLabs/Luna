@@ -13,37 +13,11 @@ void Logger::setLevel(Level level) {
     logLevel = level;
 }
 
-void Logger::logFatal(const char* msg, lua_State *L) {
-    if (logLevel >= Logger::Level::FATAL) {
-        std::cout << "[FATAL] " << msg;
-        if (L) std::cout << " || Lua output: " << luaL_checkstring(L, -1);
-        std::cout << std::endl;
-    }
-}
-void Logger::logError(const char* msg, lua_State *L) {
-    if (logLevel >= Logger::Level::ERROR) {
-        std::cout << "[ERROR] " << msg;
-        if (L) std::cout << " || Lua output: " << luaL_checkstring(L, -1);
-        std::cout << std::endl;
-    }
-}
-void Logger::logWarning(const char* msg, lua_State *L) {
-    if (logLevel >= Logger::Level::WARNING) {
-        std::cout << "[WARNING] " << msg;
-        if (L) std::cout << " || Lua output: " << luaL_checkstring(L, -1);
-        std::cout << std::endl;
-    }
-}
-void Logger::logInfo(const char* msg, lua_State *L) {
-    if (logLevel >= Logger::Level::INFO) {
-        std::cout << "[INFO] " << msg;
-        if (L) std::cout << " || Lua output: " << luaL_checkstring(L, -1);
-        std::cout << std::endl;
-    }
-}
-void Logger::logDebug(const char* msg, lua_State *L) {
-    if (logLevel >= Logger::Level::DEBUG) {
-        std::cout << "[DEBUG] " << msg;
+void Logger::log(Level desiredLogLevel, const std::initializer_list<std::string>& msg, lua_State *L) {
+    if (logLevel >= desiredLogLevel) {
+        std::cout << "[" << printableLevels[desiredLogLevel] << "] ";
+        for (const auto& s : msg) std::cout << s;
+
         if (L) std::cout << " || Lua output: " << luaL_checkstring(L, -1);
         std::cout << std::endl;
     }

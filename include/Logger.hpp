@@ -1,6 +1,9 @@
 #pragma once
 
 #include <iostream>
+#include <string>
+#include <initializer_list>
+#include <vector>
 #include <lua5.3/lua.hpp>
 
 class Logger {
@@ -8,13 +11,16 @@ public:
     /*
         Log levels
     */
-    enum Level { FATAL, ERROR, WARNING, INFO, DEBUG };
+    enum Level { FATAL, ERROR, WARNING, INFO, DEBUG};
 
 private:
     /*
         Current log level
     */
     Level logLevel;
+
+    
+    std::vector<std::string> printableLevels = { "FATAL", "ERROR", "WARNING", "INFO", "DEBUG" };
 
 private:
     /*
@@ -30,10 +36,6 @@ public:
 
     void setLevel(Level level);
 
-    void logFatal(const char* msg, lua_State *L = nullptr);
-    void logError(const char* msg, lua_State *L = nullptr);
-    void logWarning(const char* msg, lua_State *L = nullptr);
-    void logInfo(const char* msg, lua_State *L = nullptr);
-    void logDebug(const char* msg, lua_State *L = nullptr);
+    void log(Level desiredLogLevel, const std::initializer_list<std::string>& msg, lua_State *L = nullptr);
 
 };
