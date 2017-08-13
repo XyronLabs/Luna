@@ -52,13 +52,14 @@ function render()
 
 	clear()
 
-	color(bit32.lshift( bit32.lrotate(0xff0000, math.floor(math.sin(frames) * 0xff0000)), 4) + 0xff)
+	
 	for k, v in pairs(bricks) do
+		v:setColor(hsva(frames % 1, 1, 1, 1))
 		if ball.y <= v.y + v.height and ball.y + ball.radius * 2 >= v.y
 			and ball.x <= v.x + v.width and ball.x + ball.radius * 2 >= v.x then
 			ball.diry = 1
 			table.remove(bricks, k)
-			removeShape(v.id) -- remove shape from shapeMap
+			--removeShape(v.id) -- remove shape from shapeMap
 		end
 		v:render()
 	end
@@ -68,11 +69,13 @@ function render()
 	player:render()
 	text("Points: " .. 105 - #bricks, 32, 10, 10, colors.white)
 
-	frames = frames + 0.000000001
-	player:setPos(mouseX - player.width / 2, mouseY - player.height / 2)
+	frames = frames + 0.001
+	
 end
 
 function input()
-	-- if keys['Left']  then player:setPos(player.x - 10) end
-	-- if keys['Right'] then player:setPos(player.x + 10) end
+	if keys['Left']  then player:setPos(player.x - 10) end
+	if keys['Right'] then player:setPos(player.x + 10) end
+	
+	if mousekeys['Left'] then player:setPos(mouseX - player.width / 2, mouseY - player.height / 2) end
 end
