@@ -33,9 +33,8 @@ int lunaL::text(lua_State *L) {
     int size = luaL_checkinteger(L, 2);
     float posx = luaL_checknumber(L, 3);
     float posy = luaL_checknumber(L, 4);
-    unsigned int color = luaL_checkinteger(L, 5);
 
-    Sketch::instance().text(str, size, posx, posy, color);
+    Sketch::instance().text(str, size, posx, posy);
     return 0;
 }
 

@@ -191,13 +191,13 @@ void Sketch::setColor(sf::Color newColor) {
     this->current_color = newColor;
 }
 
-void Sketch::text(const char* str, int size, float posx, float posy, unsigned int color) {
+void Sketch::text(const char* str, int size, float posx, float posy) {
     sf::Text t;
     t.setString(str);
     t.setFont(default_font);
     t.setCharacterSize(size);
     t.setPosition(posx, posy);
-    t.setFillColor(sf::Color(color));
+    t.setFillColor(current_color);
 
     window->draw(t);
 }
