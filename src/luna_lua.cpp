@@ -257,3 +257,12 @@ int lunaL::removeObject(lua_State *L) {
 
     return 0;
 }
+
+int lunaL::log(lua_State *L) {
+    int level = luaL_checkinteger(L, 1);
+    std::string message = luaL_checkstring(L, 2);
+
+    Logger::instance().log(static_cast<Logger::Level>(level), {message});
+
+    return 0;
+}

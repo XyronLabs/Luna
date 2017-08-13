@@ -36,4 +36,6 @@ namespace lunaL {
     int editObject(lua_State *L);
     int renderObject(lua_State *L);
     int removeObject(lua_State *L);
+    
+    int log(lua_State *L);
 };

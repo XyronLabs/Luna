@@ -25,6 +25,8 @@ Sketch::Sketch() {
     registerLunaFunction(editObject);
     registerLunaFunction(renderObject);
     registerLunaFunction(removeObject);
+    
+    registerLunaFunction(log);
 
     /* Load Lua libraries */
     luaL_loadfile(L, getLunaResource("lua/modules.lua"));
