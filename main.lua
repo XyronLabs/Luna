@@ -7,10 +7,11 @@ local player = {
     speed = 2,
     rad = 20
 }
-local t1
+local t1, hue
 function setup()
     size(1280, 720, "Test Game!")
     t1 = textbox:new{ text = "Lololo", size = 40, x = 500, y = 500}
+    hue = 0
 end
 
 function render()
@@ -30,10 +31,13 @@ function render()
 
     -- Render
     text("Player: " .. player.name, 32, 10, 10, colors.white)
-    color(0x2233aaff)
+    -- color(0x2233aaff)
+    color(hsva(hue, 1, 1, 1))
     circ(player.x, player.y, player.rad)
     t1:render()
     t1:setPos(100, 100)
+    hue = hue + 0.001
+    hue = hue % 1
 end
 
 function input()
