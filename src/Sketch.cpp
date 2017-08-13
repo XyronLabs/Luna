@@ -213,8 +213,8 @@ void Sketch::rect(sf::Vector2f p1, sf::Vector2f p2) {
 void Sketch::line(sf::Vector2f p1, sf::Vector2f p2) {
     sf::Vertex line[] =
     {
-        sf::Vertex(p1),
-        sf::Vertex(p2)
+        sf::Vertex(p1, current_color),
+        sf::Vertex(p2, current_color)
     };
 
     window->draw(line, 2, sf::Lines);
