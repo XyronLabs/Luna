@@ -265,3 +265,11 @@ int lunaL::log(lua_State *L) {
 
     return 0;
 }
+
+int lunaL::frameRate(lua_State *L) {
+    int fps = luaL_checkinteger(L, 1);
+
+    Sketch::instance().getWindow().setFramerateLimit(fps);
+
+    return 0;
+}

@@ -27,6 +27,7 @@ Sketch::Sketch() {
     registerLunaFunction(removeObject);
     
     registerLunaFunction(log);
+    registerLunaFunction(frameRate);
 
     /* Load Lua libraries */
     luaL_loadfile(L, getLunaResource("lua/modules.lua"));
@@ -184,7 +185,7 @@ void Sketch::createWindow(int width, int height, const char* title) {
     // Only create window the first time size(w,h,t) is called
     if (!window)
         window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title, sf::Style::Default, s);
-    window->setVerticalSyncEnabled(true);
+    window->setFramerateLimit(60);
 }
 
 void Sketch::setColor(sf::Color newColor) {
