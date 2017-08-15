@@ -273,3 +273,9 @@ int lunaL::frameRate(lua_State *L) {
 
     return 0;
 }
+
+int lunaL::exit(lua_State *L) {
+    Sketch::instance().getWindow().close();
+
+    return 0;
+}

@@ -39,4 +39,5 @@ namespace lunaL {
     
     int log(lua_State *L);
     int frameRate(lua_State *L);
+    int exit(lua_State *L);
 };
