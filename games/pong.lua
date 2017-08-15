@@ -4,10 +4,10 @@ local ball
 function setup()
     size(800, 600, "Pong!")
 
-    player1 = rectangle:new{ x = 20, y = height / 2, width = 20, height = 100, points = 0 }
-    player2 = rectangle:new{ x = width - 40, y = height / 2, width = 20, height = 100, points = 0 }
+    player1 = rectangleShape:new{ x = 20, y = height / 2, width = 20, height = 100, points = 0 }
+    player2 = rectangleShape:new{ x = width - 40, y = height / 2, width = 20, height = 100, points = 0 }
 
-    ball = circle:new{ x = width / 2, y = height / 2, dirx = 1, diry = 1, radius = 20, speed = 5 }
+    ball = ellipseShape:new{ x = width / 2, y = height / 2, dirx = 1, diry = 1, radius = 20, speed = 5 }
 end
 
 function render()
