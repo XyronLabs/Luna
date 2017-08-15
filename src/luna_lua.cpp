@@ -1,6 +1,8 @@
 #include "luna_lua.hpp"
 #include "Logger.hpp"
 
+/***************************** Common functions ******************************/
+
 int lunaL::size(lua_State *L) {
     int w = luaL_checkinteger(L, 1);
     int h = luaL_checkinteger(L, 2);
@@ -27,6 +29,29 @@ int lunaL::color(lua_State *L) {
     Sketch::instance().setColor(sf::Color(newColor));
     return 0;
 }
+
+int lunaL::log(lua_State *L) {
+    int level = luaL_checkinteger(L, 1);
+    std::string message = luaL_checkstring(L, 2);
+
+    Logger::instance().log(static_cast<Logger::Level>(level), { message });
+    return 0;
+}
+
+int lunaL::frameRate(lua_State *L) {
+    int fps = luaL_checkinteger(L, 1);
+
+    Sketch::instance().getWindow().setFramerateLimit(fps);
+    return 0;
+}
+
+int lunaL::exit(lua_State *L) {
+    Sketch::instance().getWindow().close();
+    return 0;
+}
+
+
+/***************************** Simple rendering ******************************/
 
 int lunaL::text(lua_State *L) {
     const char* str = luaL_checkstring(L, 1);
@@ -94,6 +119,9 @@ int lunaL::ellipse(lua_State *L) {
     Sketch::instance().getWindow().draw(ellipse);
     return 0;
 }
+
+
+/************************* Object oriented rendering *************************/
 
 int lunaL::registerObject(lua_State *L) {
     std::string key = luaL_checkstring(L, 1);
@@ -276,29 +304,6 @@ int lunaL::removeObject(lua_State *L) {
         Sketch::instance().getTextCache().erase(key);
     if (Sketch::instance().getSoundCache()[key])
         Sketch::instance().getSoundCache().erase(key);
-
-    return 0;
-}
-
-int lunaL::log(lua_State *L) {
-    int level = luaL_checkinteger(L, 1);
-    std::string message = luaL_checkstring(L, 2);
-
-    Logger::instance().log(static_cast<Logger::Level>(level), {message});
-
-    return 0;
-}
-
-int lunaL::frameRate(lua_State *L) {
-    int fps = luaL_checkinteger(L, 1);
-
-    Sketch::instance().getWindow().setFramerateLimit(fps);
-
-    return 0;
-}
-
-int lunaL::exit(lua_State *L) {
-    Sketch::instance().getWindow().close();
 
     return 0;
 }
