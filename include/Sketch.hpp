@@ -47,7 +47,11 @@ class Sketch {
     Sketch();
     
 public:
-
+    /*
+        Return Sketch instance, singleton
+    */
+    static Sketch& instance();
+    
     /*
         Load the main Lua script and default vars
         (default font, color, etc)
@@ -77,11 +81,6 @@ public:
     void cleanup();
 
     /*
-        Return Sketch instance, singleton
-    */
-    static Sketch& instance();
-
-    /*
         Called by size(w,h,t) Lua function
         Set any settings needed for the window here
         (VSync, Antialiasing, etc)
@@ -89,53 +88,20 @@ public:
     void createWindow(int width, int height, const char* title);
 
     /*
-        Return window reference, used in luna_lua functions
-    */
-    sf::RenderWindow& getWindow();
-
-    /*
-        Return caches reference, used in luna_lua functions
+        Getters
     */
     std::map<std::string, std::unique_ptr<sf::Shape>>& getShapeCache();
     std::map<std::string, sf::Texture*>& getTextureCache();
     std::map<std::string, std::unique_ptr<sf::Sound>>& getSoundCache();
     std::map<std::string, std::unique_ptr<sf::Text>>& getTextCache();
 
-    /*
-        Return default font reference, used in luna_lua functions
-    */
+    sf::RenderWindow& getWindow();
     sf::Font& getDefaultFont();
+    sf::Color& getCurrentColor();
 
     /*
-        Set value of 'current_color', called
-        from color(c) Lua function
+        Setters
     */
     void setColor(sf::Color newColor);
-
-    /*
-        Draw a string of text on the screen, called
-        from text(t,s,x,y) Lua function
-    */
-    void text(const char* str, int size, float posx, float posy);
-
-    /*
-        Draw a rectangle starting at point 'p1',
-        with width and height 'p2', called from
-        rect(x1,y1,x2,y2) Lua function 
-    */
-    void rect(sf::Vector2f p1, sf::Vector2f p2);
-
-    /*
-        Draw a line between points 'p1' and 'p2',
-        called from line(x1,y1,x2,y2) Lua function 
-    */
-    void line(sf::Vector2f p1, sf::Vector2f p2);
-
-    /*
-        Draw a circle with center at point 'pos'
-        and the size 'rx' and 'ry', called from
-        ellipse(x,y,rx,ry) Lua function
-    */
-    void ellipse(sf::Vector2f pos, float rx, float ry);
 };
 

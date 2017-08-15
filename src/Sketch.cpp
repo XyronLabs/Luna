@@ -155,10 +155,19 @@ void Sketch::cleanup() {
     }
 }
 
-sf::RenderWindow& Sketch::getWindow() {
-    return *window;
+void Sketch::createWindow(int width, int height, const char* title) {
+    sf::ContextSettings s;
+    s.antialiasingLevel = 8;
+
+    // Only create window the first time size(w,h,t) is called
+    if (!window)
+        window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title, sf::Style::Default, s);
+    window->setFramerateLimit(60);
 }
 
+/*
+    Getters
+*/
 std::map<std::string, std::unique_ptr<sf::Shape>>& Sketch::getShapeCache() {
     return shapeCache;
 }
@@ -175,58 +184,21 @@ std::map<std::string, std::unique_ptr<sf::Text>>& Sketch::getTextCache() {
     return textCache;
 }
 
+sf::RenderWindow& Sketch::getWindow() {
+    return *window;
+}
+
 sf::Font& Sketch::getDefaultFont() {
     return default_font;
 }
 
-void Sketch::createWindow(int width, int height, const char* title) {
-    sf::ContextSettings s;
-    s.antialiasingLevel = 8;
-
-    // Only create window the first time size(w,h,t) is called
-    if (!window)
-        window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title, sf::Style::Default, s);
-    window->setFramerateLimit(60);
+sf::Color& Sketch::getCurrentColor() {
+    return current_color;
 }
 
+/*
+    Setters
+*/
 void Sketch::setColor(sf::Color newColor) {
     this->current_color = newColor;
-}
-
-void Sketch::text(const char* str, int size, float posx, float posy) {
-    sf::Text t;
-    t.setString(str);
-    t.setFont(default_font);
-    t.setCharacterSize(size);
-    t.setPosition(posx, posy);
-    t.setFillColor(current_color);
-
-    window->draw(t);
-}
-
-void Sketch::rect(sf::Vector2f p1, sf::Vector2f p2) {
-    sf::RectangleShape box(p2);
-    box.setPosition(p1.x, p1.y);
-    box.setFillColor(current_color);
-
-    window->draw(box);
-}
-
-void Sketch::line(sf::Vector2f p1, sf::Vector2f p2) {
-    sf::Vertex line[] =
-    {
-        sf::Vertex(p1, current_color),
-        sf::Vertex(p2, current_color)
-    };
-
-    window->draw(line, 2, sf::Lines);
-}
-
-void Sketch::ellipse(sf::Vector2f pos, float rx, float ry) {
-    sf::CircleShape ellipse(1.f);
-    ellipse.setPosition(pos.x, pos.y);
-    ellipse.setFillColor(current_color);
-    ellipse.setScale(rx, ry);
-
-    window->draw(ellipse);
 }

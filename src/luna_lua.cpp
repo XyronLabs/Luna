@@ -34,7 +34,14 @@ int lunaL::text(lua_State *L) {
     float posx = luaL_checknumber(L, 3);
     float posy = luaL_checknumber(L, 4);
 
-    Sketch::instance().text(str, size, posx, posy);
+    sf::Text t;
+    t.setString(str);
+    t.setFont(Sketch::instance().getDefaultFont());
+    t.setCharacterSize(size);
+    t.setPosition(posx, posy);
+    t.setFillColor(Sketch::instance().getCurrentColor());
+
+    Sketch::instance().getWindow().draw(t);
     return 0;
 }
 
@@ -44,10 +51,11 @@ int lunaL::rect(lua_State *L) {
     float x2 = luaL_checknumber(L, 3);
     float y2 = luaL_checknumber(L, 4);
 
-    sf::Vector2f p1(x1, y1);
-    sf::Vector2f p2(x2, y2);
+    sf::RectangleShape box(sf::Vector2f(x2, y2));
+    box.setPosition(x1, y1);
+    box.setFillColor(Sketch::instance().getCurrentColor());
 
-    Sketch::instance().rect(p1, p2);
+    Sketch::instance().getWindow().draw(box);
     return 0;
 }
 
@@ -57,22 +65,33 @@ int lunaL::line(lua_State *L) {
     float x2 = luaL_checknumber(L, 3);
     float y2 = luaL_checknumber(L, 4);
 
-    sf::Vector2f p1(x1, y1);
-    sf::Vector2f p2(x2, y2);
+    sf::Vertex line[] =
+    {
+        sf::Vertex(sf::Vector2f(x1, y1), Sketch::instance().getCurrentColor()),
+        sf::Vertex(sf::Vector2f(x2, y2), Sketch::instance().getCurrentColor())
+    };
 
-    Sketch::instance().line(p1, p2);
+    Sketch::instance().getWindow().draw(line, 2, sf::Lines);
     return 0;  
 }
 
+/*
+    Draw a circle with center at point 'pos'
+    and the size 'rx' and 'ry', called from
+    ellipse(x,y,rx,ry) Lua function
+*/
 int lunaL::ellipse(lua_State *L) {
     float x = luaL_checknumber(L, 1);
     float y = luaL_checknumber(L, 2);
     float rx = luaL_checknumber(L, 3);
     float ry = luaL_checknumber(L, 4);
 
-    sf::Vector2f pos(x, y);
+    sf::CircleShape ellipse(1.f);
+    ellipse.setPosition(x, y);
+    ellipse.setFillColor(Sketch::instance().getCurrentColor());
+    ellipse.setScale(rx, ry);
 
-    Sketch::instance().ellipse(pos, rx, ry);
+    Sketch::instance().getWindow().draw(ellipse);
     return 0;
 }
 

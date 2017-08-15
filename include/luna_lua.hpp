@@ -17,16 +17,30 @@ namespace lunaL {
     /* Set fill color */
     int color(lua_State *L);
 
-    /* Render a string of text */
+    /*
+        Draw a string of text on the screen, called
+        from text(t,s,x,y) Lua function
+    */
     int text(lua_State *L);
 
-    /* Render a rectangle */
+    /*
+        Draw a rectangle starting at point 'p1',
+        with width and height 'p2', called from
+        rect(x1,y1,x2,y2) Lua function 
+    */
     int rect(lua_State *L);
 
-    /* Render a rectangle */
+    /*
+        Draw a line between points 'p1' and 'p2',
+        called from line(x1,y1,x2,y2) Lua function 
+    */
     int line(lua_State *L);
 
-    /* Render a rectangle */
+    /*
+        Draw an ellipse with center at point 'pos'
+        and the size 'rx' and 'ry', called from
+        ellipse(x,y,rx,ry) Lua function
+    */
     int ellipse(lua_State *L);
 
     /*
