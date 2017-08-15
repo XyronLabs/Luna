@@ -30,3 +30,7 @@ end
 function sound:stop()
     editObject(self.id, 'stop')
 end
+
+function sound:setVolume(volume)
+    editObject(self.id, 'volume', volume)
+end

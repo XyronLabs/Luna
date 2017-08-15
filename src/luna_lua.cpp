@@ -241,6 +241,8 @@ int lunaL::editObject(lua_State *L) {
         }
         Sketch::instance().getShapeCache()[key]->setTexture(tc[filePath]);
 
+
+/****************************** Text properties *******************************/
     } else if (property == "text") {
         std::string text = luaL_checkstring(L, 3);
 
@@ -251,6 +253,8 @@ int lunaL::editObject(lua_State *L) {
         
         Sketch::instance().getTextCache()[key]->setCharacterSize(textSize);
 
+
+/****************************** Sound properties ******************************/
     } else if (property == "play") {
         
         if (Sketch::instance().getSoundCache()[key]) {
@@ -273,6 +277,15 @@ int lunaL::editObject(lua_State *L) {
         
         if (Sketch::instance().getSoundCache()[key]) {
             Sketch::instance().getSoundCache()[key]->stop();
+        } else {
+            Logger::instance().log(Logger::Level::ERROR, {"Sound not found"});
+        }
+
+    } else if (property == "volume") {
+        float volume = luaL_checknumber(L, 3);
+
+        if (Sketch::instance().getSoundCache()[key]) {
+            Sketch::instance().getSoundCache()[key]->setVolume(volume);
         } else {
             Logger::instance().log(Logger::Level::ERROR, {"Sound not found"});
         }
