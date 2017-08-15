@@ -5,7 +5,7 @@ function setup()
 end
 
 function render()
-    color(hsva(currentLine / height, 1, 1, 1))
+    color(hue(currentLine / height))
     line(0, currentLine, width, currentLine)
     line(0, currentLine - 1, width, currentLine - 1)
 
