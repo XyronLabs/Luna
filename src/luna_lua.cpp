@@ -290,6 +290,15 @@ int lunaL::editObject(lua_State *L) {
             Logger::instance().log(Logger::Level::ERROR, {"Sound not found"});
         }
 
+    } else if (property == "loop") {
+        bool loop = lua_toboolean(L, 3);
+
+        if (Sketch::instance().getSoundCache()[key]) {
+            Sketch::instance().getSoundCache()[key]->setLoop(loop);
+        } else {
+            Logger::instance().log(Logger::Level::ERROR, {"Sound not found"});
+        }
+
     } else {
         Logger::instance().log(Logger::Level::ERROR, {"Property not found"});
     }

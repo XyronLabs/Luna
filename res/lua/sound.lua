@@ -15,6 +15,8 @@ function sound:new(dat)
 
     setmetatable(obj, sound_mt)
     registerObject(obj.id, 'sound', obj.path)
+    if obj.volume then obj:setVolume(obj.volume) end
+    if obj.loop then obj:setLoop(obj.loop) end
     return obj
 end
 
@@ -33,4 +35,8 @@ end
 
 function sound:setVolume(volume)
     editObject(self.id, 'volume', volume)
+end
+
+function sound:setLoop(loop)
+    editObject(self.id, 'loop', loop)
 end
