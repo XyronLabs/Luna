@@ -19,7 +19,7 @@ Sketch::Sketch() {
     registerLunaFunction(text);
     registerLunaFunction(rect);
     registerLunaFunction(line);
-    registerLunaFunction(circ);
+    registerLunaFunction(ellipse);
     
     registerLunaFunction(registerObject);
     registerLunaFunction(editObject);
@@ -222,10 +222,14 @@ void Sketch::line(sf::Vector2f p1, sf::Vector2f p2) {
     window->draw(line, 2, sf::Lines);
 }
 
-void Sketch::circ(sf::Vector2f pos, float r) {
-    sf::CircleShape circle(r);
+void Sketch::ellipse(sf::Vector2f pos, float rx, float ry) {
+    sf::CircleShape circle(1);
     circle.setPosition(pos.x, pos.y);
     circle.setFillColor(current_color);
+    if (rx != ry)
+        circle.scale(rx, ry);
+    else
+        circle.setRadius(rx);
 
     window->draw(circle);
 }

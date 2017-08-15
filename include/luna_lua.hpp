@@ -27,7 +27,7 @@ namespace lunaL {
     int line(lua_State *L);
 
     /* Render a rectangle */
-    int circ(lua_State *L);
+    int ellipse(lua_State *L);
 
     /*
      * Methods for handling objects (RectangleShape, CircleShape, Text)

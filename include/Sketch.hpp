@@ -133,9 +133,9 @@ public:
 
     /*
         Draw a circle with center at point 'pos'
-        and radius 'r', called from
-        circ(x,y,r) Lua function
+        and the size 'rx' and 'ry', called from
+        ellipse(x,y,rx,ry) Lua function
     */
-    void circ(sf::Vector2f pos, float r);
+    void ellipse(sf::Vector2f pos, float rx, float ry);
 };
 

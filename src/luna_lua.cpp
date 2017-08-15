@@ -64,14 +64,15 @@ int lunaL::line(lua_State *L) {
     return 0;  
 }
 
-int lunaL::circ(lua_State *L) {
+int lunaL::ellipse(lua_State *L) {
     float x = luaL_checknumber(L, 1);
     float y = luaL_checknumber(L, 2);
-    float r = luaL_checknumber(L, 3);
+    float rx = luaL_checknumber(L, 3);
+    float ry = luaL_checknumber(L, 4);
 
     sf::Vector2f pos(x, y);
 
-    Sketch::instance().circ(pos, r);
+    Sketch::instance().ellipse(pos, rx, ry);
     return 0;
 }
 
