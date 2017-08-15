@@ -1,7 +1,7 @@
 package.path = package.path .. ";./res/lua/?.lua;/usr/local/luna/res/lua/?.lua"
 
-require 'rectangle'
-require 'circle'
+require 'rectangleShape'
+require 'ellipseShape'
 require 'keys'
 require 'sound'
 require 'colors'

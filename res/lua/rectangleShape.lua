@@ -1,9 +1,9 @@
 --[[ Rectangle class ]]--
-rectangle = {}
-local rectangle_mt = { __index = rectangle }
+rectangleShape = {}
+local rectangleShape_mt = { __index = rectangleShape }
 
 --[[ Constructor ]]--
-function rectangle:new(dat)
+function rectangleShape:new(dat)
     local obj = {}
     obj.id = 'rectangle_' .. math.random()
     
@@ -17,7 +17,7 @@ function rectangle:new(dat)
     obj.height = obj.height or 0
     obj.color = obj.color or colors.white
 
-    setmetatable(obj, rectangle_mt)
+    setmetatable(obj, rectangleShape_mt)
     registerObject(obj.id, 'rectangle', obj.x, obj.y, obj.width, obj.height)
     editObject(obj.id, 'color', obj.color)
     if obj.texture then editObject(obj.id, 'texture', obj.texture) end
@@ -25,37 +25,37 @@ function rectangle:new(dat)
 end
 
 --[[ Render ]]--
-function rectangle:render()
+function rectangleShape:render()
     renderObject(self.id)
 end
 
 --[[ Setters ]]--
-function rectangle:setPos(x, y)
+function rectangleShape:setPos(x, y)
     self.x = x or self.x
     self.y = y or self.y
     editObject(self.id, 'position', self.x, self.y)
     return self
 end
 
-function rectangle:setSize(width, height)
+function rectangleShape:setSize(width, height)
     self.width = width or self.width
     self.height = height or self.height
     editObject(self.id, 'size', self.width, self.height)
     return self
 end
 
-function rectangle:setColor(color)
+function rectangleShape:setColor(color)
     self.color = color or self.color
     editObject(self.id, 'color', self.color)
     return self
 end
 
-function rectangle:setTexture(texturePath)
+function rectangleShape:setTexture(texturePath)
     editObject(self.id, 'texture', texturePath)
     return self
 end
 
-function rectangle:collide(other)
+function rectangleShape:collide(other)
     return self.x < other.x + other.width and
             self.x + self.width > other.x and
             self.y < other.y + other.height and
