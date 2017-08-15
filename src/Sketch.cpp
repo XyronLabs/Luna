@@ -223,13 +223,10 @@ void Sketch::line(sf::Vector2f p1, sf::Vector2f p2) {
 }
 
 void Sketch::ellipse(sf::Vector2f pos, float rx, float ry) {
-    sf::CircleShape circle(1);
-    circle.setPosition(pos.x, pos.y);
-    circle.setFillColor(current_color);
-    if (rx != ry)
-        circle.scale(rx, ry);
-    else
-        circle.setRadius(rx);
+    sf::CircleShape ellipse(1.f);
+    ellipse.setPosition(pos.x, pos.y);
+    ellipse.setFillColor(current_color);
+    ellipse.setScale(rx, ry);
 
-    window->draw(circle);
+    window->draw(ellipse);
 }

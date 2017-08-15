@@ -92,14 +92,16 @@ int lunaL::registerObject(lua_State *L) {
         shape->setPosition(x, y);
         Sketch::instance().getShapeCache()[key] = std::move(shape);
 
-    } else if (objectType == "circle") {
+    } else if (objectType == "ellipse") {
         std::unique_ptr<sf::Shape> shape;
         float x = luaL_checknumber(L, 3);
         float y = luaL_checknumber(L, 4);
-        float radius = luaL_checknumber(L, 5);
+        float rx = luaL_checknumber(L, 5);
+        float ry = luaL_checknumber(L, 6);
 
-        shape = std::make_unique<sf::CircleShape>(radius);
+        shape = std::make_unique<sf::CircleShape>(1.f);
         shape->setPosition(x, y);
+        shape->scale(rx, ry);
         Sketch::instance().getShapeCache()[key] = std::move(shape);
 
     } else if (objectType == "text") {
@@ -162,12 +164,13 @@ int lunaL::editObject(lua_State *L) {
             Logger::instance().log(Logger::Level::WARNING, {"Tried to edit radius of a non-rectangular shape"});
 
     } else if (property == "radius") {
-        float radius = luaL_checknumber(L, 3);
+        float xradius = luaL_checknumber(L, 3);
+        float yradius = luaL_checknumber(L, 4);
 
         // TODO: Fix raw pointer workaround
         sf::CircleShape *s = dynamic_cast<sf::CircleShape*>(&*Sketch::instance().getShapeCache()[key]);
         if (s)
-            s->setRadius(radius);
+            s->setScale(xradius, yradius);
         else
             Logger::instance().log(Logger::Level::WARNING, {"Tried to edit radius of a non-circular shape"});
 
