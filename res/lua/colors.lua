@@ -39,3 +39,11 @@ function hsva(h, s, v, a)
 
     return bit32.lshift(r, 24) + bit32.lshift(g, 16) + bit32.lshift(b, 8) + a
 end
+
+function hsv(h, s, v)
+    return hsva(h, s, v, 1)
+end
+
+function hue(h)
+    return hsva(h, 1, 1, 1)
+end
