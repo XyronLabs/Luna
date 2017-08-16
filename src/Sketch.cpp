@@ -53,12 +53,22 @@ bool Sketch::preload(const char* lua_main) {
 }
 
 bool Sketch::setup() {
-    // Call Lua setup function, exit if not found
-    lua_getglobal(L, "setup");
-    if (lua_pcall(L, 0, 0, 0)) {
-        Logger::instance().log(Logger::Level::FATAL, {"Setup function not found!"}, L);
+
+    if (!lua_getglobal(L, "setup")) {
+        Logger::instance().log(Logger::Level::FATAL, {"setup() function not found!"});
         return true;
     }
+    if (!lua_getglobal(L, "render")) {
+        Logger::instance().log(Logger::Level::FATAL, {"render() function not found!"});
+        return true;
+    }
+
+    lua_getglobal(L, "setup");
+    if (lua_pcall(L, 0, 0, 0)) {
+        Logger::instance().log(Logger::Level::FATAL, { "Error in setup() function" }, L);
+        return true;
+    }
+
 
     // Exit if 'size' is not called
     if (!window) {
@@ -70,12 +80,6 @@ bool Sketch::setup() {
 }
 
 void Sketch::loop() {
-    // Cleanup and exit if render function is not found
-    if (!lua_getglobal(L, "render")) {
-        Logger::instance().log(Logger::Level::FATAL, {"Render function not found!"});
-        return;
-    }
-
     // Main loop
     while (window->isOpen()) {
         // Check if window has to close
@@ -130,7 +134,13 @@ void Sketch::loop() {
 
         // Call Lua render function
         lua_getglobal(L, "render");
-        lua_pcall(L, 0, 0, 0);
+        if (lua_pcall(L, 0, 0, 0)) {
+            Logger::instance().log(Logger::Level::FATAL, { "Error in render() function" }, L);
+            window->close();
+            return;
+        }
+        
+        
 
         // Call Lua input function
         lua_getglobal(L, "input");
