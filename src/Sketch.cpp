@@ -43,12 +43,16 @@ bool Sketch::preload(const char* lua_main) {
     current_color = sf::Color::White;
 
     // Load lua/main.lua
-    luaL_loadfile(L, lua_main ? lua_main : "main.lua");
-    if (lua_pcall(L, 0, 0, 0)) {
-        Logger::instance().log(Logger::Level::FATAL, {"Main.lua was not found!"}, L);
+    if (!luaL_loadfile(L, lua_main ? lua_main : "main.lua")) {
+        if (lua_pcall(L, 0, 0, 0)) {
+            Logger::instance().log(Logger::Level::FATAL, { "Error in main.lua" }, L);
+            return true;
+        }
+    } else {
+        Logger::instance().log(Logger::Level::FATAL, { "Main.lua was not found!" }, L);
         return true;
     }
-
+    
     return false;
 }
 
