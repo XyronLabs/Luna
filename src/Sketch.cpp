@@ -139,12 +139,14 @@ void Sketch::loop() {
             window->close();
             return;
         }
-        
-        
 
-        // Call Lua input function
-        lua_getglobal(L, "input");
-        lua_pcall(L, 0, 0, 0);
+        // Call Lua input function if it exists
+        if (lua_getglobal(L, "input"))
+            if (lua_pcall(L, 0, 0, 0)) {
+                Logger::instance().log(Logger::Level::FATAL, { "Error in input() function" }, L);
+                window->close();
+                return;
+            }
 
         // Show the new frame
         window->display();
