@@ -174,10 +174,25 @@ void Sketch::cleanup() {
 void Sketch::createWindow(int width, int height, const char* title) {
     sf::ContextSettings s;
     s.antialiasingLevel = 8;
+    int mode = sf::Style::Default;
+
+    // Enable fullscreen mode
+    if (width == 0 && height == 0) {
+        width = sf::VideoMode::getDesktopMode().width;
+        height = sf::VideoMode::getDesktopMode().height;
+        mode = sf::Style::Fullscreen;
+    }
 
     // Only create window the first time size(w,h,t) is called
     if (!window)
-        window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title, sf::Style::Default, s);
+        window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title, mode, s);
+            
+    // Set global width and height
+    lua_pushinteger(L, width);
+    lua_setglobal(L, "width");
+    lua_pushinteger(L, height);
+    lua_setglobal(L, "height");
+
     window->setFramerateLimit(60);
 }
 

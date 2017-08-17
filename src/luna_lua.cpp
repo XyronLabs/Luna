@@ -8,12 +8,6 @@ int lunaL::size(lua_State *L) {
     int h = luaL_checkinteger(L, 2);
     const char* t = luaL_checkstring(L, 3);
 
-    // Set global width and height
-    lua_pushinteger(L, w);
-    lua_setglobal(L, "width");
-    lua_pushinteger(L, h);
-    lua_setglobal(L, "height");
-
     Sketch::instance().createWindow(w, h, t);
     return 0;
 }
