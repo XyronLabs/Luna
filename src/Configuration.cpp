@@ -35,8 +35,7 @@ bool Configuration::exists(std::string key) {
 }
 
 void Configuration::print() {
-    for (const auto& pair : configData)
-        std::cout << pair.first << " = " << pair.second << std::endl;
+    std::cout << *this;
 }
 
 std::ostream& operator<<(std::ostream& os, const Configuration& conf) {
