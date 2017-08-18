@@ -174,7 +174,7 @@ void Sketch::cleanup() {
 
 void Sketch::createWindow(int width, int height, const char* title) {
     sf::ContextSettings s;
-    s.antialiasingLevel = 8;
+    s.antialiasingLevel = atoi(luna_conf::main.get("antialiasing_level").c_str());
     int mode = sf::Style::Default;
 
     // Enable fullscreen mode
