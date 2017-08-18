@@ -1,0 +1,26 @@
+# English #
+
+# Main
+luna_starting=Starting Luna
+luna_exiting=Exiting Luna
+
+# Sketch
+module_load_error=Error loading Luna modules
+main_lua_not_found=Main.lua was not found!
+main_lua_error=Error in main.lua
+setup_function_not_found=setup() function not found!
+setup_function_error=Error in setup() function
+render_function_not_found=render() function not found!
+render_function_error=Error in render() function
+input_function_error=Error in input() function
+window_not_created=Window was not created, use size(width, height, title)
+
+# Luna Lua functions
+error_sound_cant_load=Could't load sound
+error_sound_already_registered=A sound with the same id is already registered
+error_object_type=Object type error: id=
+error_object_type_2= type=
+error_size_non_rectangular=Tried to edit size of a non-rectangular shape
+error_radius_non_circular=Tried to edit radius of a non-circular shape
+error_sound_not_found=Sound not found
+error_property_not_found=Property not found
