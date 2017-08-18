@@ -71,6 +71,11 @@ void Configuration::save(std::string key) {
     file.close();
 }
 
+void Configuration::saveAll() {
+    for (auto& pair : configData)
+        save(pair.first);
+}
+
 std::ostream& operator<<(std::ostream& os, const Configuration& conf) {
     for (const auto& pair : conf.configData)
         os << pair.first << " = " << pair.second << std::endl;

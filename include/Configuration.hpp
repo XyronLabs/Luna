@@ -15,6 +15,7 @@ public:
     bool exists(std::string key);
     void print();
     void save(std::string key);
+    void saveAll();
 
     friend std::ostream& operator<<(std::ostream& os, const Configuration& conf);
 };
