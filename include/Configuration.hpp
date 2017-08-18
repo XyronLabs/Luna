@@ -4,6 +4,7 @@
 #include <string>
 
 class Configuration {
+    std::string filePath;
     std::map<std::string, std::string> configData;
 
 public:
@@ -13,6 +14,7 @@ public:
     void set(std::string key, std::string value);
     bool exists(std::string key);
     void print();
+    void save(std::string key);
 
     friend std::ostream& operator<<(std::ostream& os, const Configuration& conf);
 };
