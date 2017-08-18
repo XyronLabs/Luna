@@ -1,0 +1,26 @@
+# Español #
+
+# Main
+luna_starting=Iniciando Luna
+luna_exiting=Cerrando Luna
+
+# Sketch
+module_load_error=Error cargando modulos de Luna
+main_lua_not_found=Main.lua no encontrado!
+main_lua_eror=Error en main.lua
+setup_function_not_found=Funcion setup() no encontrada!
+setup_function_error=Error en la funcion setup()
+render_function_not_found=Funcion render() no encontrada!
+render_function_error=Error en la funcion render()
+input_function_error=Error en la funcion input()
+window_not_created=La ventana no ha sido creada, usa size(anchura, altura, titulo)
+
+#Luna Lua functions
+error_sound_cant_load=No se pudo cargar el sonido
+error_sound_already_registered=Ya hay registrado un sonido con el mismo id
+error_object_type=Error de tipo de objeto: id=
+error_object_type_2= tipo=
+error_size_non_rectangular=Error al editar las dimensiones xy de una figura no rectangular
+error_radius_non_circular=Error al editar el radio de una figura no circular
+error_sound_not_found=Sonido no encontrado
+error_property_not_found=Propiedad no encontrada
