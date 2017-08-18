@@ -33,3 +33,14 @@ void Configuration::set(std::string key, std::string value) {
 bool Configuration::exists(std::string key) {
     return configData[key] != "";
 }
+
+void Configuration::print() {
+    for (const auto& pair : configData)
+        std::cout << pair.first << " = " << pair.second << std::endl;
+}
+
+std::ostream& operator<<(std::ostream& os, const Configuration& conf) {
+    for (const auto& pair : conf.configData)
+        os << pair.first << " = " << pair.second << std::endl;
+    return os;
+}

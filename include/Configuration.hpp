@@ -12,4 +12,7 @@ public:
     std::string get(std::string key);
     void set(std::string key, std::string value);
     bool exists(std::string key);
+    void print();
+
+    friend std::ostream& operator<<(std::ostream& os, const Configuration& conf);
 };
