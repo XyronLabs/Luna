@@ -13,9 +13,6 @@ int main(int argc, char **argv) {
         return EXIT_SUCCESS;
     }
 
-    std::cout << luna_conf::main << std::endl;
-    std::cout << luna_conf::lang << std::endl;
-
     Logger::instance().setLevel(Logger::Level::INFO);
     Logger::instance().log(Logger::Level::INFO, { luna_conf::lang.get("luna_starting") });
 
