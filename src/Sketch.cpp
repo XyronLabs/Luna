@@ -40,7 +40,7 @@ Sketch::Sketch() {
 
 bool Sketch::preload(const char* lua_main) {
     // Set default values to variables
-    default_font.loadFromFile(getLunaResource("font/Roboto-Regular.ttf"));
+    default_font.loadFromFile(getLunaResource( luna_conf::main.get("default_font") ));
     current_color = sf::Color::White;
 
     // Load lua/main.lua
