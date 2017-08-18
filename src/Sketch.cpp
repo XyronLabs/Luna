@@ -2,6 +2,7 @@
 #include "luna_lua.hpp"
 #include "Logger.hpp"
 #include "Defines.hpp"
+#include "LunaConf.hpp"
 
 Sketch& Sketch::instance() {
     static Sketch s_instance;
@@ -33,7 +34,7 @@ Sketch::Sketch() {
     /* Load Lua libraries */
     luaL_loadfile(L, getLunaResource("lua/modules.lua"));
     if (lua_pcall(L, 0, 0, 0)) {
-        Logger::instance().log(Logger::Level::FATAL, {"Error loading Lua modules"});
+        Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("module_load_error") });
     }
 }
 
@@ -45,11 +46,11 @@ bool Sketch::preload(const char* lua_main) {
     // Load lua/main.lua
     if (!luaL_loadfile(L, lua_main ? lua_main : "main.lua")) {
         if (lua_pcall(L, 0, 0, 0)) {
-            Logger::instance().log(Logger::Level::FATAL, { "Error in main.lua" }, L);
+            Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("main_lua_error") }, L);
             return true;
         }
     } else {
-        Logger::instance().log(Logger::Level::FATAL, { "Main.lua was not found!" }, L);
+        Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("main_lua_not_found") }, L);
         return true;
     }
     
@@ -59,24 +60,24 @@ bool Sketch::preload(const char* lua_main) {
 bool Sketch::setup() {
 
     if (!lua_getglobal(L, "setup")) {
-        Logger::instance().log(Logger::Level::FATAL, {"setup() function not found!"});
+        Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("setup_function_not_found") });
         return true;
     }
     if (!lua_getglobal(L, "render")) {
-        Logger::instance().log(Logger::Level::FATAL, {"render() function not found!"});
+        Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("render_function_not_found") });
         return true;
     }
 
     lua_getglobal(L, "setup");
     if (lua_pcall(L, 0, 0, 0)) {
-        Logger::instance().log(Logger::Level::FATAL, { "Error in setup() function" }, L);
+        Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("setup_function_error") }, L);
         return true;
     }
 
 
     // Exit if 'size' is not called
     if (!window) {
-        Logger::instance().log(Logger::Level::FATAL, {"Window was not created, use size(width, height, title)"});
+        Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("window_not_created") });
         return true;
     }
 
@@ -139,7 +140,7 @@ void Sketch::loop() {
         // Call Lua render function
         lua_getglobal(L, "render");
         if (lua_pcall(L, 0, 0, 0)) {
-            Logger::instance().log(Logger::Level::FATAL, { "Error in render() function" }, L);
+            Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("render_function_error") }, L);
             window->close();
             return;
         }
@@ -147,7 +148,7 @@ void Sketch::loop() {
         // Call Lua input function if it exists
         if (lua_getglobal(L, "input"))
             if (lua_pcall(L, 0, 0, 0)) {
-                Logger::instance().log(Logger::Level::FATAL, { "Error in input() function" }, L);
+                Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("input_function_error") }, L);
                 window->close();
                 return;
             }

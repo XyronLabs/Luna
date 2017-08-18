@@ -1,5 +1,6 @@
 #include "luna_lua.hpp"
 #include "Logger.hpp"
+#include "LunaConf.hpp"
 
 /***************************** Common functions ******************************/
 
@@ -162,7 +163,7 @@ int lunaL::registerObject(lua_State *L) {
         if (!Sketch::instance().getSoundCache()[key]) {
             sf::SoundBuffer *bf = new sf::SoundBuffer;
             if (!bf->loadFromFile(soundPath)) {
-                Logger::instance().log(Logger::Level::ERROR, {"Couldn't load sound"});
+                Logger::instance().log(Logger::Level::ERROR, { luna_conf::lang.get("error_sound_cant_load") });
                 return 0;
             }
     
@@ -170,11 +171,11 @@ int lunaL::registerObject(lua_State *L) {
             Sketch::instance().getSoundCache()[key] = std::move(s);
             Logger::instance().log(Logger::Level::DEBUG, {"Loading new sound"});
         } else {
-            Logger::instance().log(Logger::Level::ERROR, {"A sound with the same id is already registered"});
+            Logger::instance().log(Logger::Level::ERROR, { luna_conf::lang.get("error_sound_already_registered") });
         }
 
     } else {
-        Logger::instance().log(Logger::Level::ERROR, {"Object type error: id=", key, " type=", objectType});
+        Logger::instance().log(Logger::Level::ERROR, { luna_conf::lang.get("error_object_type"), key, luna_conf::lang.get("error_object_type_2"), objectType});
     }
 
     return 0;
@@ -202,7 +203,7 @@ int lunaL::editObject(lua_State *L) {
         if (s)
             s->setSize(sf::Vector2f(width, height));
         else
-            Logger::instance().log(Logger::Level::WARNING, {"Tried to edit radius of a non-rectangular shape"});
+            Logger::instance().log(Logger::Level::WARNING, { luna_conf::lang.get("error_size_non_rectangular") });
 
     } else if (property == "radius") {
         float xradius = luaL_checknumber(L, 3);
@@ -213,7 +214,7 @@ int lunaL::editObject(lua_State *L) {
         if (s)
             s->setScale(xradius, yradius);
         else
-            Logger::instance().log(Logger::Level::WARNING, {"Tried to edit radius of a non-circular shape"});
+            Logger::instance().log(Logger::Level::WARNING, { luna_conf::lang.get("error_radius_non_circular") });
 
     } else if (property == "color") {
         int color = luaL_checkinteger(L, 3);
@@ -254,7 +255,7 @@ int lunaL::editObject(lua_State *L) {
         if (Sketch::instance().getSoundCache()[key]) {
             Sketch::instance().getSoundCache()[key]->play();
         } else {
-            Logger::instance().log(Logger::Level::ERROR, {"Sound not found"});
+            Logger::instance().log(Logger::Level::ERROR, { luna_conf::lang.get("error_sound_not_found") });
         }
 
     } else if (property == "pause") {
@@ -263,7 +264,7 @@ int lunaL::editObject(lua_State *L) {
         if (Sketch::instance().getSoundCache()[key]) {
             Sketch::instance().getSoundCache()[key]->pause();
         } else {
-            Logger::instance().log(Logger::Level::ERROR, {"Sound not found"});
+            Logger::instance().log(Logger::Level::ERROR, { luna_conf::lang.get("error_sound_not_found") });
         }
 
     } else if (property == "stop") {
@@ -272,7 +273,7 @@ int lunaL::editObject(lua_State *L) {
         if (Sketch::instance().getSoundCache()[key]) {
             Sketch::instance().getSoundCache()[key]->stop();
         } else {
-            Logger::instance().log(Logger::Level::ERROR, {"Sound not found"});
+            Logger::instance().log(Logger::Level::ERROR, { luna_conf::lang.get("error_sound_not_found") });
         }
 
     } else if (property == "volume") {
@@ -281,7 +282,7 @@ int lunaL::editObject(lua_State *L) {
         if (Sketch::instance().getSoundCache()[key]) {
             Sketch::instance().getSoundCache()[key]->setVolume(volume);
         } else {
-            Logger::instance().log(Logger::Level::ERROR, {"Sound not found"});
+            Logger::instance().log(Logger::Level::ERROR, { luna_conf::lang.get("error_sound_not_found") });
         }
 
     } else if (property == "loop") {
@@ -290,11 +291,11 @@ int lunaL::editObject(lua_State *L) {
         if (Sketch::instance().getSoundCache()[key]) {
             Sketch::instance().getSoundCache()[key]->setLoop(loop);
         } else {
-            Logger::instance().log(Logger::Level::ERROR, {"Sound not found"});
+            Logger::instance().log(Logger::Level::ERROR, { luna_conf::lang.get("error_sound_not_found") });
         }
 
     } else {
-        Logger::instance().log(Logger::Level::ERROR, {"Property not found"});
+        Logger::instance().log(Logger::Level::ERROR, { luna_conf::lang.get("error_property_not_found") });
     }
 
     return 0;
