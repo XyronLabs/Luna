@@ -10,5 +10,6 @@ public:
     Configuration(std::string configFilePath);
     
     std::string get(std::string key);
-    bool set(std::string key, std::string value);
+    void set(std::string key, std::string value);
+    bool exists(std::string key);
 };

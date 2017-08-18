@@ -19,3 +19,15 @@ Configuration::Configuration(std::string configFilePath) {
 
     file.close();
 }
+
+std::string Configuration::get(std::string key) {
+    return configData[key];
+}
+
+void Configuration::set(std::string key, std::string value) {
+    configData[key] = value;
+}
+
+bool Configuration::exists(std::string key) {
+    return configData[key] != "";
+}
