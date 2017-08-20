@@ -70,12 +70,16 @@ int lunaL::rect(lua_State *L) {
     float y1 = luaL_checknumber(L, 2);
     float x2 = luaL_checknumber(L, 3);
     float y2 = luaL_checknumber(L, 4);
+    sf::Color& currColor = Sketch::instance().getCurrentColor();
 
-    sf::RectangleShape box(sf::Vector2f(x2, y2));
-    box.setPosition(x1, y1);
-    box.setFillColor(Sketch::instance().getCurrentColor());
+    sf::Vertex v[] = {
+        sf::Vertex(sf::Vector2f(x1     , y1     ), currColor),
+        sf::Vertex(sf::Vector2f(x1     , y1 + y2), currColor),
+        sf::Vertex(sf::Vector2f(x1 + x2, y1 + y2), currColor),
+        sf::Vertex(sf::Vector2f(x1 + x2, y1     ), currColor)
+    };
 
-    Sketch::instance().getWindow().draw(box);
+    Sketch::instance().getWindow().draw(v, 4, sf::Quads);
     return 0;
 }
 
