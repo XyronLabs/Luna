@@ -1,10 +1,11 @@
-package.path = package.path .. ";./res/lua/?.lua;/usr/local/luna/res/lua/?.lua;./res/lua/extensions/?/init.lua;"
+package.path = package.path .. ";./res/lua/luna/?.lua;./res/lua/extensions/?/init.lua;"
+                            .. "/usr/local/luna/res/lua/luna/?.lua;/usr/local/luna/res/lua/extensions/?/init.lua;"
 
-require 'rectangleShape'
-require 'ellipseShape'
-require 'keys'
-require 'sound'
-require 'colors'
-require 'textbox'
-require 'mouse'
-require 'log'
+require 'core.rectangleShape'
+require 'core.ellipseShape'
+require 'core.keys'
+require 'core.sound'
+require 'core.colors'
+require 'core.textbox'
+require 'core.mouse'
+require 'core.log'
