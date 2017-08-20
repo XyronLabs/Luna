@@ -1,4 +1,4 @@
-package.path = package.path .. ";./res/lua/?.lua;/usr/local/luna/res/lua/?.lua"
+package.path = package.path .. ";./res/lua/?.lua;/usr/local/luna/res/lua/?.lua;./res/lua/extensions/?/init.lua;"
 
 require 'rectangleShape'
 require 'ellipseShape'
