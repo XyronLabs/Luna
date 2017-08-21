@@ -66,20 +66,19 @@ int lunaL::text(lua_State *L) {
 }
 
 int lunaL::rect(lua_State *L) {
-    float x1 = luaL_checknumber(L, 1);
-    float y1 = luaL_checknumber(L, 2);
-    float x2 = luaL_checknumber(L, 3);
-    float y2 = luaL_checknumber(L, 4);
+    float coords[4];
+    for (int i = 0; i < 4; ++i)
+        coords[i] = luaL_checknumber(L, i + 1);
+    
     sf::Color& currColor = Sketch::instance().getCurrentColor();
+    sf::VertexArray v(sf::Quads, 4);
+    v[0] = sf::Vertex(sf::Vector2f(coords[0]            , coords[1]            ), currColor);
+    v[1] = sf::Vertex(sf::Vector2f(coords[0]            , coords[1] + coords[3]), currColor);
+    v[2] = sf::Vertex(sf::Vector2f(coords[0] + coords[2], coords[1] + coords[3]), currColor);
+    v[3] = sf::Vertex(sf::Vector2f(coords[0] + coords[2], coords[1]            ), currColor);
+    
 
-    sf::Vertex v[] = {
-        sf::Vertex(sf::Vector2f(x1     , y1     ), currColor),
-        sf::Vertex(sf::Vector2f(x1     , y1 + y2), currColor),
-        sf::Vertex(sf::Vector2f(x1 + x2, y1 + y2), currColor),
-        sf::Vertex(sf::Vector2f(x1 + x2, y1     ), currColor)
-    };
-
-    Sketch::instance().getWindow().draw(v, 4, sf::Quads);
+    Sketch::instance().getWindow().draw(v);
     return 0;
 }
 
