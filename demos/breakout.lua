@@ -1,9 +1,12 @@
+require 'configuration'
+
 local bricks = {}
 local ball
 local player
 local frames = 0
 
 local popSound
+local highScoreBox, highscoreConf
 
 function newBrick(x, y)
 	return rectangleShape:new{ x = x, y = y, width = 40, height = 20, texture = "test/textures/brick.png" }
@@ -22,6 +25,8 @@ function setup()
 	player = rectangleShape:new{ x = width / 2 - 100, y = height - 30, width = 200, height = 20, texture = "test/textures/player.png" }
 
 	popSound = sound:new{ path = "test/pop.wav" }
+	highscoreConf = configuration:new("test/highscore.txt")
+	highScoreBox = textbox:new{ x = 10, y = 40, size = 32, text = "Highscore: " .. highscoreConf:get("highscore") }
 end
 
 function render()
@@ -68,6 +73,7 @@ function render()
 	ball:render()
 	player:render()
 	text("Points: " .. 105 - #bricks, 32, 10, 10, colors.white)
+	highScoreBox:render()
 
 	frames = frames + 0.001
 	
@@ -78,4 +84,12 @@ function input()
 	if keys['Right'] then player:setPos(player.x + 10) end
 	
 	if mousekeys['Left'] then player:setPos(mouseX - player.width / 2, mouseY - player.height / 2) end
+
+	if keys['Escape'] then
+		if 105 - #bricks > tonumber(highscoreConf:get('highscore')) then
+			highscoreConf:set('highscore', 105 - #bricks)
+			highscoreConf:saveAll()
+		end
+		exit()
+	end
 end
