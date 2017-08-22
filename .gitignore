@@ -2,5 +2,4 @@ bin/
 obj/
 out/
 .vscode/
-winclude/
-wlib/
+external/
