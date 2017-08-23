@@ -1,5 +1,3 @@
-![](https://raw.githubusercontent.com/XyronLabs/xyronlabs.github.io/master/img/Luna/Logo.png)
-
 # What is Luna?
 * Luna is a simple game engine programmed in C++ and Lua which lets you create sketches and games in Lua
 
@@ -11,3 +9,5 @@
 
 # Tutorials
 * Check out the wiki [here](https://github.com/XyronLabs/Luna/wiki)
+
+![](https://raw.githubusercontent.com/XyronLabs/xyronlabs.github.io/master/img/Luna/Logo.png)
