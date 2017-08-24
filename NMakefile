@@ -3,3 +3,12 @@ win:
 	cl src/*.cpp external/libraries/* build/windows/resource.res /Febin\Luna.exe /I include /I external/include /std:c++latest /EHsc /W2 /D LUNA_DEBUG /MP
 	del *.obj
 	del build\windows\resource.res
+
+out: clean win
+	md out\res
+	xcopy /e /y bin out
+	xcopy /e /y res out\res\*
+
+clean:
+	if exist bin\Luna.exe del bin\Luna.exe
+	if exist out rd /s /q out
