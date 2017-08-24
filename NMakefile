@@ -1,4 +1,5 @@
 win:
-	rc resource.rc
-	cl src/*.cpp external/libraries/* resource.res /Febin\Luna.exe /I include /I external/include /std:c++latest /EHsc /W2 /D LUNA_DEBUG /MP
+	rc build/windows/resource.rc
+	cl src/*.cpp external/libraries/* build/windows/resource.res /Febin\Luna.exe /I include /I external/include /std:c++latest /EHsc /W2 /D LUNA_DEBUG /MP
 	del *.obj
+	del build\windows\resource.res
