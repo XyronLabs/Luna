@@ -195,7 +195,7 @@ void Sketch::createWindow(int width, int height, const char* title) {
     lua_setglobal(L, "height");
 
     sf::Image icon;
-    icon.loadFromFile("res/logo_small.png");
+    icon.loadFromFile(getLunaResource("logo_small.png"));
     window->setIcon(256, 256, icon.getPixelsPtr());
     window->setFramerateLimit(60);
 }
