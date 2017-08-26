@@ -7,11 +7,15 @@ function textbox:new(dat)
     local obj = {}
     obj.id = 'text_' .. math.random()
     
-    obj.x = dat.x or 0
-    obj.y = dat.y or 0
-    obj.text = dat.text or ""
-    obj.size = dat.size or 12
-    obj.color = dat.color or colors.white
+    for k, v in pairs(dat) do
+        obj[k] = v
+    end
+
+    obj.x = obj.x or 0
+    obj.y = obj.y or 0
+    obj.text = obj.text or ""
+    obj.size = obj.size or 12
+    obj.color = obj.color or colors.white
 
     setmetatable(obj, textbox_mt)
     registerObject(obj.id, 'text', obj.x, obj.y, obj.text, obj.size)
