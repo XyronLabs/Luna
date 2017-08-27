@@ -1,0 +1,29 @@
+local sadFace = textbox:new{ x = 75, y = 40, text = ":(", size = 200, color = colors.white, dirx = 1, diry = -1 }
+
+local msg = [[
+    No app loaded
+
+    Load an app using: luna app_name.lua
+
+
+    Luna ]] .. luna.version
+
+function setup()
+    size(1024, 600, "Luna " .. luna.version)
+end
+
+function render()
+    clear()
+
+    sadFace:setPos(sadFace.x + sadFace.dirx, sadFace.y + sadFace.diry)
+    if sadFace.x + 150 > width or sadFace.x < 0 then sadFace.dirx = sadFace.dirx * -1 end
+    if sadFace.y + 300 > height or sadFace.y < 0 then sadFace.diry = sadFace.diry * -1 end
+
+    color(0x0078D7FF)
+    rect(0, 0, width, height)
+
+    sadFace:render()
+
+    color(colors.white)
+    text(msg, 32, 100, 350)
+end
