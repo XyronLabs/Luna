@@ -2,6 +2,11 @@ package.path = package.path .. ";./res/lua/luna/?.lua;./res/lua/extensions/?/ini
                             .. "/usr/local/luna/res/lua/luna/?.lua;/usr/local/luna/res/lua/extensions/?/init.lua;"
                             .. "C:/Program Files (x86)/XyronLabs/Luna/res/lua/luna/?.lua;C:/Program Files (x86)/XyronLabs/Luna/res/lua/extensions/?/init.lua"
 
+--[[ Load luna variables ]]--
+luna = {}
+luna.version = "0.6.1"
+
+--[[ Load core modules ]]--
 require 'core.rectangleShape'
 require 'core.ellipseShape'
 require 'core.keys'
