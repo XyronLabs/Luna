@@ -51,7 +51,7 @@ bool Sketch::preload(const char* lua_main) {
         }
     } else {
         Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("main_lua_not_found") }, L);
-        if (!luaL_loadfile(L, getLunaResource("lua/noapp.lua"))) {
+        if (!luaL_loadfile(L, getLunaResource("lua/noapp.luna"))) {
             lua_pcall(L, 0, 0, 0);
         } else {
             Logger::instance().log(Logger::Level::DEBUG, { "Luna resource noapp.lua not found!" });
