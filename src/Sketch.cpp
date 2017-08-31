@@ -44,7 +44,7 @@ bool Sketch::preload(const char* lua_main) {
     current_color = sf::Color::White;
 
     // Load lua/main.lua
-    if (!luaL_loadfile(L, lua_main ? lua_main : "main.lua")) {
+    if (!luaL_loadfile(L, lua_main ? lua_main : "main.luna")) {
         if (lua_pcall(L, 0, 0, 0)) {
             Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("main_lua_error") }, L);
             return true;
@@ -54,7 +54,9 @@ bool Sketch::preload(const char* lua_main) {
         if (!luaL_loadfile(L, getLunaResource("lua/noapp.luna"))) {
             lua_pcall(L, 0, 0, 0);
         } else {
+#ifdef LUNA_DEBUG
             Logger::instance().log(Logger::Level::DEBUG, { "Luna resource noapp.lua not found!" });
+#endif
             return true;
         }
     }
@@ -167,12 +169,16 @@ void Sketch::cleanup() {
     lua_close(L);
     
     for (auto& t : textureCache) {
+#ifdef LUNA_DEBUG
         Logger::instance().log(Logger::Level::DEBUG, {"Deleting texture"});
+#endif
         delete t.second;
     }
 
     for (auto& t : soundCache) {
+#ifdef LUNA_DEBUG
         Logger::instance().log(Logger::Level::DEBUG, {"Deleting sound"});
+#endif
         delete t.second->getBuffer();
     }
 }
