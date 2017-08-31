@@ -38,6 +38,7 @@ class Sketch {
     std::map<std::string, sf::Texture*> textureCache;
     std::map<std::string, std::unique_ptr<sf::Sound>> soundCache;
     std::map<std::string, std::unique_ptr<sf::Text>> textCache;
+    sf::VertexArray tmpVertex;
 
     /*
         Private constructor for singleton
@@ -94,6 +95,8 @@ public:
     std::map<std::string, sf::Texture*>& getTextureCache();
     std::map<std::string, std::unique_ptr<sf::Sound>>& getSoundCache();
     std::map<std::string, std::unique_ptr<sf::Text>>& getTextCache();
+
+    sf::VertexArray& getTmpVertex();
 
     sf::RenderWindow& getWindow();
     sf::Font& getDefaultFont();

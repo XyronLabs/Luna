@@ -31,6 +31,10 @@ Sketch::Sketch() {
     registerLunaFunction(frameRate);
     registerLunaFunction(exit);
 
+    registerLunaFunction(beginShape);
+    registerLunaFunction(addVertex);
+    registerLunaFunction(endShape);
+
     /* Load Lua libraries */
     luaL_loadfile(L, getLunaResource("lua/modules.lua"));
     if (lua_pcall(L, 0, 0, 0)) {
@@ -228,6 +232,10 @@ std::map<std::string, std::unique_ptr<sf::Sound>>& Sketch::getSoundCache() {
 
 std::map<std::string, std::unique_ptr<sf::Text>>& Sketch::getTextCache() {
     return textCache;
+}
+
+sf::VertexArray& Sketch::getTmpVertex() {
+    return tmpVertex;
 }
 
 sf::RenderWindow& Sketch::getWindow() {
