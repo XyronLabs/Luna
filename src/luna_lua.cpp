@@ -327,3 +327,24 @@ int lunaL::removeObject(lua_State *L) {
 
     return 0;
 }
+
+int lunaL::beginShape(lua_State *L) {
+    Sketch::instance().getTmpVertex().clear();
+
+    return 0;
+}
+
+int lunaL::addVertex(lua_State *L) {
+    float x = luaL_checknumber(L, 1);
+    float y = luaL_checknumber(L, 2);
+
+    Sketch::instance().getTmpVertex().append(sf::Vertex(sf::Vector2f(x, y)));
+    
+    return 0;
+}
+
+int lunaL::endShape(lua_State *L) {
+    Sketch::instance().getWindow().draw(&Sketch::instance().getTmpVertex()[0], Sketch::instance().getTmpVertex().getVertexCount(), sf::Triangles);
+
+    return 0;
+}
