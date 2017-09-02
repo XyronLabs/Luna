@@ -24,3 +24,4 @@ error_size_non_rectangular=Tried to edit size of a non-rectangular shape
 error_radius_non_circular=Tried to edit radius of a non-circular shape
 error_sound_not_found=Sound not found
 error_property_not_found=Property not found
+error_not_custom_shape=Not a custom shape

@@ -68,9 +68,4 @@ namespace lunaL {
     int editObject(lua_State *L);
     int renderObject(lua_State *L);
     int removeObject(lua_State *L);
-
-    int beginShape(lua_State *L);
-    int addVertex(lua_State *L);
-    int endShape(lua_State *L);
-
 };

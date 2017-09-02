@@ -24,3 +24,4 @@ error_size_non_rectangular=Error al editar las dimensiones xy de una figura no r
 error_radius_non_circular=Error al editar el radio de una figura no circular
 error_sound_not_found=Sonido no encontrado
 error_property_not_found=Propiedad no encontrada
+error_not_custom_shape=Forma no personalizada

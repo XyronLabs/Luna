@@ -318,7 +318,7 @@ int lunaL::editObject(lua_State *L) {
         if (s)
             s->setPoint(index, sf::Vector2f(x, y));
         else
-            Logger::instance().log(Logger::Level::WARNING, { "Not a custom shape" });
+            Logger::instance().log(Logger::Level::WARNING, { luna_conf::lang.get("error_not_custom_shape") });
 
     } else {
         Logger::instance().log(Logger::Level::ERROR, { luna_conf::lang.get("error_property_not_found") });
@@ -348,20 +348,5 @@ int lunaL::removeObject(lua_State *L) {
     if (Sketch::instance().getSoundCache()[key])
         Sketch::instance().getSoundCache().erase(key);
 
-    return 0;
-}
-
-// Not needed either lol
-int lunaL::beginShape(lua_State *L) {
-    return 0;
-}
-
-// Not even this is needed
-int lunaL::addVertex(lua_State *L) {
-    return 0;
-}
-
-// Probably unnecesary
-int lunaL::endShape(lua_State *L) {
     return 0;
 }
