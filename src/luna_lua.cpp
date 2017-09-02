@@ -249,6 +249,14 @@ int lunaL::editObject(lua_State *L) {
         }
         Sketch::instance().getShapeCache()[key]->setTexture(tc[filePath]);
 
+    } else if (property == "rotation") {
+        float angle = luaL_checknumber(L, 3);
+
+        if (Sketch::instance().getShapeCache()[key])
+            Sketch::instance().getShapeCache()[key]->setRotation(angle);
+        else if (Sketch::instance().getTextCache()[key])
+            Sketch::instance().getTextCache()[key]->setRotation(angle);
+
 
 /****************************** Text properties *******************************/
     } else if (property == "text") {
