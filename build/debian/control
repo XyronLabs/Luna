@@ -3,7 +3,7 @@ Version: 0.7-12
 Section: base
 Priority: optional
 Architecture: all
-Depends: liblua5.3-dev , libsfml-dev
+Depends: liblua5.3-dev
 Maintainer: Alejandro Charte Luque <acharluk@gmail.com>
 Provides: luna
 Replaces: luna
