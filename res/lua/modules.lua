@@ -10,6 +10,7 @@ luna = setmetatable({}, { __index = luna, __newindex = function() error("luna ta
 --[[ Load core modules ]]--
 require 'core.rectangleShape'
 require 'core.ellipseShape'
+require 'core.customShape'
 require 'core.keys'
 require 'core.sound'
 require 'core.colors'
