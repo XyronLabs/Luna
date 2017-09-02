@@ -180,10 +180,10 @@ int lunaL::registerObject(lua_State *L) {
     } else if (objectType == "custom") {
         std::unique_ptr<sf::Shape> shape;
         int points = luaL_checkinteger(L, 3);
-    
-        shape = std::make_unique<sf::ConvexShape>();
-        sf::ConvexShape *s = dynamic_cast<sf::ConvexShape*>(&*shape);
-        s->setPointCount(points);
+        
+        sf::ConvexShape s;
+        s.setPointCount(points);
+        shape = std::make_unique<sf::ConvexShape>(s);
     
         Sketch::instance().getShapeCache()[key] = std::move(shape);
 
@@ -307,6 +307,19 @@ int lunaL::editObject(lua_State *L) {
             Logger::instance().log(Logger::Level::ERROR, { luna_conf::lang.get("error_sound_not_found") });
         }
 
+/************************** Custom shape properties ***************************/
+    } else if (property == "vertex") {
+        int index = luaL_checkinteger(L, 3);
+        float x = luaL_checknumber(L, 4);
+        float y = luaL_checknumber(L, 5);
+    
+        sf::ConvexShape *s = dynamic_cast<sf::ConvexShape*>(&*Sketch::instance().getShapeCache()[key]);
+        
+        if (s)
+            s->setPoint(index, sf::Vector2f(x, y));
+        else
+            Logger::instance().log(Logger::Level::WARNING, { "Not a custom shape" });
+
     } else {
         Logger::instance().log(Logger::Level::ERROR, { luna_conf::lang.get("error_property_not_found") });
     }
@@ -343,25 +356,12 @@ int lunaL::beginShape(lua_State *L) {
     return 0;
 }
 
+// Not even this is needed
 int lunaL::addVertex(lua_State *L) {
-    std::string key = luaL_checkstring(L,1);
-    int index = luaL_checkinteger(L, 2);
-    float x = luaL_checknumber(L, 3);
-    float y = luaL_checknumber(L, 4);
-
-    sf::ConvexShape *s = dynamic_cast<sf::ConvexShape*>(&*Sketch::instance().getShapeCache()[key]);
-    
-    if (s)
-        s->setPoint(index, sf::Vector2f(x, y));
-    else
-        Logger::instance().log(Logger::Level::WARNING, { "Not a custom shape" });
-    
     return 0;
 }
 
 // Probably unnecesary
 int lunaL::endShape(lua_State *L) {
-    std::string key = luaL_checkstring(L,1);
-
     return 0;
 }
