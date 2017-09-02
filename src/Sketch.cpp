@@ -31,10 +31,6 @@ Sketch::Sketch() {
     registerLunaFunction(frameRate);
     registerLunaFunction(exit);
 
-    registerLunaFunction(beginShape);
-    registerLunaFunction(addVertex);
-    registerLunaFunction(endShape);
-
     /* Load Lua libraries */
     luaL_loadfile(L, getLunaResource("lua/modules.lua"));
     if (lua_pcall(L, 0, 0, 0)) {
