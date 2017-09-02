@@ -234,10 +234,6 @@ std::map<std::string, std::unique_ptr<sf::Text>>& Sketch::getTextCache() {
     return textCache;
 }
 
-sf::VertexArray& Sketch::getTmpVertex() {
-    return tmpVertex;
-}
-
 sf::RenderWindow& Sketch::getWindow() {
     return *window;
 }
