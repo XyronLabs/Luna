@@ -38,6 +38,16 @@ function ellipseShape:setPos(x, y)
     return self
 end
 
+function ellipseShape:setOrigin(x, y)
+    editObject(self.id, 'origin', x, y)
+    return self
+end
+
+function ellipseShape:setRotation(angle)
+    editObject(self.id, 'rotation', angle)
+    return self
+end
+
 function ellipseShape:setRadius(xradius, yradius)
     self.xradius = xradius or self.xradius
     self.yradius = yradius or xradius or self.yradius

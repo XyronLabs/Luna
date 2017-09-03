@@ -30,6 +30,16 @@ function customShape:render()
 end
 
 --[[ Setters ]]--
+function customShape:setOrigin(x, y)
+    editObject(self.id, 'origin', x, y)
+    return self
+end
+
+function customShape:setRotation(angle)
+    editObject(self.id, 'rotation', angle)
+    return self
+end
+
 function customShape:setColor(color)
     self.color = color or self.color
     editObject(self.id, 'color', self.color)

@@ -37,6 +37,16 @@ function rectangleShape:setPos(x, y)
     return self
 end
 
+function rectangleShape:setOrigin(x, y)
+    editObject(self.id, 'origin', x, y)
+    return self
+end
+
+function rectangleShape:setRotation(angle)
+    editObject(self.id, 'rotation', angle)
+    return self
+end
+
 function rectangleShape:setSize(width, height)
     self.width = width or self.width
     self.height = height or self.height
