@@ -198,6 +198,7 @@ int lunaL::editObject(lua_State *L) {
     std::string key = luaL_checkstring(L, 1);
     std::string property = luaL_checkstring(L, 2);
 
+/***************************** Common properties ******************************/
     if (property == "position") {
         float x = luaL_checknumber(L, 3);
         float y = luaL_checknumber(L, 4);
@@ -207,27 +208,22 @@ int lunaL::editObject(lua_State *L) {
         else if (Sketch::instance().getTextCache()[key])
             Sketch::instance().getTextCache()[key]->setPosition(x, y);
 
-    } else if (property == "size") {
-        float width = luaL_checknumber(L, 3);
-        float height = luaL_checknumber(L, 4);
+    } else if (property == "origin") {
+        float x = luaL_checknumber(L, 3);
+        float y = luaL_checknumber(L, 4);
 
-        // TODO: Fix raw pointer workaround
-        sf::RectangleShape *s = dynamic_cast<sf::RectangleShape*>(&*Sketch::instance().getShapeCache()[key]);
-        if (s)
-            s->setSize(sf::Vector2f(width, height));
-        else
-            Logger::instance().log(Logger::Level::WARNING, { luna_conf::lang.get("error_size_non_rectangular") });
+        if (Sketch::instance().getShapeCache()[key])
+            Sketch::instance().getShapeCache()[key]->setOrigin(x, y);
+        else if (Sketch::instance().getTextCache()[key])
+            Sketch::instance().getTextCache()[key]->setOrigin(x, y);
 
-    } else if (property == "radius") {
-        float xradius = luaL_checknumber(L, 3);
-        float yradius = luaL_checknumber(L, 4);
+    } else if (property == "rotation") {
+        float angle = luaL_checknumber(L, 3);
 
-        // TODO: Fix raw pointer workaround
-        sf::CircleShape *s = dynamic_cast<sf::CircleShape*>(&*Sketch::instance().getShapeCache()[key]);
-        if (s)
-            s->setScale(xradius, yradius);
-        else
-            Logger::instance().log(Logger::Level::WARNING, { luna_conf::lang.get("error_radius_non_circular") });
+        if (Sketch::instance().getShapeCache()[key])
+            Sketch::instance().getShapeCache()[key]->setRotation(angle);
+        else if (Sketch::instance().getTextCache()[key])
+            Sketch::instance().getTextCache()[key]->setRotation(angle);
 
     } else if (property == "color") {
         int color = luaL_checkinteger(L, 3);
@@ -249,22 +245,45 @@ int lunaL::editObject(lua_State *L) {
         }
         Sketch::instance().getShapeCache()[key]->setTexture(tc[filePath]);
 
-    } else if (property == "rotation") {
-        float angle = luaL_checknumber(L, 3);
 
-        if (Sketch::instance().getShapeCache()[key])
-            Sketch::instance().getShapeCache()[key]->setRotation(angle);
-        else if (Sketch::instance().getTextCache()[key])
-            Sketch::instance().getTextCache()[key]->setRotation(angle);
+/*************************** Rectangle properties *****************************/
+    } else if (property == "size") {
+        float width = luaL_checknumber(L, 3);
+        float height = luaL_checknumber(L, 4);
 
-    } else if (property == "origin") {
-        float x = luaL_checknumber(L, 3);
-        float y = luaL_checknumber(L, 4);
+        // TODO: Fix raw pointer workaround
+        sf::RectangleShape *s = dynamic_cast<sf::RectangleShape*>(&*Sketch::instance().getShapeCache()[key]);
+        if (s)
+            s->setSize(sf::Vector2f(width, height));
+        else
+            Logger::instance().log(Logger::Level::WARNING, { luna_conf::lang.get("error_size_non_rectangular") });
 
-        if (Sketch::instance().getShapeCache()[key])
-            Sketch::instance().getShapeCache()[key]->setOrigin(x, y);
-        else if (Sketch::instance().getTextCache()[key])
-            Sketch::instance().getTextCache()[key]->setOrigin(x, y);
+
+/**************************** Circle properties *******************************/
+    } else if (property == "radius") {
+        float xradius = luaL_checknumber(L, 3);
+        float yradius = luaL_checknumber(L, 4);
+
+        // TODO: Fix raw pointer workaround
+        sf::CircleShape *s = dynamic_cast<sf::CircleShape*>(&*Sketch::instance().getShapeCache()[key]);
+        if (s)
+            s->setScale(xradius, yradius);
+        else
+            Logger::instance().log(Logger::Level::WARNING, { luna_conf::lang.get("error_radius_non_circular") });
+
+
+/************************** Custom shape properties ***************************/
+} else if (property == "vertex") {
+    int index = luaL_checkinteger(L, 3);
+    float x = luaL_checknumber(L, 4);
+    float y = luaL_checknumber(L, 5);
+
+    sf::ConvexShape *s = dynamic_cast<sf::ConvexShape*>(&*Sketch::instance().getShapeCache()[key]);
+    
+    if (s)
+        s->setPoint(index, sf::Vector2f(x, y));
+    else
+        Logger::instance().log(Logger::Level::WARNING, { luna_conf::lang.get("error_not_custom_shape") });
 
 
 /****************************** Text properties *******************************/
@@ -324,18 +343,6 @@ int lunaL::editObject(lua_State *L) {
             Logger::instance().log(Logger::Level::ERROR, { luna_conf::lang.get("error_sound_not_found") });
         }
 
-/************************** Custom shape properties ***************************/
-    } else if (property == "vertex") {
-        int index = luaL_checkinteger(L, 3);
-        float x = luaL_checknumber(L, 4);
-        float y = luaL_checknumber(L, 5);
-    
-        sf::ConvexShape *s = dynamic_cast<sf::ConvexShape*>(&*Sketch::instance().getShapeCache()[key]);
-        
-        if (s)
-            s->setPoint(index, sf::Vector2f(x, y));
-        else
-            Logger::instance().log(Logger::Level::WARNING, { luna_conf::lang.get("error_not_custom_shape") });
 
     } else {
         Logger::instance().log(Logger::Level::ERROR, { luna_conf::lang.get("error_property_not_found") });
