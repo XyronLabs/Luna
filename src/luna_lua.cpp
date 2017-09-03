@@ -257,6 +257,15 @@ int lunaL::editObject(lua_State *L) {
         else if (Sketch::instance().getTextCache()[key])
             Sketch::instance().getTextCache()[key]->setRotation(angle);
 
+    } else if (property == "origin") {
+        float x = luaL_checknumber(L, 3);
+        float y = luaL_checknumber(L, 4);
+
+        if (Sketch::instance().getShapeCache()[key])
+            Sketch::instance().getShapeCache()[key]->setOrigin(x, y);
+        else if (Sketch::instance().getTextCache()[key])
+            Sketch::instance().getTextCache()[key]->setOrigin(x, y);
+
 
 /****************************** Text properties *******************************/
     } else if (property == "text") {
