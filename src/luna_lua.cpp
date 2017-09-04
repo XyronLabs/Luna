@@ -45,6 +45,16 @@ int lunaL::exit(lua_State *L) {
     return 0;
 }
 
+int lunaL::icon(lua_State *L) {
+    std::string iconPath = luaL_checkstring(L, 1);
+
+    sf::Image icon;
+    icon.loadFromFile(iconPath);
+    Sketch::instance().getWindow().setIcon(256, 256, icon.getPixelsPtr());
+
+    return 0;
+}
+
 
 /***************************** Simple rendering ******************************/
 

@@ -26,6 +26,9 @@ namespace lunaL {
     /* Close the window and exit the program */
     int exit(lua_State *L);
 
+    /* Set custom window icon */
+    int icon(lua_State *L);
+
 
 /***************************** Simple rendering ******************************/
 
