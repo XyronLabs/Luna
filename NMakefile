@@ -1,16 +1,21 @@
-win:
-	rc build/windows/resource.rc
-	cl src/*.cpp external/libraries/* build/windows/resource.res /Febin\luna.exe /I include /I external/include /std:c++latest /EHsc /W2 /MP
+win: resource
+	cl src/*.cpp external/libraries/* build/windows/resource.res /Febin\luna.exe /I include /I external/include /std:c++latest /EHsc /W2 /MP /Ox
 	del *.obj
-	del build\windows\resource.res
+
+standalone: resource
+	cl src/*.cpp external/libraries/* build/windows/resource.res /Febin\luna.exe /I include /I external/include /std:c++latest /EHsc /W2 /MP /Ox /D LUNA_DEBUG
+	del *.obj
 
 debug:
-	rc build/windows/resource.rc
-	cl src/*.cpp external/libraries/* build/windows/resource.res /Febin\luna.exe /I include /I external/include /std:c++latest /EHsc /W2 /MP /D LUNA_DEBUG
+	cl src/*.cpp external/libraries/* /Febin\luna.exe /I include /I external/include /std:c++latest /EHsc /W2 /MP /D LUNA_DEBUG
 	del *.obj
-	del build\windows\resource.res
 
-out: clean win
+out-win: clean win
+	md out\res
+	xcopy /e /y bin out
+	xcopy /e /y res out\res\*
+
+out-standalone: clean standalone
 	md out\res
 	xcopy /e /y bin out
 	xcopy /e /y res out\res\*
@@ -18,3 +23,6 @@ out: clean win
 clean:
 	if exist bin\Luna.exe del bin\Luna.exe
 	if exist out rd /s /q out
+
+resource:
+	rc build/windows/resource.rc
