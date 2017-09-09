@@ -3,7 +3,7 @@ win: resource
 	del *.obj
 
 standalone: resource
-	cl src/*.cpp external/libraries/* build/windows/resource.res /Febin\luna.exe /I include /I external/include /std:c++latest /EHsc /W2 /MP /Ox /D LUNA_DEBUG
+	cl src/*.cpp external/libraries/* build/windows/resource.res /Febin\luna.exe /I include /I external/include /std:c++latest /EHsc /W2 /MP /Ox /D LUNA_STANDALONE
 	del *.obj
 
 debug:
