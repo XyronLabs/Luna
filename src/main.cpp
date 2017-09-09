@@ -12,7 +12,15 @@ int main(int argc, char **argv) {
         std::cout << "Luna version: " << LUNA_VERSION << " | build date: " << __DATE__ << " " << __TIME__ << std::endl;
         return EXIT_SUCCESS;
     }
-
+    
+    for (int i = 0; i < argc; ++i) {
+        std::cout<< "Argument: "<< argv[i] << std::endl;
+        if (strcmp(argv[i], "-r") == 0 && argv[i + 1]) {
+            std::cout << argv[i+1] << std::endl;
+            // return EXIT_SUCCESS;
+        }
+    }
+    
     Logger::instance().setLevel(Logger::Level::INFO);
     Logger::instance().log(Logger::Level::INFO, { luna_conf::lang.get("luna_starting") });
 
