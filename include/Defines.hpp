@@ -5,7 +5,7 @@
 #ifdef LUNA_DEBUG
 #define RES_PATH "res/"
 #elif LUNA_STANDALONE
-#define RES_PATH "bin/res/"
+#define RES_PATH ".luna_bin/res/"
 #elif _WIN32
 #define RES_PATH "C:/Program Files (x86)/XyronLabs/Luna/res/"
 #else // Asume linux
