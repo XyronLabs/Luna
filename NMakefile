@@ -1,13 +1,22 @@
+exe = bin/luna.exe
+sources = src/*.cpp external/libraries/*
+includes = /I include /I external/include
+res = build/windows/resource.res
+
+common_flags = /std:c++latest /EHsc /W2 /MP
+debug_flags = /D LUNA_DEBUG
+release_flags = /Ox
+
+debug:
+	cl $(sources) /Fe$(exe) $(includes) $(common_flags) $(debug_flags)
+	del *.obj
+
 win: resource
-	cl src/*.cpp external/libraries/* build/windows/resource.res /Febin\luna.exe /I include /I external/include /std:c++latest /EHsc /W2 /MP /Ox
+	cl $(sources) $(res) /Fe$(exe) $(includes) $(common_flags) $(release_flags)
 	del *.obj
 
 standalone: resource
-	cl src/*.cpp external/libraries/* build/windows/resource.res /Febin\luna.exe /I include /I external/include /std:c++latest /EHsc /W2 /MP /Ox /D LUNA_STANDALONE
-	del *.obj
-
-debug:
-	cl src/*.cpp external/libraries/* /Febin\luna.exe /I include /I external/include /std:c++latest /EHsc /W2 /MP /D LUNA_DEBUG
+	cl $(sources) $(res) /Fe$(exe) $(includes) $(common_flags) $(release_flags) /D LUNA_STANDALONE
 	del *.obj
 
 out-win: clean win
