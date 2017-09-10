@@ -2,14 +2,16 @@
 
 #define LUNA_VERSION "0.7-12"
 
-#ifdef LUNA_DEBUG
+#ifdef LUNA_STANDALONE
 #define RES_PATH "res/"
-#elif LUNA_STANDALONE
+#elif LUNA_VSCODE
 #define RES_PATH ".luna_bin/res/"
-#elif _WIN32
+#elif (defined _WIN32 || defined _WIN64)
 #define RES_PATH "C:/Program Files (x86)/XyronLabs/Luna/res/"
-#else // Asume linux
+#elif (defined LINUX || defined __linux__)
 #define RES_PATH "/usr/local/luna/res/"
+#elif (defined __APPLE || defined __MACH__)
+#define RES_PATH "res/"
 #endif
 
 #define getLunaResource(path) (std::string(RES_PATH) + path).c_str()
