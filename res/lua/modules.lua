@@ -1,5 +1,4 @@
 package.path = package.path .. ";./res/lua/luna/?.lua;./res/lua/extensions/?/init.lua;"
-                            .. ";./.luna_bin/res/lua/luna/?.lua;./.luna_bin/res/lua/extensions/?/init.lua;"
                             .. "/usr/local/luna/res/lua/luna/?.lua;/usr/local/luna/res/lua/extensions/?/init.lua;"
                             .. "C:/Program Files (x86)/XyronLabs/Luna/res/lua/luna/?.lua;C:/Program Files (x86)/XyronLabs/Luna/res/lua/extensions/?/init.lua"
 
