@@ -12,12 +12,7 @@ int main(int argc, char **argv) {
         if (strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "--version") == 0) {
             std::cout << "Luna version: " << LUNA_VERSION << " | build date: " << __DATE__ << " " << __TIME__ << std::endl;
             return EXIT_SUCCESS;
-
         }
-        // else if (strcmp(argv[i], "-r") == 0 && argv[i + 1]) {
-        //     // Set custom resources folder
-        //     std::cout << argv[i+1] << std::endl;
-        // }
     }
 
     Logger::instance().setLevel(Logger::Level::INFO);

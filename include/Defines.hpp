@@ -4,8 +4,6 @@
 
 #ifdef LUNA_STANDALONE
 #define RES_PATH "res/"
-#elif LUNA_VSCODE
-#define RES_PATH ".luna_bin/res/"
 #elif (defined _WIN32 || defined _WIN64)
 #define RES_PATH "C:/Program Files (x86)/XyronLabs/Luna/res/"
 #elif (defined LINUX || defined __linux__)

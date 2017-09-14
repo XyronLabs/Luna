@@ -4,14 +4,13 @@ includes = /I include /I external/include
 res = build/windows/resource.res
 
 common_flags = /std:c++latest /EHsc /W2 /MP
-debug_flags = /D LUNA_DEBUG
 release_flags = /Ox
 
 debug:
-	cl $(sources) /Fe$(exe) $(includes) $(common_flags) $(debug_flags)
+	cl $(sources) /Fe$(exe) $(includes) $(common_flags) /D LUNA_DEBUG
 	del *.obj
 
-win: resource
+install: resource
 	cl $(sources) $(res) /Fe$(exe) $(includes) $(common_flags) $(release_flags)
 	del *.obj
 
@@ -19,7 +18,7 @@ standalone: resource
 	cl $(sources) $(res) /Fe$(exe) $(includes) $(common_flags) $(release_flags) /D LUNA_STANDALONE
 	del *.obj
 
-out-win: clean win
+out-install: clean install
 	md out\res
 	xcopy /e /y bin out
 	xcopy /e /y res out\res\*
