@@ -29,6 +29,9 @@ namespace lunaL {
     /* Set custom window icon */
     int icon(lua_State *L);
 
+    /* Stop loop */
+    int noLoop(lua_State *L);
+
 
 /***************************** Simple rendering ******************************/
 

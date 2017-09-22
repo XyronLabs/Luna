@@ -51,7 +51,11 @@ int lunaL::icon(lua_State *L) {
     sf::Image icon;
     icon.loadFromFile(iconPath);
     Sketch::instance().getWindow().setIcon(256, 256, icon.getPixelsPtr());
+    return 0;
+}
 
+int lunaL::noLoop(lua_State *L) {
+    Sketch::instance().noLoop();
     return 0;
 }
 
