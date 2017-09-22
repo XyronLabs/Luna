@@ -33,6 +33,7 @@ Sketch::Sketch() {
     registerLunaFunction(frameRate);
     registerLunaFunction(exit);
     registerLunaFunction(icon);
+    registerLunaFunction(noLoop);
 
     /* Load Lua libraries */
     luaL_loadfile(L, getLunaResource("lua/modules.lua"));
