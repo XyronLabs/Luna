@@ -32,9 +32,10 @@ objects-$(CONFIG) := $(patsubst $(SRC)/%.cpp, $(OBJ)/%-$(CONFIG).o, $(sources))
 libraries := -llua5.3 -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
 
 # Compiler options for each configuration #
-CXXFLAGS            := -std=c++14 -Wall
-CXXFLAGS_$(RELEASE) := -O3
-CXXFLAGS_$(DEBUG)   := -DLUNA_DEBUG
+CXXFLAGS               := -std=c++14 -Wall
+CXXFLAGS_$(RELEASE)    := -O3
+CXXFLAGS_$(STANDALONE) := -O3 -DLUNA_STANDALONE
+CXXFLAGS_$(DEBUG)      := -DLUNA_DEBUG
 
 
 
@@ -43,6 +44,8 @@ CXXFLAGS_$(DEBUG)   := -DLUNA_DEBUG
 all: $(CONFIG)
 
 #-- Shortcuts --#
+s:
+	$(MAKE) -j8 CONFIG=standalone
 r:
 	$(MAKE) -j8 CONFIG=release
 d:
