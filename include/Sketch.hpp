@@ -94,6 +94,11 @@ public:
     void createWindow(int width, int height, const char* title);
 
     /*
+        Stop calling render and input functions
+    */
+    void noLoop();
+
+    /*
         Getters
     */
     std::map<std::string, std::unique_ptr<sf::Shape>>& getShapeCache();

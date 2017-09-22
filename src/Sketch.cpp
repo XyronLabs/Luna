@@ -220,6 +220,13 @@ void Sketch::createWindow(int width, int height, const char* title) {
 }
 
 /*
+    Stop calling render and input functions
+*/
+void Sketch::noLoop() {
+    isRunning = false;
+}
+
+/*
     Getters
 */
 std::map<std::string, std::unique_ptr<sf::Shape>>& Sketch::getShapeCache() {
