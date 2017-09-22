@@ -10,6 +10,8 @@ Sketch& Sketch::instance() {
 }
 
 Sketch::Sketch() {
+    isRunning = true;
+
     L = luaL_newstate();
     luaL_openlibs(L);
 
@@ -145,21 +147,26 @@ void Sketch::loop() {
             }
         }
 
-        // Call Lua render function
-        lua_getglobal(L, "render");
-        if (lua_pcall(L, 0, 0, 0)) {
-            Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("render_function_error") }, L);
-            window->close();
-            return;
-        }
+        // Run loop only if not paused
+        if (isRunning) {
 
-        // Call Lua input function if it exists
-        if (lua_getglobal(L, "input"))
+            // Call Lua render function
+            lua_getglobal(L, "render");
             if (lua_pcall(L, 0, 0, 0)) {
-                Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("input_function_error") }, L);
+                Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("render_function_error") }, L);
                 window->close();
                 return;
             }
+
+            // Call Lua input function if it exists
+            if (lua_getglobal(L, "input"))
+                if (lua_pcall(L, 0, 0, 0)) {
+                    Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("input_function_error") }, L);
+                    window->close();
+                    return;
+                }
+
+        }
 
         // Show the new frame
         window->display();

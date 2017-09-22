@@ -41,6 +41,11 @@ class Sketch {
     std::map<std::string, sf::ConvexShape*> tmpVertex;
 
     /*
+        Stop loop if noLoop is called
+    */
+    bool isRunning;
+
+    /*
         Private constructor for singleton
         All Lua functions and libraries are
         loaded here
