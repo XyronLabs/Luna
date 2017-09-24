@@ -241,6 +241,22 @@ int lunaL::editObject(lua_State *L) {
         else if (Sketch::instance().getTextCache()[key])
             Sketch::instance().getTextCache()[key]->setRotation(angle);
 
+    } else if (property == "outline_color") {
+        int color = luaL_checkinteger(L, 3);
+
+        if (Sketch::instance().getShapeCache()[key])
+            Sketch::instance().getShapeCache()[key]->setOutlineColor(sf::Color(color));
+        else if (Sketch::instance().getTextCache()[key])
+            Sketch::instance().getTextCache()[key]->setOutlineColor(sf::Color(color));
+
+    } else if (property == "outline_thickness") {
+        float thickness = luaL_checknumber(L, 3);
+
+        if (Sketch::instance().getShapeCache()[key])
+            Sketch::instance().getShapeCache()[key]->setOutlineThickness(thickness);
+        else if (Sketch::instance().getTextCache()[key])
+            Sketch::instance().getTextCache()[key]->setOutlineThickness(thickness);
+        
     } else if (property == "color") {
         int color = luaL_checkinteger(L, 3);
 
