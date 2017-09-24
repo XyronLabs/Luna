@@ -71,3 +71,13 @@ function rectangleShape:collide(other)
             self.y < other.y + other.height and
             self.y + self.height > other.y
 end
+
+function rectangleShape:setOutlineColor(color)
+    editObject(self.id, 'outline_color', color)
+    return self
+end
+
+function rectangleShape:setOutlineThickness(thickness)
+    editObject(self.id, 'outline_thickness', thickness)
+    return self
+end

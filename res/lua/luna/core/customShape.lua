@@ -50,3 +50,13 @@ function customShape:setTexture(texturePath)
     editObject(self.id, 'texture', texturePath)
     return self
 end
+
+function customShape:setOutlineColor(color)
+    editObject(self.id, 'outline_color', color)
+    return self
+end
+
+function customShape:setOutlineThickness(thickness)
+    editObject(self.id, 'outline_thickness', thickness)
+    return self
+end

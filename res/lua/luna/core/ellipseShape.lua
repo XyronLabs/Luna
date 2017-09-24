@@ -73,3 +73,13 @@ end
 function ellipseShape:collide(other)
     return self:dist(other) < self.radius + other.radius
 end
+
+function ellipseShape:setOutlineColor(color)
+    editObject(self.id, 'outline_color', color)
+    return self
+end
+
+function ellipseShape:setOutlineThickness(thickness)
+    editObject(self.id, 'outline_thickness', thickness)
+    return self
+end
