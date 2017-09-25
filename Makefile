@@ -9,6 +9,7 @@ LIB 	:= extlibs
 
 
 # Configurations #
+STANDALONE := standalone
 RELEASE := release
 DEBUG   := debug
 
