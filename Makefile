@@ -5,7 +5,7 @@ INCLUDE := include
 OBJ 	:= obj
 OUT 	:= out
 SRC 	:= src
-LIB 	:= extlibs
+LIB 	:= res/extlibs
 
 
 # Configurations #
@@ -34,7 +34,7 @@ objects-$(CONFIG) := $(patsubst $(SRC)/%.cpp, $(OBJ)/%-$(CONFIG).o, $(sources))
 libraries := -llua5.3 -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
 
 # Compiler options for each configuration #
-LDFLAGS                := "-Wl,-rpath,./extlibs"
+LDFLAGS                := "-Wl,-rpath,./res/extlibs"
 CXXFLAGS               := -std=c++14 -Wall
 CXXFLAGS_$(RELEASE)    := -O3
 CXXFLAGS_$(STANDALONE) := -O3 -DLUNA_STANDALONE
