@@ -20,7 +20,9 @@ function customShape:new(dat)
         editObject(obj.id, 'vertex', i - 1, obj.points[i][1], obj.points[i][2])
     end
     editObject(obj.id, 'color', obj.color)
-    if obj.texture then editShape(obj.id, 'texture', obj.texture) end
+    if obj.texture then editObject(obj.id, 'texture', obj.texture) end
+    if obj.outline_color then editObject(obj.id, 'outline_color', obj.outline_color) end
+    if obj.outline_thickness then editObject(obj.id, 'outline_thickness', obj.outline_thickness) end
     return obj
 end
 

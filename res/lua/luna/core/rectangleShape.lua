@@ -21,6 +21,8 @@ function rectangleShape:new(dat)
     registerObject(obj.id, 'rectangle', obj.x, obj.y, obj.width, obj.height)
     editObject(obj.id, 'color', obj.color)
     if obj.texture then editObject(obj.id, 'texture', obj.texture) end
+    if obj.outline_color then editObject(obj.id, 'outline_color', obj.outline_color) end
+    if obj.outline_thickness then editObject(obj.id, 'outline_thickness', obj.outline_thickness) end
     return obj
 end
 

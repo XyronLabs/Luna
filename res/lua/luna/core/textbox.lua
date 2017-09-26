@@ -20,6 +20,8 @@ function textbox:new(dat)
     setmetatable(obj, textbox_mt)
     registerObject(obj.id, 'text', obj.x, obj.y, obj.text, obj.size)
     editObject(obj.id, 'color', obj.color)
+    if obj.outline_color then editObject(obj.id, 'outline_color', obj.outline_color) end
+    if obj.outline_thickness then editObject(obj.id, 'outline_thickness', obj.outline_thickness) end
     return obj
 end
 
@@ -51,5 +53,15 @@ end
 function textbox:setColor(color)
     self.color = color or self.color
     editObject(self.id, 'color', self.color)
+    return self
+end
+
+function textbox:setOutlineColor(color)
+    editObject(self.id, 'outline_color', color)
+    return self
+end
+
+function textbox:setOutlineThickness(thickness)
+    editObject(self.id, 'outline_thickness', thickness)
     return self
 end
