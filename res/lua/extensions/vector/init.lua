@@ -8,6 +8,13 @@ local vector_mt = {
         end
         return vector:new(newdata)
     end,
+    __sub = function(self, other)
+        local newdata = {}
+        for k, v in pairs(self) do
+            newdata[k] = v - other[k]
+        end
+        return vector:new(newdata)
+    end,
     __tostring = function(self)
         local str = "("
         for k, v in pairs(self) do
