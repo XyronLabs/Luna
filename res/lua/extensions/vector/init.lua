@@ -8,6 +8,7 @@ local vector_mt = {
         end
         return vector:new(newdata)
     end,
+
     __sub = function(self, other)
         local newdata = {}
         for k, v in pairs(self) do
@@ -15,6 +16,18 @@ local vector_mt = {
         end
         return vector:new(newdata)
     end,
+
+    __mul = function(self, other)
+        local newdata = {}
+        -- Scalar multiplication
+        if type(other) == 'number' then
+            for k, v in pairs(self) do
+                newdata[k] = other * self[k]
+            end
+        end
+        return vector:new(newdata)
+    end,
+
     __tostring = function(self)
         local str = "("
         for k, v in pairs(self) do
