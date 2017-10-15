@@ -57,14 +57,14 @@ end
 
 function vector:add(other)
     for k, v in pairs(self) do
-        v = v + other[k]
+        self[k] = v + other[k]
     end
     return self
 end
 
 function vector:sub(other)
     for k, v in pairs(self) do
-        v = v - other[k]
+        self[k] = v - other[k]
     end
     return self
 end
