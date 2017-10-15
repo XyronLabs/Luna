@@ -68,3 +68,10 @@ function vector:sub(other)
     end
     return self
 end
+
+function vector:mult(factor)
+    for k, v in pairs(self) do
+        self[k] = v * factor
+    end
+    return self
+end
