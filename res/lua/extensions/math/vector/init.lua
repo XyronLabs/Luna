@@ -80,9 +80,16 @@ function vector:sub(other)
     return self
 end
 
-function vector:mult(factor)
+function vector:mul(factor)
     for k, v in pairs(self) do
         self[k] = v * factor
+    end
+    return self
+end
+
+function vector:div(factor)
+    for k, v in pairs(self) do
+        self[k] = v / factor
     end
     return self
 end
