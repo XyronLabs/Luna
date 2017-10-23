@@ -28,6 +28,17 @@ local vector_mt = {
         return vector:new(newdata)
     end,
 
+    __div = function(self, other)
+        local newdata = {}
+        -- Scalar division
+        if type(other) == 'number' then
+            for k, v in pairs(self) do
+                newdata[k] = other / self[k]
+            end
+        end
+        return vector:new(newdata)
+    end,
+
     __tostring = function(self)
         local str = "("
         for k, v in pairs(self) do
