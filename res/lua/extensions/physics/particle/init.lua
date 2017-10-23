@@ -18,7 +18,7 @@ end
 function particle:update()
     self.vel:add(self.acc)
     self.pos:add(self.vel)
-    self.acc:mult(0)
+    self.acc:mul(0)
     
     self.renderer:setPos(self.pos.x, self.pos.y)
 end
