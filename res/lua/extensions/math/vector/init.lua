@@ -39,6 +39,15 @@ local vector_mt = {
         return vector:new(newdata)
     end,
 
+    __len = function(self)
+        local sqsum = 0
+        for k, v in pairs(self) do
+            sqsum = sqsum + v * v
+        end
+
+        return math.sqrt(sqsum)
+    end,
+
     __tostring = function(self)
         local str = "("
         for k, v in pairs(self) do
