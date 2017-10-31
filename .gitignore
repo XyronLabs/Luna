@@ -3,3 +3,8 @@ obj/
 out/
 .vscode/
 external/
+.DS_STORE
+include/lua5.3
+include/SFML
+res/extlibs
+res/Frameworks

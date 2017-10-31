@@ -28,6 +28,26 @@ local vector_mt = {
         return vector:new(newdata)
     end,
 
+    __div = function(self, other)
+        local newdata = {}
+        -- Scalar division
+        if type(other) == 'number' then
+            for k, v in pairs(self) do
+                newdata[k] = other / self[k]
+            end
+        end
+        return vector:new(newdata)
+    end,
+
+    __len = function(self)
+        local sqsum = 0
+        for k, v in pairs(self) do
+            sqsum = sqsum + v * v
+        end
+
+        return math.sqrt(sqsum)
+    end,
+
     __tostring = function(self)
         local str = "("
         for k, v in pairs(self) do
@@ -53,4 +73,32 @@ function vector:new(...)
 
     setmetatable(obj, vector_mt)
     return obj
+end
+
+function vector:add(other)
+    for k, v in pairs(self) do
+        self[k] = v + other[k]
+    end
+    return self
+end
+
+function vector:sub(other)
+    for k, v in pairs(self) do
+        self[k] = v - other[k]
+    end
+    return self
+end
+
+function vector:mul(factor)
+    for k, v in pairs(self) do
+        self[k] = v * factor
+    end
+    return self
+end
+
+function vector:div(factor)
+    for k, v in pairs(self) do
+        self[k] = v / factor
+    end
+    return self
 end
