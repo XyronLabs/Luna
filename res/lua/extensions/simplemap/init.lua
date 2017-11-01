@@ -16,6 +16,7 @@ function simplemap:new(dat)
     local obj = dat or {}
 
     obj.map = {}
+    obj.scale = obj.scale or 10
 
     setmetatable(obj, { __index = simplemap })
     return obj
@@ -40,7 +41,7 @@ function simplemap:render()
             else
                 log(loglevel.FATAL, self.map[y][x] .. " is not a color!")
             end
-            rect(x * 10, y * 10, 10, 10)
+            rect( (x - 1) * self.scale, (y - 1) * self.scale, self.scale, self.scale)
         end
     end
 end
