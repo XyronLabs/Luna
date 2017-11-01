@@ -1,5 +1,17 @@
 simplemap = {}
 
+simplemap.colors = {
+    ["o"] = colors.black,
+    ["w"] = colors.white,
+    ["r"] = colors.red,
+    ["g"] = colors.green,
+    ["b"] = colors.blue,
+    ["y"] = colors.yellow,
+    ["m"] = colors.magenta,
+    ["c"] = colors.cyan,
+    ["t"] = colors.transparent
+}
+
 function simplemap:new(dat)
     local obj = dat or {}
 
@@ -23,10 +35,10 @@ end
 function simplemap:render()
     for y = 1, #self.map do
         for x = 1, #self.map[y] do
-            if self.map[y][x] == 'o' then
-                color(colors.red)
+            if simplemap.colors[ self.map[y][x] ] then
+                color(simplemap.colors[ self.map[y][x] ])
             else
-                color(colors.black)
+                log(loglevel.FATAL, self.map[y][x] .. " is not a color!")
             end
             rect(x * 10, y * 10, 10, 10)
         end
