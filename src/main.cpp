@@ -13,6 +13,9 @@ int main(int argc, char **argv) {
             std::cout << "Luna version: " << LUNA_VERSION << " | build date: " << __DATE__ << " " << __TIME__ << std::endl;
             return EXIT_SUCCESS;
         }
+        if (strcmp(argv[i], "-a") == 0 || strcmp(argv[i], "--arguments") == 0) {
+            
+        }
     }
 
     Logger::instance().setLevel(Logger::Level::INFO);
