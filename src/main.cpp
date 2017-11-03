@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
             return EXIT_SUCCESS;
         }
         if (strcmp(argv[i], "-a") == 0 || strcmp(argv[i], "--arguments") == 0) {
-            lua_args = argv[i+1]
+            lua_args = argv[i+1];
         }
     }
 
