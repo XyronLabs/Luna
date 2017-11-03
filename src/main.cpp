@@ -8,13 +8,15 @@
 
 int main(int argc, char **argv) {
 
+    std::string lua_args;
+
     for (int i = 0; i < argc; ++i) {
         if (strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "--version") == 0) {
             std::cout << "Luna version: " << LUNA_VERSION << " | build date: " << __DATE__ << " " << __TIME__ << std::endl;
             return EXIT_SUCCESS;
         }
         if (strcmp(argv[i], "-a") == 0 || strcmp(argv[i], "--arguments") == 0) {
-            
+            lua_args = argv[i+1]
         }
     }
 
