@@ -62,7 +62,7 @@ public:
         Load the main Lua script and default vars
         (default font, color, etc)
     */
-    bool preload(const char* lua_main);
+    bool preload(const char* lua_main, const char* lua_args);
 
     /*
         setup() Lua function, size(w,h,t) must be
