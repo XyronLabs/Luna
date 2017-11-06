@@ -49,7 +49,8 @@ bool Sketch::preload(const char* lua_main) {
 
     // Load lua/main.lua
     if (!luaL_loadfile(L, lua_main ? lua_main : "main.luna")) {
-        if (lua_pcall(L, 0, 0, 0)) {
+        lua_pushstring(L, "test");
+        if (lua_pcall(L, 1, 0, 0)) {
             Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("main_lua_error") }, L);
             return true;
         }
