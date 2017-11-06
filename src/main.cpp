@@ -8,7 +8,7 @@
 
 int main(int argc, char **argv) {
 
-    const char *lua_args, *lua_main;
+    const char *lua_args = nullptr, *lua_main = nullptr;
 
     for (int i = 0; i < argc; ++i) {
         if (strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "--version") == 0) {
