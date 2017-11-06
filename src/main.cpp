@@ -8,7 +8,7 @@
 
 int main(int argc, char **argv) {
 
-    const char* lua_args;
+    const char *lua_args, *lua_main;
 
     for (int i = 0; i < argc; ++i) {
         if (strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "--version") == 0) {
@@ -18,12 +18,15 @@ int main(int argc, char **argv) {
         if (strcmp(argv[i], "-a") == 0 || strcmp(argv[i], "--arguments") == 0) {
             lua_args = argv[i+1];
         }
+        if (strcmp(argv[i], "-f") == 0 || strcmp(argv[i], "--file") == 0) {
+            lua_main = argv[i+1];
+        }
     }
 
     Logger::instance().setLevel(Logger::Level::INFO);
     Logger::instance().log(Logger::Level::INFO, { luna_conf::lang.get("luna_starting") });
 
-    if (!Sketch::instance().preload(argc > 1 ? argv[1] : nullptr, lua_args) && !Sketch::instance().setup())
+    if (!Sketch::instance().preload(lua_main, lua_args) && !Sketch::instance().setup())
         Sketch::instance().loop();
     
     Sketch::instance().cleanup();
