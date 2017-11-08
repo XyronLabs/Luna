@@ -42,20 +42,20 @@ Sketch::Sketch() {
     }
 }
 
-bool Sketch::preload(const char* lua_main, const char** lua_args) {
+bool Sketch::preload(const char* lua_main, std::vector<const char*> lua_args) {
     // Set default values to variables
     default_font.loadFromFile(getLunaResource( luna_conf::main.get("default_font") ));
     current_color = sf::Color::White;
 
     // Load lua/main.lua
     if (!luaL_loadfile(L, lua_main ? lua_main : "main.luna")) {
-        if (lua_args)
-            lua_pushstring(L, lua_args[0]);
+        // if (lua_args)
+        //     lua_pushstring(L, lua_args[0]);
             
-        if (lua_pcall(L, lua_args ? 1 : 0, 0, 0)) {
-            Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("main_lua_error") }, L);
-            return true;
-        }
+        // if (lua_pcall(L, lua_args ? 1 : 0, 0, 0)) {
+        //     Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("main_lua_error") }, L);
+        //     return true;
+        // }
     } else {
         Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("main_lua_not_found") }, L);
         if (!luaL_loadfile(L, getLunaResource("lua/noapp.luna"))) {
