@@ -42,7 +42,7 @@ Sketch::Sketch() {
     }
 }
 
-bool Sketch::preload(const char* lua_main, std::vector<const char*> lua_args) {
+bool Sketch::preload(const char* lua_main, const std::vector<const char*>& lua_args) {
     // Set default values to variables
     default_font.loadFromFile(getLunaResource( luna_conf::main.get("default_font") ));
     current_color = sf::Color::White;
