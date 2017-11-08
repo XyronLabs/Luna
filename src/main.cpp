@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
         if (strcmp(argv[i], "-a") == 0 || strcmp(argv[i], "--arguments") == 0) {
             while(argv[i+1] && argv[i+1][0] != '-') {
                 lua_args.push_back(argv[i+1]);
-                i++;
+                ++i;
             }
         }
         if (strcmp(argv[i], "-f") == 0 || strcmp(argv[i], "--file") == 0) {
