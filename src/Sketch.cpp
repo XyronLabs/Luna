@@ -51,7 +51,7 @@ bool Sketch::preload(const char* lua_main, const std::vector<const char*>& lua_a
     if (!luaL_loadfile(L, lua_main ? lua_main : "main.luna")) {
         for (const char* arg : lua_args)
             lua_pushstring(L, arg);
-            
+
         if (lua_pcall(L, lua_args.size(), 0, 0)) {
             Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("main_lua_error") }, L);
             return true;
@@ -67,7 +67,7 @@ bool Sketch::preload(const char* lua_main, const std::vector<const char*>& lua_a
             return true;
         }
     }
-    
+
     return false;
 }
 
@@ -210,7 +210,7 @@ void Sketch::createWindow(int width, int height, const char* title) {
     // Only create window the first time size(w,h,t) is called
     if (!window)
         window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title, mode, s);
-            
+
     // Set global width and height
     lua_pushinteger(L, width);
     lua_setglobal(L, "width");

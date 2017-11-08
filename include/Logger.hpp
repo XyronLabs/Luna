@@ -19,7 +19,7 @@ private:
     */
     Level logLevel;
 
-    
+
     std::vector<std::string> printableLevels = { "FATAL", "ERROR", "WARNING", "INFO", "DEBUG" };
 
 private:

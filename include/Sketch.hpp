@@ -51,7 +51,7 @@ class Sketch {
         loaded here
     */
     Sketch();
-    
+
 public:
     /*
         Return Sketch instance, singleton

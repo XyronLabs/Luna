@@ -2,7 +2,7 @@ local sadFace = textbox:new{ x = 75, y = 40, text = ":(", size = 200, color = co
 
 local msg = [[
     No app loaded
-    
+
 
     Luna ]] .. luna.version
 

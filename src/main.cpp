@@ -32,11 +32,11 @@ int main(int argc, char **argv) {
 
     if (!Sketch::instance().preload(lua_main, lua_args) && !Sketch::instance().setup())
         Sketch::instance().loop();
-    
+
     Sketch::instance().cleanup();
 
 
     Logger::instance().log(Logger::Level::INFO, { luna_conf::lang.get("luna_exiting") });
-    
+
     return EXIT_SUCCESS;
 }

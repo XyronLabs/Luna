@@ -83,7 +83,7 @@ int lunaL::rect(lua_State *L) {
     float coords[4];
     for (int i = 0; i < 4; ++i)
         coords[i] = luaL_checknumber(L, i + 1);
-    
+
     sf::Color& currColor = Sketch::instance().getCurrentColor();
     sf::VertexArray v(sf::Quads, 4);
     v[0] = sf::Vertex(sf::Vector2f(coords[0]            , coords[1]            ), currColor);
@@ -138,7 +138,7 @@ int lunaL::ellipse(lua_State *L) {
 int lunaL::registerObject(lua_State *L) {
     std::string key = luaL_checkstring(L, 1);
     std::string objectType = luaL_checkstring(L, 2);
-    
+
 
     if (objectType == "rectangle") {
         std::unique_ptr<sf::Shape> shape;
@@ -176,14 +176,14 @@ int lunaL::registerObject(lua_State *L) {
 
     } else if (objectType == "sound") {
         std::string soundPath = luaL_checkstring(L, 3);
-    
+
         if (!Sketch::instance().getSoundCache()[key]) {
             sf::SoundBuffer *bf = new sf::SoundBuffer;
             if (!bf->loadFromFile(soundPath)) {
                 Logger::instance().log(Logger::Level::ERROR, { luna_conf::lang.get("error_sound_cant_load") });
                 return 0;
             }
-    
+
             std::unique_ptr<sf::Sound> s = std::make_unique<sf::Sound>(*bf);
             Sketch::instance().getSoundCache()[key] = std::move(s);
 #ifdef LUNA_DEBUG
@@ -200,7 +200,7 @@ int lunaL::registerObject(lua_State *L) {
         sf::ConvexShape s;
         s.setPointCount(points);
         shape = std::make_unique<sf::ConvexShape>(s);
-    
+
         Sketch::instance().getShapeCache()[key] = std::move(shape);
 
     } else {
@@ -256,7 +256,7 @@ int lunaL::editObject(lua_State *L) {
             Sketch::instance().getShapeCache()[key]->setOutlineThickness(thickness);
         else if (Sketch::instance().getTextCache()[key])
             Sketch::instance().getTextCache()[key]->setOutlineThickness(thickness);
-        
+
     } else if (property == "color") {
         int color = luaL_checkinteger(L, 3);
 
