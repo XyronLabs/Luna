@@ -95,6 +95,11 @@ bool Sketch::setup() {
         return true;
     }
 
+    lua_pushinteger(L, 0);
+    lua_setglobal(L, "mouseX");
+    lua_pushinteger(L, 0);
+    lua_setglobal(L, "mouseY");
+
     return false;
 }
 
