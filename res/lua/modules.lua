@@ -8,6 +8,7 @@ luna.version = "0.7.2"
 luna = setmetatable({}, { __index = luna, __newindex = function() error("luna table is read-only") end })
 
 --[[ Load core modules ]]--
+require 'core.utils'
 require 'core.rectangleShape'
 require 'core.ellipseShape'
 require 'core.customShape'
