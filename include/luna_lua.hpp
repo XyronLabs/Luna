@@ -20,6 +20,9 @@ namespace lunaL {
     /* Log a message to Luna Logger */
     int log(lua_State *L);
 
+    /* Set log level */
+    int setLogLevel(lua_State *L);
+
     /* Set framerate of the program */
     int frameRate(lua_State *L);
 

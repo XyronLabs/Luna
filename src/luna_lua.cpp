@@ -33,6 +33,13 @@ int lunaL::log(lua_State *L) {
     return 0;
 }
 
+int lunaL::setLogLevel(lua_State *L) {
+    int level = luaL_checkinteger(L, 1);
+
+    Logger::instance().setLevel(static_cast<Logger::Level>(level));
+    return 0;
+}
+
 int lunaL::frameRate(lua_State *L) {
     int fps = luaL_checkinteger(L, 1);
 

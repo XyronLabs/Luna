@@ -30,6 +30,7 @@ Sketch::Sketch() {
     registerLunaFunction(removeObject);
     
     registerLunaFunction(log);
+    registerLunaFunction(setLogLevel);
     registerLunaFunction(frameRate);
     registerLunaFunction(exit);
     registerLunaFunction(icon);
