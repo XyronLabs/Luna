@@ -11,7 +11,7 @@ public:
     /*
         Log levels
     */
-    enum Level { FATAL, ERROR, WARNING, INFO, DEBUG};
+    enum Level { FATAL, ERROR, WARNING, INFO, DEBUG };
 
 private:
     /*
