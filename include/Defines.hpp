@@ -1,6 +1,6 @@
 #pragma once
 
-#define LUNA_VERSION "0.7.2-14"
+#define LUNA_VERSION "0.8.0-15"
 
 #ifdef LUNA_STANDALONE
 #define RES_PATH "res/"
