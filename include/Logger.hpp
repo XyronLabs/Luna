@@ -22,7 +22,6 @@ private:
 
     std::vector<std::string> printableLevels = { "FATAL", "ERROR", "WARNING", "INFO", "DEBUG" };
 
-private:
     /*
         Private constructor for singleton
     */
