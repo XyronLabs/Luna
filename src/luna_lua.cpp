@@ -84,7 +84,7 @@ int lunaL::rect(lua_State *L) {
     for (int i = 0; i < 4; ++i)
         coords[i] = luaL_checknumber(L, i + 1);
 
-    sf::Color& currColor = Sketch::instance().getCurrentColor();
+    const sf::Color& currColor = Sketch::instance().getCurrentColor();
     sf::VertexArray v(sf::Quads, 4);
     v[0] = sf::Vertex(sf::Vector2f(coords[0]            , coords[1]            ), currColor);
     v[1] = sf::Vertex(sf::Vector2f(coords[0]            , coords[1] + coords[3]), currColor);

@@ -107,8 +107,8 @@ public:
     std::map<std::string, sf::Text*>& getTextCache();
 
     sf::RenderWindow& getWindow();
-    sf::Font& getDefaultFont();
-    sf::Color& getCurrentColor();
+    const sf::Font& getDefaultFont() const;
+    const sf::Color& getCurrentColor() const;
 
     /*
         Setters

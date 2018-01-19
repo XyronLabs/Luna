@@ -259,11 +259,11 @@ sf::RenderWindow& Sketch::getWindow() {
     return *window;
 }
 
-sf::Font& Sketch::getDefaultFont() {
+const sf::Font& Sketch::getDefaultFont() const {
     return default_font;
 }
 
-sf::Color& Sketch::getCurrentColor() {
+const sf::Color& Sketch::getCurrentColor() const {
     return current_color;
 }
 
