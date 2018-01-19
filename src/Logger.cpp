@@ -4,7 +4,7 @@ Logger::Logger()
 #ifdef LUNA_DEBUG
     : logLevel(Logger::Level::DEBUG)
 #else
-    : logLevel(Logger::Level::WARNING)
+    : logLevel(Logger::Level::INFO)
 #endif
 { }
 
