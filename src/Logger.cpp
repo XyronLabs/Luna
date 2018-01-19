@@ -1,8 +1,12 @@
 #include "Logger.hpp"
 
 Logger::Logger()
-    : logLevel(Logger::Level::WARNING) {
-}
+#ifdef LUNA_DEBUG
+    : logLevel(Logger::Level::DEBUG)
+#else
+    : logLevel(Logger::Level::WARNING)
+#endif
+{ }
 
 Logger& Logger::instance() {
     static Logger s_instance;
