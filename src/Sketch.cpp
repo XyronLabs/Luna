@@ -61,9 +61,7 @@ bool Sketch::preload(const char* lua_main, const std::vector<const char*>& lua_a
         if (!luaL_loadfile(L, getLunaResource("lua/noapp.luna"))) {
             lua_pcall(L, 0, 0, 0);
         } else {
-#ifdef LUNA_DEBUG
             Logger::instance().log(Logger::Level::DEBUG, { "Luna resource noapp.lua not found!" });
-#endif
             return true;
         }
     }

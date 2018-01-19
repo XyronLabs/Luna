@@ -187,9 +187,7 @@ int lunaL::registerObject(lua_State *L) {
 
             sf::Sound* s = new sf::Sound(*bf);
             Sketch::instance().getSoundCache()[key] = s;
-#ifdef LUNA_DEBUG
             Logger::instance().log(Logger::Level::DEBUG, {"Loading new sound"});
-#endif
         } else {
             Logger::instance().log(Logger::Level::ERROR, { luna_conf::lang.get("error_sound_already_registered") });
         }
@@ -274,9 +272,7 @@ int lunaL::editObject(lua_State *L) {
             sf::Texture *tex = new sf::Texture;
             tex->loadFromFile(filePath);
             tc[filePath] = tex;
-#ifdef LUNA_DEBUG
             Logger::instance().log(Logger::Level::DEBUG, {"Loading new texture"});
-#endif
         }
         Sketch::instance().getShapeCache()[key]->setTexture(tc[filePath]);
 
