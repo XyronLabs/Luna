@@ -33,11 +33,11 @@ class Sketch {
 
     /*
         Caches for Lua objects
-    */
-    std::map<std::string, std::unique_ptr<sf::Shape>> shapeCache;
+    */    
+    std::map<std::string, sf::Shape*> shapeCache;
     std::map<std::string, sf::Texture*> textureCache;
-    std::map<std::string, std::unique_ptr<sf::Sound>> soundCache;
-    std::map<std::string, std::unique_ptr<sf::Text>> textCache;
+    std::map<std::string, sf::Sound*> soundCache;
+    std::map<std::string, sf::Text*> textCache;
     std::map<std::string, sf::ConvexShape*> tmpVertex;
 
     /*
@@ -101,10 +101,10 @@ public:
     /*
         Getters
     */
-    std::map<std::string, std::unique_ptr<sf::Shape>>& getShapeCache();
+    std::map<std::string, sf::Shape*>& getShapeCache();
     std::map<std::string, sf::Texture*>& getTextureCache();
-    std::map<std::string, std::unique_ptr<sf::Sound>>& getSoundCache();
-    std::map<std::string, std::unique_ptr<sf::Text>>& getTextCache();
+    std::map<std::string, sf::Sound*>& getSoundCache();
+    std::map<std::string, sf::Text*>& getTextCache();
 
     sf::RenderWindow& getWindow();
     sf::Font& getDefaultFont();

@@ -141,38 +141,39 @@ int lunaL::registerObject(lua_State *L) {
 
 
     if (objectType == "rectangle") {
-        std::unique_ptr<sf::Shape> shape;
+        sf::Shape *shape;
         float x = luaL_checknumber(L, 3);
         float y = luaL_checknumber(L, 4);
         float sizex = luaL_checknumber(L, 5);
         float sizey = luaL_checknumber(L, 6);
 
-        shape = std::make_unique<sf::RectangleShape>(sf::Vector2f(sizex, sizey));
+        shape = new sf::RectangleShape(sf::Vector2f(sizex, sizey));
         shape->setPosition(x, y);
-        Sketch::instance().getShapeCache()[key] = std::move(shape);
+        Sketch::instance().getShapeCache()[key] = shape;
+        // Sketch::instance().getShapeCache().insert(std::pair<std::string, sf::Shape*>(key, shape));
 
     } else if (objectType == "ellipse") {
-        std::unique_ptr<sf::Shape> shape;
+        sf::Shape* shape;
         float x = luaL_checknumber(L, 3);
         float y = luaL_checknumber(L, 4);
         float rx = luaL_checknumber(L, 5);
         float ry = luaL_checknumber(L, 6);
 
-        shape = std::make_unique<sf::CircleShape>(1.f);
+        shape = new sf::CircleShape(1.f);
         shape->setPosition(x, y);
         shape->scale(rx, ry);
-        Sketch::instance().getShapeCache()[key] = std::move(shape);
+        Sketch::instance().getShapeCache()[key] = shape;
 
     } else if (objectType == "text") {
-        std::unique_ptr<sf::Text> textBox;
+        sf::Text* textBox;
         float x = luaL_checknumber(L, 3);
         float y = luaL_checknumber(L, 4);
         std::string text = luaL_checkstring(L, 5);
         unsigned int textSize = luaL_checkinteger(L, 6);
 
-        textBox = std::make_unique<sf::Text>(text, Sketch::instance().getDefaultFont(), textSize);
+        textBox = new sf::Text(text, Sketch::instance().getDefaultFont(), textSize);
         textBox->setPosition(x, y);
-        Sketch::instance().getTextCache()[key] = std::move(textBox);
+        Sketch::instance().getTextCache()[key] = textBox;
 
     } else if (objectType == "sound") {
         std::string soundPath = luaL_checkstring(L, 3);
@@ -184,8 +185,8 @@ int lunaL::registerObject(lua_State *L) {
                 return 0;
             }
 
-            std::unique_ptr<sf::Sound> s = std::make_unique<sf::Sound>(*bf);
-            Sketch::instance().getSoundCache()[key] = std::move(s);
+            sf::Sound* s = new sf::Sound(*bf);
+            Sketch::instance().getSoundCache()[key] = s;
 #ifdef LUNA_DEBUG
             Logger::instance().log(Logger::Level::DEBUG, {"Loading new sound"});
 #endif
@@ -194,14 +195,14 @@ int lunaL::registerObject(lua_State *L) {
         }
 
     } else if (objectType == "custom") {
-        std::unique_ptr<sf::Shape> shape;
+        sf::Shape* shape;
         int points = luaL_checkinteger(L, 3);
         
         sf::ConvexShape s;
         s.setPointCount(points);
-        shape = std::make_unique<sf::ConvexShape>(s);
+        shape = new sf::ConvexShape(s);
 
-        Sketch::instance().getShapeCache()[key] = std::move(shape);
+        Sketch::instance().getShapeCache()[key] = shape;
 
     } else {
         Logger::instance().log(Logger::Level::ERROR, { luna_conf::lang.get("error_object_type"), key, luna_conf::lang.get("error_object_type_2"), objectType});

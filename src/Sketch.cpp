@@ -185,19 +185,22 @@ void Sketch::loop() {
 void Sketch::cleanup() {
     lua_close(L);
     
-    for (auto& t : textureCache) {
-#ifdef LUNA_DEBUG
-        Logger::instance().log(Logger::Level::DEBUG, {"Deleting texture"});
-#endif
+    for (auto& t : shapeCache)
         delete t.second;
-    }
+
+    for (auto& t : textureCache)
+        delete t.second;
 
     for (auto& t : soundCache) {
-#ifdef LUNA_DEBUG
-        Logger::instance().log(Logger::Level::DEBUG, {"Deleting sound"});
-#endif
         delete t.second->getBuffer();
+        delete t.second;
     }
+    
+    for (auto& t : textCache)
+        delete t.second;
+        
+    for (auto& t : tmpVertex)
+        delete t.second;
 }
 
 void Sketch::createWindow(int width, int height, const char* title) {
@@ -238,7 +241,7 @@ void Sketch::noLoop() {
 /*
     Getters
 */
-std::map<std::string, std::unique_ptr<sf::Shape>>& Sketch::getShapeCache() {
+std::map<std::string, sf::Shape*>& Sketch::getShapeCache() {
     return shapeCache;
 }
 
@@ -246,11 +249,11 @@ std::map<std::string, sf::Texture*>& Sketch::getTextureCache() {
     return textureCache;
 }
 
-std::map<std::string, std::unique_ptr<sf::Sound>>& Sketch::getSoundCache() {
+std::map<std::string, sf::Sound*>& Sketch::getSoundCache() {
     return soundCache;
 }
 
-std::map<std::string, std::unique_ptr<sf::Text>>& Sketch::getTextCache() {
+std::map<std::string, sf::Text*>& Sketch::getTextCache() {
     return textCache;
 }
 
