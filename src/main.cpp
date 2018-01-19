@@ -27,7 +27,6 @@ int main(int argc, char **argv) {
         }
     }
 
-    Logger::instance().setLevel(Logger::Level::INFO);
     Logger::instance().log(Logger::Level::INFO, { luna_conf::lang.get("luna_starting") });
 
     if (!Sketch::instance().preload(lua_main, lua_args) && !Sketch::instance().setup())
