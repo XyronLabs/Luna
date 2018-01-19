@@ -286,8 +286,7 @@ int lunaL::editObject(lua_State *L) {
         float width = luaL_checknumber(L, 3);
         float height = luaL_checknumber(L, 4);
 
-        // TODO: Fix raw pointer workaround
-        sf::RectangleShape *s = dynamic_cast<sf::RectangleShape*>(&*Sketch::instance().getShapeCache()[key]);
+        sf::RectangleShape *s = static_cast<sf::RectangleShape*>(Sketch::instance().getShapeCache()[key]);
         if (s)
             s->setSize(sf::Vector2f(width, height));
         else
@@ -299,8 +298,7 @@ int lunaL::editObject(lua_State *L) {
         float xradius = luaL_checknumber(L, 3);
         float yradius = luaL_checknumber(L, 4);
 
-        // TODO: Fix raw pointer workaround
-        sf::CircleShape *s = dynamic_cast<sf::CircleShape*>(&*Sketch::instance().getShapeCache()[key]);
+        sf::CircleShape *s = static_cast<sf::CircleShape*>(Sketch::instance().getShapeCache()[key]);
         if (s)
             s->setScale(xradius, yradius);
         else
@@ -313,7 +311,7 @@ int lunaL::editObject(lua_State *L) {
     float x = luaL_checknumber(L, 4);
     float y = luaL_checknumber(L, 5);
 
-    sf::ConvexShape *s = dynamic_cast<sf::ConvexShape*>(&*Sketch::instance().getShapeCache()[key]);
+    sf::ConvexShape *s = static_cast<sf::ConvexShape*>(Sketch::instance().getShapeCache()[key]);
     
     if (s)
         s->setPoint(index, sf::Vector2f(x, y));
