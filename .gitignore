@@ -8,3 +8,5 @@ include/lua5.3
 include/SFML
 res/extlibs
 res/Frameworks
+*.res
+main.luna
