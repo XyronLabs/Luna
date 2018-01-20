@@ -35,15 +35,17 @@ Sketch::Sketch() {
     registerLunaFunction(exit);
     registerLunaFunction(icon);
     registerLunaFunction(noLoop);
+}
+
+bool Sketch::preload(const char* lua_main, const std::vector<const char*>& lua_args) {
 
     /* Load Lua libraries */
     luaL_loadfile(L, getLunaResource("lua/modules.lua"));
     if (lua_pcall(L, 0, 0, 0)) {
         Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("module_load_error") });
+        return true;
     }
-}
 
-bool Sketch::preload(const char* lua_main, const std::vector<const char*>& lua_args) {
     // Set default values to variables
     default_font.loadFromFile(getLunaResource( luna_conf::main.get("default_font") ));
     current_color = sf::Color::White;
