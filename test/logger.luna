@@ -1,0 +1,104 @@
+function setup()
+        size(1280, 720, "TestVector")
+
+    log(loglevel.DEBUG, "Testing!")
+    log(loglevel.INFO, "info!")
+    log(loglevel.WARNING, "warning!")
+    log(loglevel.ERROR, "error!")
+    log(loglevel.FATAL, "FATAAAAAAAAAAAAAAAAL!")
+end
+
+function render()
+    clear()
+    
+    rect(mouseX, mouseY, 100, 100)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- x = 0
+
+-- local myCustom1 = customShape:new{ points = { {100, 300}, {300, 100}, {500, 300}, {400, 400}, {200 ,400} }, outline_thickness = 3, outline_color = colors.white }
+-- rec1 = rectangleShape:new{ x = 800, y = 400, width = 200, height = 200, color = colors.red, texture = nil, outline_thickness = 10, outline_color = colors.white }
+-- cir1 = ellipseShape:new{ x = 0, y = 0, xradius = 20, yradius = 20, color = colors.cyan, texture = nil, outline_thickness = 1, outline_color = colors.white }
+-- t1 = textbox:new{ x = 600, y = 600, text = "Hey! Hey outline!", size = 52, color = colors.cyan, outline_thickness = 10, outline_color = colors.white }
+
+-- function setup()
+--     size(1280, 720, "CustomShapeTest")
+--     icon('creeper.png')
+--     -- editObject(rec1.id, 'origin', 100, 100)
+--     -- editObject(rec1.id, 'outline_thickness', 10)
+--     -- editObject(rec1.id, 'outline_color', colors.white)
+    
+--     -- editObject(myCustom1.id, 'outline_thickness', 25)
+--     -- editObject(myCustom1.id, 'outline_color', colors.green)
+    
+--     -- editObject(cir1.id, 'outline_thickness', 1)
+--     -- editObject(cir1.id, 'outline_color', colors.yellow)
+--     -- cir1:setOutlineThickness(1)
+--     -- cir1:setOutlineColor(colors.yellow)
+-- end
+
+-- function render()
+--     clear()
+
+--     color(colors.cyan)
+--     myCustom1:setColor(hue( os.time() / 100 % 100 ))
+--     editObject(rec1.id, 'rotation', x)
+
+--     myCustom1:render()
+
+
+--     rec1:render()
+
+--     -- text("Outlines!", 52, 500, 10)
+--     x = x + 0.5
+
+
+--     -- ellipse(0, 0, 20, 20)
+--     cir1:render()
+--     t1:render()
+-- end
+
+-- function input()
+--     if keys['A'] then noLoop() print("Stopping loop") end
+-- end
