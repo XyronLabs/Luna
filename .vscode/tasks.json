@@ -1,0 +1,71 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "windows": {
+                "command": "call build/windows/setup-env.bat && nmake /F NMakefile win"
+            },
+            "linux": {
+                "command": "make d"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "standalone",
+            "type": "shell",
+            "windows": {
+                "command": "call build/windows/setup-env.bat && nmake /F NMakefile standalone"
+            },
+            "linux": {
+                "command": "make r"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "debug",
+            "type": "shell",
+            "windows": {
+                "command": "call build/windows/setup-env.bat && nmake /F NMakefile debug"
+            },
+            "linux": {
+                "command": "make d"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "out-install",
+            "type": "shell",
+            "windows": {
+                "command": "call build/windows/setup-env.bat && nmake /F NMakefile out-install"
+            },
+            "linux": {
+                "command": "make deb"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "out-standalone",
+            "type": "shell",
+            "windows": {
+                "command": "call build/windows/setup-env.bat && nmake /F NMakefile out-standalone"
+            },
+            "linux": {
+                "command": "make r"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "windows": {
+                "command": "call build/windows/setup-env.bat && nmake /F NMakefile clean"
+            },
+            "linux": {
+                "command": "make clean"
+            },
+            "problemMatcher": []
+        }
+    ]
+}
