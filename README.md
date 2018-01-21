@@ -5,7 +5,7 @@
 * Program in Lua, easy for non-programmers, kids, etc.
 * Multiple options for programming: Simple or Object oriented
 * Tutorials avaliable in multiple languages (soon)
-* Cross-platform: Windows and Ubuntu/Debian builds are released for each version
+* Cross-platform: Windows, Ubuntu/Debian and MacOS builds are released for each version
 
 # Tutorials
 * Check out the wiki [here](https://github.com/XyronLabs/Luna/wiki)
