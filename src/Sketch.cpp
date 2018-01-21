@@ -89,7 +89,6 @@ bool Sketch::setup() {
         return true;
     }
 
-
     // Exit if 'size' is not called
     if (!window) {
         Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("window_not_created") });
