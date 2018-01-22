@@ -5,9 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(Windows) Launch",
+            "name": "Release",
             "type": "cppvsdbg",
             "request": "launch",
+            "preLaunchTask": "standalone",
+            "program": "${workspaceFolder}/bin/luna.exe",
+            "args": ["-f", "test/logger.luna"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true
+        },
+        {
+            "name": "Debug",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "preLaunchTask": "debug",
             "program": "${workspaceFolder}/bin/luna.exe",
             "args": ["-f", "test/logger.luna"],
             "stopAtEntry": false,

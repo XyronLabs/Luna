@@ -2,17 +2,6 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
-            "type": "shell",
-            "windows": {
-                "command": "call build/windows/setup-env.bat && nmake /F NMakefile win"
-            },
-            "linux": {
-                "command": "make d"
-            },
-            "problemMatcher": []
-        },
-        {
             "label": "standalone",
             "type": "shell",
             "windows": {
