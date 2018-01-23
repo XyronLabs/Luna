@@ -4,7 +4,7 @@ includes = /I include /I external/include
 res = build/windows/resource.res
 
 common_flags = /std:c++latest /EHsc /W2 /MP
-release_flags = /Ox /Ob2 /Oi /Ot
+release_flags = /Ox /Ob2 /Oi /Ot /arch:SSE2
 
 debug:
 	cl $(sources) /Fe$(exe) $(includes) $(common_flags) /D LUNA_DEBUG /D LUNA_STANDALONE
