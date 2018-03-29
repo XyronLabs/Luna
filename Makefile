@@ -4,7 +4,7 @@ DEB     := deb
 INCLUDE := include
 OBJ 	:= objects
 OUT 	:= $(BIN)/output
-SRC 	:= source
+SRC 	:= source/luna
 LIB 	:= libraries
 
 
@@ -31,7 +31,7 @@ sources           := $(wildcard $(SRC)/*.cpp)
 objects-$(CONFIG) := $(patsubst $(SRC)/%.cpp, $(OBJ)/%-$(CONFIG).o, $(sources))
 
 # Libraries #
-libraries := -llua5.3 -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
+libraries := -llua5.3 -ldl -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
 
 # Compiler options for each configuration #
 LDFLAGS                := "-Wl,-rpath,./res/extlibs"
@@ -60,7 +60,7 @@ o:
 #-------------------------------------------------------------------#
 #                           Configuration                           #
 #-------------------------------------------------------------------#
-$(CONFIG): $(objects-$(CONFIG)) DIRS
+$(CONFIG): $(objects-$(CONFIG)) 
 	$(CXX) $(objects-$(CONFIG)) -o $(BIN)/$@/$(EXE) $(LDFLAGS) -L$(LIB) $(libraries)
 
 $(OBJ)/%-$(CONFIG).o: $(SRC)/%.cpp DIRS
@@ -69,7 +69,7 @@ $(OBJ)/%-$(CONFIG).o: $(SRC)/%.cpp DIRS
 
 # Directory creation #
 DIRS:
-	mkdir -p $(BIN) $(OBJ) $(OUT)
+	mkdir -p $(BIN)/$(DEBUG) $(BIN)/$(RELEASE) $(BIN)/$(STANDALONE) $(OBJ) $(OUT)
 
 # Clean #
 clean: clean-$(BIN) clean-$(OBJ) clean-$(OUT) clean-$(DEB)
@@ -91,13 +91,13 @@ uninstall:
 install: uninstall
 	cp $(BIN)/$(EXE)-$(RELEASE) /$(EXE_PATH)
 	-mkdir /$(INSTALL_PATH)
-	-cp -rf res/ /$(INSTALL_PATH)
+	-cp -rf resources/luna/ /$(INSTALL_PATH)/res
 
 
 deb: $(RELEASE) DIRS
 	mkdir -p $(DEB)/$(BASE_PATH)/bin/ $(DEB)/$(INSTALL_PATH) $(DEB)/DEBIAN/
 	cp $(BIN)/$(EXE)-$(RELEASE) $(DEB)/$(EXE_PATH)
 	cp build/debian/control $(DEB)/DEBIAN/
-	cp -rf res/ $(DEB)/$(INSTALL_PATH)
+	cp -rf resources/luna/ $(DEB)/$(INSTALL_PATH)/res
 	dpkg-deb -b $(DEB) $(OUT)/$(EXE).deb
 	$(MAKE) clean-$(OBJ) clean-$(DEB)
