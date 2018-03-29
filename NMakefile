@@ -1,5 +1,5 @@
-exe = bin/luna.exe
-sources = src/luna/*.cpp libraries/*
+exe = binaries/luna.exe
+sources = source/luna/*.cpp libraries/*.lib
 includes = /I include /I include/sfml
 res = build/windows/resource.res
 

@@ -13,4 +13,5 @@ include/lua
 include/sfml
 source/lua
 source/sfml
+binaries/
 libraries/

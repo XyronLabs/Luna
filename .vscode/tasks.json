@@ -5,7 +5,7 @@
             "label": "standalone",
             "type": "shell",
             "windows": {
-                "command": "call build/windows/setup-env.bat && nmake /F NMakefile standalone"
+                "command": "call resources/build/windows/setup-env.bat && nmake /F NMakefile standalone"
             },
             "linux": {
                 "command": "make r"
@@ -16,7 +16,7 @@
             "label": "debug",
             "type": "shell",
             "windows": {
-                "command": "call build/windows/setup-env.bat && nmake /F NMakefile debug"
+                "command": "call resources/build/windows/setup-env.bat && nmake /F NMakefile debug"
             },
             "linux": {
                 "command": "make d"
@@ -27,7 +27,7 @@
             "label": "out-install",
             "type": "shell",
             "windows": {
-                "command": "call build/windows/setup-env.bat && nmake /F NMakefile out-install"
+                "command": "call resources/build/windows/setup-env.bat && nmake /F NMakefile out-install"
             },
             "linux": {
                 "command": "make deb"
@@ -38,7 +38,7 @@
             "label": "out-standalone",
             "type": "shell",
             "windows": {
-                "command": "call build/windows/setup-env.bat && nmake /F NMakefile out-standalone"
+                "command": "call resources/build/windows/setup-env.bat && nmake /F NMakefile out-standalone"
             },
             "linux": {
                 "command": "make r"
@@ -49,7 +49,7 @@
             "label": "clean",
             "type": "shell",
             "windows": {
-                "command": "call build/windows/setup-env.bat && nmake /F NMakefile clean"
+                "command": "call resources/build/windows/setup-env.bat && nmake /F NMakefile clean"
             },
             "linux": {
                 "command": "make clean"
