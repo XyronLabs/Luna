@@ -31,7 +31,7 @@ sources           := $(wildcard $(SRC)/*.cpp)
 objects-$(CONFIG) := $(patsubst $(SRC)/%.cpp, $(OBJ)/%-$(CONFIG).o, $(sources))
 
 # Libraries #
-libraries := -llua5.3 -ldl -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
+libraries := -llua -ldl -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
 
 # Compiler options for each configuration #
 LDFLAGS                := "-Wl,-rpath,./res/extlibs"
@@ -89,7 +89,7 @@ uninstall:
 	-rm -rf /$(INSTALL_PATH)
 
 install: uninstall
-	cp $(BIN)/$(EXE)-$(RELEASE) /$(EXE_PATH)
+	cp $(BIN)/$(RELEASE)/$(EXE) /$(EXE_PATH)
 	-mkdir /$(INSTALL_PATH)
 	-cp -rf resources/luna/ /$(INSTALL_PATH)/res
 
