@@ -2,6 +2,7 @@ lua_version=lua-5.3.4
 
 mkdir -p ../include/lua
 mkdir -p ../source/lua
+mkdir -p ../libraries
 
 echo Downloading 
 curl -R -O http://www.lua.org/ftp/$lua_version.tar.gz
