@@ -1,17 +1,17 @@
 # Directories #
-BIN 	:= bin
+BIN 	:= binaries
 DEB     := deb
 INCLUDE := include
-OBJ 	:= obj
-OUT 	:= out
-SRC 	:= src
-LIB 	:= res/extlibs
+OBJ 	:= objects
+OUT 	:= $(BIN)/output
+SRC 	:= source
+LIB 	:= libraries
 
 
 # Configurations #
-STANDALONE := standalone
-RELEASE := release
-DEBUG   := debug
+STANDALONE	:= standalone
+RELEASE		:= release
+DEBUG		:= debug
 
 # Default configuration #
 CONFIG  := release
@@ -61,7 +61,7 @@ o:
 #                           Configuration                           #
 #-------------------------------------------------------------------#
 $(CONFIG): $(objects-$(CONFIG)) DIRS
-	$(CXX) $(objects-$(CONFIG)) -o $(BIN)/$(EXE)-$@ $(LDFLAGS) -L$(LIB) $(libraries)
+	$(CXX) $(objects-$(CONFIG)) -o $(BIN)/$@/$(EXE) $(LDFLAGS) -L$(LIB) $(libraries)
 
 $(OBJ)/%-$(CONFIG).o: $(SRC)/%.cpp DIRS
 	$(CXX) $(CXXFLAGS) $(CXXFLAGS_$(CONFIG)) $< -c -o $@ -I$(INCLUDE)

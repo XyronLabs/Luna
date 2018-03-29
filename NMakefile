@@ -1,6 +1,6 @@
 exe = bin/luna.exe
-sources = src/*.cpp external/libraries/*
-includes = /I include /I external/include
+sources = src/luna/*.cpp libraries/*
+includes = /I include /I include/sfml
 res = build/windows/resource.res
 
 common_flags = /std:c++latest /EHsc /W2 /MP
