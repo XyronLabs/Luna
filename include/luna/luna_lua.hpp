@@ -1,7 +1,7 @@
 #pragma once
 
-#include <lua5.3/lua.hpp>
-#include "Sketch.hpp"
+#include <lua/lua.hpp>
+#include "luna/Sketch.hpp"
 
 // For defining Lua functions
 typedef int(*lua_CFunction) (lua_State *L);

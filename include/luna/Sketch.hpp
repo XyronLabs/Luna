@@ -3,7 +3,7 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include <lua5.3/lua.hpp>
+#include <lua/lua.hpp>
 
 /**
     Main Luna class, this class manages

@@ -4,7 +4,7 @@
 #include <string>
 #include <initializer_list>
 #include <vector>
-#include <lua5.3/lua.hpp>
+#include <lua/lua.hpp>
 
 class Logger {
 public:

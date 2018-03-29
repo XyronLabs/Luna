@@ -1,6 +1,6 @@
 #pragma once
-#include "Configuration.hpp"
-#include "Defines.hpp"
+#include "luna/Configuration.hpp"
+#include "luna/Defines.hpp"
 
 namespace luna_conf {
     static Configuration main(getLunaResource("luna.cfg"));

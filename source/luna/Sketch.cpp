@@ -1,8 +1,8 @@
-#include "Sketch.hpp"
-#include "luna_lua.hpp"
-#include "Logger.hpp"
-#include "Defines.hpp"
-#include "LunaConf.hpp"
+#include "luna/Sketch.hpp"
+#include "luna/luna_lua.hpp"
+#include "luna/Logger.hpp"
+#include "luna/Defines.hpp"
+#include "luna/LunaConf.hpp"
 
 Sketch& Sketch::instance() {
     static Sketch s_instance;

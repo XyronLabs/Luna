@@ -1,6 +1,6 @@
-#include "luna_lua.hpp"
-#include "Logger.hpp"
-#include "LunaConf.hpp"
+#include "luna/luna_lua.hpp"
+#include "luna/Logger.hpp"
+#include "luna/LunaConf.hpp"
 
 /***************************** Common functions ******************************/
 

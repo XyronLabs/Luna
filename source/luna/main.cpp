@@ -1,10 +1,10 @@
 #include <cstring>
 
-#include "Sketch.hpp"
-#include "Logger.hpp"
-#include "Defines.hpp"
-#include "Configuration.hpp"
-#include "LunaConf.hpp"
+#include "luna/Sketch.hpp"
+#include "luna/Logger.hpp"
+#include "luna/Defines.hpp"
+#include "luna/Configuration.hpp"
+#include "luna/LunaConf.hpp"
 
 int main(int argc, char **argv) {
 

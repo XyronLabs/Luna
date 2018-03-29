@@ -1,4 +1,4 @@
-#include "Configuration.hpp"
+#include "luna/Configuration.hpp"
 
 #include <iostream>
 #include <sstream>

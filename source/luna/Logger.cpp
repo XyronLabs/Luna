@@ -1,4 +1,4 @@
-#include "Logger.hpp"
+#include "luna/Logger.hpp"
 
 Logger::Logger()
 #ifdef LUNA_DEBUG
