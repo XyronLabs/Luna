@@ -63,6 +63,7 @@ function rectangleShape:setColor(color)
 end
 
 function rectangleShape:setTexture(texturePath)
+    self.texture = texturePath
     editObject(self.id, 'texture', texturePath)
     return self
 end
@@ -75,11 +76,13 @@ function rectangleShape:collide(other)
 end
 
 function rectangleShape:setOutlineColor(color)
+    self.outline_color = color
     editObject(self.id, 'outline_color', color)
     return self
 end
 
 function rectangleShape:setOutlineThickness(thickness)
+    self.outline_thickness = thickness
     editObject(self.id, 'outline_thickness', thickness)
     return self
 end

@@ -34,9 +34,11 @@ function sound:stop()
 end
 
 function sound:setVolume(volume)
+    self.volume = volume
     editObject(self.id, 'volume', volume)
 end
 
 function sound:setLoop(loop)
+    self.loop = loop
     editObject(self.id, 'loop', loop)
 end

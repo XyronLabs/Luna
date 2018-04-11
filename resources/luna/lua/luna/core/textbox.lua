@@ -57,11 +57,13 @@ function textbox:setColor(color)
 end
 
 function textbox:setOutlineColor(color)
+    self.outline_color = color
     editObject(self.id, 'outline_color', color)
     return self
 end
 
 function textbox:setOutlineThickness(thickness)
+    self.outline_thickness = thickness
     editObject(self.id, 'outline_thickness', thickness)
     return self
 end
