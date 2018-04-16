@@ -2,7 +2,7 @@
 customShape = {}
 local customShape_mt = { __index = customShape }
 
-customShape.idCounter
+customShape.idCounter = 0
 
 --[[ Constructor ]]--
 function customShape:new(dat)
