@@ -2,10 +2,13 @@
 textbox = {}
 local textbox_mt = { __index = textbox }
 
+textbox.idCounter = 0
+
 --[[ Constructor ]]--
 function textbox:new(dat)
     local obj = {}
-    obj.id = 'text_' .. math.random()
+    obj.id = 'text_' .. textbox.idCounter
+    textbox.idCounter = textbox.idCounter + 1
     
     for k, v in pairs(dat) do
         obj[k] = v

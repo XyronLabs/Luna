@@ -2,10 +2,13 @@
 rectangleShape = {}
 local rectangleShape_mt = { __index = rectangleShape }
 
+rectangleShape.idCounter = 0
+
 --[[ Constructor ]]--
 function rectangleShape:new(dat)
     local obj = {}
-    obj.id = 'rectangle_' .. math.random()
+    obj.id = 'rectangle_' .. rectangleShape.idCounter
+    rectangleShape.idCounter = rectangleShape.idCounter + 1
     
     for k, v in pairs(dat) do
         obj[k] = v

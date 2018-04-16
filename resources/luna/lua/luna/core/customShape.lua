@@ -2,10 +2,13 @@
 customShape = {}
 local customShape_mt = { __index = customShape }
 
+customShape.idCounter
+
 --[[ Constructor ]]--
 function customShape:new(dat)
     local obj = {}
-    obj.id = 'customShape_' .. math.random()
+    obj.id = 'customShape_' .. customShape.idCounter
+    customShape.idCounter = customShape.idCounter + 1
     
     for k, v in pairs(dat) do
         obj[k] = v

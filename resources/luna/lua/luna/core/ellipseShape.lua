@@ -2,10 +2,13 @@
 ellipseShape = {}
 local ellipseShape_mt = { __index = ellipseShape }
 
+ellipseShape.idCounter = 0
+
 --[[ Constructor ]]--
 function ellipseShape:new(dat)
     local obj = {}
-    obj.id = 'ellipseShape_' .. math.random()
+    obj.id = 'ellipseShape_' .. ellipseShape.idCounter
+    ellipseShape.idCounter = ellipseShape.idCounter + 1
     
     for k, v in pairs(dat) do
         obj[k] = v

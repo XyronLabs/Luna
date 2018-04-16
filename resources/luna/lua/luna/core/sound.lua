@@ -2,10 +2,13 @@
 sound = {}
 local sound_mt = { __index = sound }
 
+sound.idCounter = 0
+
 --[[ Constructor ]]--
 function sound:new(dat)
     local obj = {}
-    obj.id = 'sound_' .. math.random()
+    obj.id = 'sound_' .. sound.idCounter
+    sound.idCounter = sound.idCounter + 1
     
     for k, v in pairs(dat) do
         obj[k] = v
