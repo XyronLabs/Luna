@@ -1,0 +1,22 @@
+local tiles = {}
+local tileSize = 10
+
+function setup()
+    size(800, 600, "Tilemap test")
+
+    for x = 0, width - 1, tileSize do
+        for y = 0, height - 1, tileSize do
+            local tile = rectangleShape:new{ x = x, y = y, width = tileSize, height = tileSize, color = hue( (x + y) / (width + height) ) }
+            table.insert(tiles, tile)
+            
+        end
+    end
+end
+
+function render()
+    clear()
+
+    for _, v in pairs(tiles) do
+        v:render()
+    end
+end
