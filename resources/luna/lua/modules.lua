@@ -5,7 +5,7 @@ package.path = package.path .. ";./res/lua/luna/?.lua;./res/lua/extensions/?/ini
 
 --[[ Load luna variables ]]--
 luna = {}
-luna.version = "0.8.0"
+luna.version = "0.8.1"
 luna = setmetatable({}, { __index = luna, __newindex = function() error("luna table is read-only") end })
 
 --[[ Load core modules ]]--
