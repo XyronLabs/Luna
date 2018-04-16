@@ -96,8 +96,8 @@ install: uninstall
 
 deb: $(RELEASE) DIRS
 	mkdir -p $(DEB)/$(BASE_PATH)/bin/ $(DEB)/$(INSTALL_PATH) $(DEB)/DEBIAN/
-	cp $(BIN)/$(EXE)-$(RELEASE) $(DEB)/$(EXE_PATH)
-	cp build/debian/control $(DEB)/DEBIAN/
+	cp $(BIN)/$(RELEASE)/$(EXE) $(DEB)/$(EXE_PATH)
+	cp resources/build/debian/control $(DEB)/DEBIAN/
 	cp -rf resources/luna/ $(DEB)/$(INSTALL_PATH)/res
 	dpkg-deb -b $(DEB) $(OUT)/$(EXE).deb
 	$(MAKE) clean-$(OBJ) clean-$(DEB)
