@@ -1,7 +1,7 @@
 exe = binaries/luna.exe
 sources = source/luna/*.cpp libraries/*.lib
 includes = /I include /I include/sfml
-res = build/windows/resource.res
+res = resources/build/windows/resource.res
 
 common_flags = /std:c++latest /EHsc /W2 /MP
 release_flags = /Ox /Ob2 /Oi /Ot /arch:SSE2
@@ -25,12 +25,12 @@ out-install: clean install
 
 out-standalone: clean standalone
 	md out\res
-	xcopy /e /y bin out
-	xcopy /e /y res out\res\*
+	xcopy /e /y binaries out
+	xcopy /e /y resources\luna out\res
 
 clean:
 	if exist bin\Luna.exe del bin\Luna.exe
 	if exist out rd /s /q out
 
 resource:
-	rc build/windows/resource.rc
+	rc resources/build/windows/resource.rc
