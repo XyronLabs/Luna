@@ -43,13 +43,13 @@ end
 
 function textbox:setText(text)
     self.text = text or self.text
-    editObject(obj.id, 'text', obj.text)
+    editObject(self.id, 'text', self.text)
     return self
 end
 
 function textbox:setSize(size)
     self.size = size
-    editObject(obj.id, 'textSize', obj.size)
+    editObject(self.id, 'textSize', self.size)
     return self
 end
 
