@@ -1,4 +1,4 @@
-local _mousekeys = {
+mousekeys = {
     [0] = "Left",
     "Right",
     "Middle",
@@ -6,17 +6,3 @@ local _mousekeys = {
     "Xbutton2",
     "ButtonCount"
 }
-
-mousekeys = {}
-
-for k, v in pairs(_mousekeys) do
-	mousekeys[v] = false
-end
-
-function pressMouseKey(k)
-	mousekeys[_mousekeys[k]] = true
-end
-
-function releaseMouseKey(k)
-	mousekeys[_mousekeys[k]] = false
-end

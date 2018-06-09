@@ -23,12 +23,12 @@ Sketch::Sketch() {
     registerLunaFunction(rect);
     registerLunaFunction(line);
     registerLunaFunction(ellipse);
-    
+
     registerLunaFunction(registerObject);
     registerLunaFunction(editObject);
     registerLunaFunction(renderObject);
     registerLunaFunction(removeObject);
-    
+
     registerLunaFunction(log);
     registerLunaFunction(setLogLevel);
     registerLunaFunction(frameRate);
@@ -114,31 +114,44 @@ void Sketch::loop() {
                     window->close();
                     break;
 
-                // Set keys[X] true
                 case sf::Event::KeyPressed:
-                    lua_getglobal(L, "pressKey");
-                    lua_pushinteger(L, ev.key.code);
+                    lua_getglobal(L, "input");
+                    lua_newtable(L);
+                    lua_addvalue_s_s(L, "type", "key_press");
+                    lua_addvalue_s_i(L, "key", ev.key.code);
                     lua_pcall(L, 1, 0, 0);
                     break;
 
-                // Set keys[X] false
                 case sf::Event::KeyReleased:
-                    lua_getglobal(L, "releaseKey");
-                    lua_pushinteger(L, ev.key.code);
+                    lua_getglobal(L, "input");
+                    lua_newtable(L);
+                    lua_addvalue_s_s(L, "type", "key_release");
+                    lua_addvalue_s_i(L, "key", ev.key.code);
                     lua_pcall(L, 1, 0, 0);
                     break;
 
-                // Set mousekeys[X] true
                 case sf::Event::MouseButtonPressed:
-                    lua_getglobal(L, "pressMouseKey");
-                    lua_pushinteger(L, ev.mouseButton.button);
+                    lua_getglobal(L, "input");
+                    lua_newtable(L);
+                    lua_addvalue_s_s(L, "type", "mouse_press");
+                    lua_addvalue_s_i(L, "button", ev.mouseButton.button);
                     lua_pcall(L, 1, 0, 0);
                     break;
 
-                // Set mousekeys[X] false
                 case sf::Event::MouseButtonReleased:
-                    lua_getglobal(L, "releaseMouseKey");
-                    lua_pushinteger(L, ev.mouseButton.button);
+                    lua_getglobal(L, "input");
+                    lua_newtable(L);
+                    lua_addvalue_s_s(L, "type", "mouse_release");
+                    lua_addvalue_s_i(L, "button", ev.mouseButton.button);
+                    lua_pcall(L, 1, 0, 0);
+                    break;
+
+                case sf::Event::Resized:
+                    lua_getglobal(L, "input");
+                    lua_newtable(L);
+                    lua_addvalue_s_s(L, "type", "resize");
+                    lua_addvalue_s_i(L, "width", ev.size.width);
+                    lua_addvalue_s_i(L, "height", ev.size.height);
                     lua_pcall(L, 1, 0, 0);
                     break;
 
@@ -167,14 +180,6 @@ void Sketch::loop() {
                 return;
             }
 
-            // Call Lua input function if it exists
-            if (lua_getglobal(L, "input"))
-                if (lua_pcall(L, 0, 0, 0)) {
-                    Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("input_function_error") }, L);
-                    window->close();
-                    return;
-                }
-
         }
 
         // Show the new frame
@@ -184,7 +189,7 @@ void Sketch::loop() {
 
 void Sketch::cleanup() {
     lua_close(L);
-    
+
     for (auto& t : shapeCache)
         delete t.second;
 
@@ -195,10 +200,10 @@ void Sketch::cleanup() {
         delete t.second->getBuffer();
         delete t.second;
     }
-    
+
     for (auto& t : textCache)
         delete t.second;
-        
+
     for (auto& t : tmpVertex)
         delete t.second;
 }

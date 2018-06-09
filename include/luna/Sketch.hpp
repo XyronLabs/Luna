@@ -5,6 +5,8 @@
 #include <SFML/Audio.hpp>
 #include <lua/lua.hpp>
 
+#include "luna/utils.hpp"
+
 /**
     Main Luna class, this class manages
     everything drawn on the screen
@@ -33,7 +35,7 @@ class Sketch {
 
     /*
         Caches for Lua objects
-    */    
+    */
     std::map<std::string, sf::Shape*> shapeCache;
     std::map<std::string, sf::Texture*> textureCache;
     std::map<std::string, sf::Sound*> soundCache;
@@ -57,7 +59,7 @@ public:
         Return Sketch instance, singleton
     */
     static Sketch& instance();
-    
+
     /*
         Load the main Lua script and default vars
         (default font, color, etc)

@@ -1,0 +1,38 @@
+local lines = {}
+
+function setup()
+    size(1280, 720, "App name")
+
+    for i = 1, 3 do
+        lines[i] = textbox:new{ x = 20, y = 50 * i, text = "nil", size = 42, color = colors.white }
+    end
+end
+
+function render()
+    clear()
+
+    lines[3]:setText("MouseX: " .. mouseX .. ", MouseY: " .. mouseY)
+
+
+    for i = 1, 3 do
+        lines[i]:render()
+    end
+end
+
+function input(event)
+
+    lines[1]:setText(event.type)
+
+    if event.type == "key_press" or event.type == "key_release" then
+        lines[2]:setText(keys[event.key])
+
+    elseif event.type == "mouse_press" or event.type == "mouse_release" then
+        lines[2]:setText(mousekeys[event.button])
+
+    elseif event.type == "resize" then
+        lines[2]:setText("Width: " .. event.width .. ", Height: " .. event.height)
+
+    elseif event.type == "mouse_move" then
+        lines[2]:setText("X: " .. event.x .. ", Y: " .. event.y)
+    end
+end
