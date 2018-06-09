@@ -15,6 +15,10 @@
         {
             "label": "debug",
             "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "windows": {
                 "command": "call resources/build/windows/setup-env.bat && nmake /F NMakefile debug"
             },
@@ -53,6 +57,21 @@
             },
             "linux": {
                 "command": "make clean"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "debug&run",
+            "type": "shell",
+            "windows": {
+                "command": "call resources/build/windows/setup-env.bat && nmake /F NMakefile test"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "linux": {
+                "command": "make d && binaries/debug/luna -f test/newinput.luna"
             },
             "problemMatcher": []
         }

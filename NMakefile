@@ -10,6 +10,9 @@ debug:
 	cl $(sources) /Fe$(exe) $(includes) $(common_flags) /D LUNA_DEBUG
 	del *.obj
 
+test: debug
+	.\binaries\luna.exe -f .\test\newinput.luna
+
 install: resource
 	cl $(sources) $(res) /Fe$(exe) $(includes) $(common_flags) $(release_flags)
 	del *.obj
