@@ -89,6 +89,11 @@ public:
     void cleanup();
 
     /*
+        Handle SFML events
+    */
+    void handleEvent(const sf::Event& ev);
+
+    /*
         Called by size(w,h,t) Lua function
         Set any settings needed for the window here
         (VSync, Antialiasing, etc)
