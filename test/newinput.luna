@@ -3,8 +3,8 @@ local lines = {}
 function setup()
     size(1280, 720, "App name")
 
-    for i = 1, 3 do
-        lines[i] = textbox:new{ x = 20, y = 50 * i, text = "nil", size = 42, color = colors.white }
+    for i = 1, 4 do
+        lines[i] = textbox:new{ x = 20, y = 50 * i, text = "", size = 42, color = colors.white }
     end
 end
 
@@ -14,7 +14,7 @@ function render()
     lines[3]:setText("MouseX: " .. mouseX .. ", MouseY: " .. mouseY)
 
 
-    for i = 1, 3 do
+    for i = 1, 4 do
         lines[i]:render()
     end
 end
@@ -44,5 +44,10 @@ function input(event)
     elseif event.type == "joystick_move" then
         lines[2]:setText("ID: " .. event.id .. ", Axis: " .. event.axis .. ", Position: " .. event.position)
 
+    elseif event.type == "joystick_connect" or event.type == "joystick_disconnect" then
+        lines[2]:setText("ID: " .. event.id)
+
+    elseif event.type == "text_entered" then
+        lines[4]:setText(lines[4].text .. string.char(event.character))
     end
 end

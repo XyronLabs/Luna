@@ -215,6 +215,30 @@ void Sketch::loop() {
                     lua_pcall(L, 1, 0, 0);
                     break;
 
+                case sf::Event::JoystickConnected:
+                    lua_getglobal(L, "input");
+                    lua_newtable(L);
+                    lua_addvalue_s_s(L, "type", "joystick_connect");
+                    lua_addvalue_s_i(L, "id", ev.joystickConnect.joystickId);
+                    lua_pcall(L, 1, 0, 0);
+                    break;
+
+                case sf::Event::JoystickDisconnected:
+                    lua_getglobal(L, "input");
+                    lua_newtable(L);
+                    lua_addvalue_s_s(L, "type", "joystick_disconnect");
+                    lua_addvalue_s_i(L, "id", ev.joystickConnect.joystickId);
+                    lua_pcall(L, 1, 0, 0);
+                    break;
+
+                case sf::Event::TextEntered:
+                    lua_getglobal(L, "input");
+                    lua_newtable(L);
+                    lua_addvalue_s_s(L, "type", "text_entered");
+                    lua_addvalue_s_i(L, "character", ev.text.unicode);
+                    lua_pcall(L, 1, 0, 0);
+                    break;
+
                 default:
                     break;
             }
