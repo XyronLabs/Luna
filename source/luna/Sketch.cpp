@@ -35,6 +35,7 @@ Sketch::Sketch() {
     registerLunaFunction(exit);
     registerLunaFunction(icon);
     registerLunaFunction(noLoop);
+    registerLunaFunction(setMouseVisible);
 }
 
 bool Sketch::preload(const char* lua_main, const std::vector<const char*>& lua_args) {

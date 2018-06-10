@@ -35,6 +35,10 @@ namespace lunaL {
     /* Stop loop */
     int noLoop(lua_State *L);
 
+    /* window->setMouseCursorVisible(true/false); */
+    int setMouseVisible(lua_State *L);
+
+
 
 /***************************** Simple rendering ******************************/
 
@@ -50,13 +54,13 @@ namespace lunaL {
     /*
         Draw a rectangle starting at point 'p1',
         with width and height 'p2', called from
-        rect(x1,y1,x2,y2) Lua function 
+        rect(x1,y1,x2,y2) Lua function
     */
     int rect(lua_State *L);
 
     /*
         Draw a line between points 'p1' and 'p2',
-        called from line(x1,y1,x2,y2) Lua function 
+        called from line(x1,y1,x2,y2) Lua function
     */
     int line(lua_State *L);
 

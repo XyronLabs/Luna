@@ -14,7 +14,7 @@ int lunaL::size(lua_State *L) {
 }
 
 int lunaL::clear(lua_State *L) {
-    Sketch::instance().getWindow().clear();    
+    Sketch::instance().getWindow().clear();
     return 0;
 }
 
@@ -66,6 +66,13 @@ int lunaL::noLoop(lua_State *L) {
     return 0;
 }
 
+int lunaL::setMouseVisible(lua_State *L) {
+    if (lua_isboolean(L, 1)) {
+        Sketch::instance().getWindow().setMouseCursorVisible(lua_toboolean(L, 1));
+    }
+    return 0;
+}
+
 
 /***************************** Simple rendering ******************************/
 
@@ -97,7 +104,7 @@ int lunaL::rect(lua_State *L) {
     v[1] = sf::Vertex(sf::Vector2f(coords[0]            , coords[1] + coords[3]), currColor);
     v[2] = sf::Vertex(sf::Vector2f(coords[0] + coords[2], coords[1] + coords[3]), currColor);
     v[3] = sf::Vertex(sf::Vector2f(coords[0] + coords[2], coords[1]            ), currColor);
-    
+
 
     Sketch::instance().getWindow().draw(v);
     return 0;
@@ -116,7 +123,7 @@ int lunaL::line(lua_State *L) {
     };
 
     Sketch::instance().getWindow().draw(line, 2, sf::Lines);
-    return 0;  
+    return 0;
 }
 
 /*
@@ -202,7 +209,7 @@ int lunaL::registerObject(lua_State *L) {
     } else if (objectType == "custom") {
         sf::Shape* shape;
         int points = luaL_checkinteger(L, 3);
-        
+
         sf::ConvexShape s;
         s.setPointCount(points);
         shape = new sf::ConvexShape(s);
@@ -315,7 +322,7 @@ int lunaL::editObject(lua_State *L) {
     float y = luaL_checknumber(L, 5);
 
     sf::ConvexShape *s = static_cast<sf::ConvexShape*>(Sketch::instance().getShapeCache()[key]);
-    
+
     if (s)
         s->setPoint(index, sf::Vector2f(x, y));
     else
@@ -330,13 +337,13 @@ int lunaL::editObject(lua_State *L) {
 
     } else if (property == "textSize") {
         unsigned int textSize = luaL_checkinteger(L, 3);
-        
+
         Sketch::instance().getTextCache()[key]->setCharacterSize(textSize);
 
 
 /****************************** Sound properties ******************************/
     } else if (property == "play") {
-        
+
         if (Sketch::instance().getSoundCache()[key]) {
             Sketch::instance().getSoundCache()[key]->play();
         } else {
@@ -345,7 +352,7 @@ int lunaL::editObject(lua_State *L) {
 
     } else if (property == "pause") {
         std::string soundID = luaL_checkstring(L, 3);
-        
+
         if (Sketch::instance().getSoundCache()[key]) {
             Sketch::instance().getSoundCache()[key]->pause();
         } else {
@@ -354,7 +361,7 @@ int lunaL::editObject(lua_State *L) {
 
     } else if (property == "stop") {
         std::string soundID = luaL_checkstring(L, 3);
-        
+
         if (Sketch::instance().getSoundCache()[key]) {
             Sketch::instance().getSoundCache()[key]->stop();
         } else {
