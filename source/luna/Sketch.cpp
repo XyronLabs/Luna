@@ -146,6 +146,24 @@ void Sketch::loop() {
                     lua_pcall(L, 1, 0, 0);
                     break;
 
+                case sf::Event::MouseMoved: {
+                    sf::Vector2i pos = sf::Mouse::getPosition(*window);
+                    lua_pushinteger(L, pos.x);
+                    lua_setglobal(L, "mouseX");
+                    lua_pushinteger(L, pos.y);
+                    lua_setglobal(L, "mouseY");
+                    break;
+                }
+
+                case sf::Event::MouseWheelScrolled:
+                    lua_getglobal(L, "input");
+                    lua_newtable(L);
+                    lua_addvalue_s_s(L, "type", "mouse_scroll");
+                    lua_addvalue_s_s(L, "direction", ev.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel ? "vertical" : "horizontal");
+                    lua_addvalue_s_i(L, "delta", ev.mouseWheel.delta);
+                    lua_pcall(L, 1, 0, 0);
+                    break;
+
                 case sf::Event::Resized:
                     lua_getglobal(L, "input");
                     lua_newtable(L);
@@ -155,14 +173,19 @@ void Sketch::loop() {
                     lua_pcall(L, 1, 0, 0);
                     break;
 
-                case sf::Event::MouseMoved: {
-                    sf::Vector2i pos = sf::Mouse::getPosition(*window);
-                    lua_pushinteger(L, pos.x);
-                    lua_setglobal(L, "mouseX");
-                    lua_pushinteger(L, pos.y);
-                    lua_setglobal(L, "mouseY");
+                case sf::Event::LostFocus:
+                    lua_getglobal(L, "input");
+                    lua_newtable(L);
+                    lua_addvalue_s_s(L, "type", "focus_lost");
+                    lua_pcall(L, 1, 0, 0);
                     break;
-                }
+
+                case sf::Event::GainedFocus:
+                    lua_getglobal(L, "input");
+                    lua_newtable(L);
+                    lua_addvalue_s_s(L, "type", "focus_gained");
+                    lua_pcall(L, 1, 0, 0);
+                    break;
 
                 default:
                     break;

@@ -34,5 +34,8 @@ function input(event)
 
     elseif event.type == "mouse_move" then
         lines[2]:setText("X: " .. event.x .. ", Y: " .. event.y)
+
+    elseif event.type == "mouse_scroll" then
+        lines[2]:setText("Direction: " .. event.direction .. ", Delta: " .. event.delta)
     end
 end
