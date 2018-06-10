@@ -1,0 +1,36 @@
+local isDrawing = false
+
+local points = {}
+
+function setup()
+    size(1280, 720, "Pencil draw")
+end
+
+function render()
+    clear()
+
+    if isDrawing then
+        local newPoint = rectangleShape:new{ x = mouseX, y = mouseY, width = 4, height = 4, color = colors.white }
+        table.insert(points, newPoint)
+    end
+
+    color(colors.red)
+    rect(mouseX, mouseY, 10, 10)
+
+    for _, v in pairs(points) do
+        v:render()
+    end
+end
+
+function input(event)
+    if event.type == "mouse_press" then
+        isDrawing = true
+    elseif event.type == "mouse_release" then
+        isDrawing = false
+
+    elseif event.type == "key_press" then
+        setMouseVisible(true)
+    elseif event.type == "key_release" then
+        setMouseVisible(false)
+    end
+end
