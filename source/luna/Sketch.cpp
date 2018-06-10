@@ -187,6 +187,34 @@ void Sketch::loop() {
                     lua_pcall(L, 1, 0, 0);
                     break;
 
+                case sf::Event::JoystickButtonPressed:
+                    lua_getglobal(L, "input");
+                    lua_newtable(L);
+                    lua_addvalue_s_s(L, "type", "joystick_button_press");
+                    lua_addvalue_s_i(L, "id", ev.joystickButton.joystickId);
+                    lua_addvalue_s_i(L, "button", ev.joystickButton.button);
+                    lua_pcall(L, 1, 0, 0);
+                    break;
+
+                case sf::Event::JoystickButtonReleased:
+                    lua_getglobal(L, "input");
+                    lua_newtable(L);
+                    lua_addvalue_s_s(L, "type", "joystick_button_release");
+                    lua_addvalue_s_i(L, "id", ev.joystickButton.joystickId);
+                    lua_addvalue_s_i(L, "button", ev.joystickButton.button);
+                    lua_pcall(L, 1, 0, 0);
+                    break;
+
+                case sf::Event::JoystickMoved:
+                    lua_getglobal(L, "input");
+                    lua_newtable(L);
+                    lua_addvalue_s_s(L, "type", "joystick_move");
+                    lua_addvalue_s_i(L, "id", ev.joystickMove.joystickId);
+                    lua_addvalue_s_i(L, "axis", ev.joystickMove.axis);
+                    lua_addvalue_s_i(L, "position", ev.joystickMove.position);
+                    lua_pcall(L, 1, 0, 0);
+                    break;
+
                 default:
                     break;
             }

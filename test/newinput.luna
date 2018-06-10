@@ -37,5 +37,12 @@ function input(event)
 
     elseif event.type == "mouse_scroll" then
         lines[2]:setText("Direction: " .. event.direction .. ", Delta: " .. event.delta)
+
+    elseif event.type == "joystick_button_press" or event.type == "joystick_button_release" then
+        lines[2]:setText("ID: " .. event.id .. ", Button: " .. event.button)
+
+    elseif event.type == "joystick_move" then
+        lines[2]:setText("ID: " .. event.id .. ", Axis: " .. event.axis .. ", Position: " .. event.position)
+
     end
 end
