@@ -5,7 +5,7 @@
 #include <SFML/Audio.hpp>
 #include <lua/lua.hpp>
 
-#include "luna/utils.hpp"
+#include "luna/Defines.hpp"
 
 /**
     Main Luna class, this class manages
