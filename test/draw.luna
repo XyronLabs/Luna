@@ -12,11 +12,6 @@ end
 function render()
     clear()
 
-    if isDrawing then
-        local newPoint = rectangleShape:new{ x = mouseX, y = mouseY, width = 4, height = 4, color = colors.white }
-        table.insert(points, newPoint)
-    end
-
     for _, v in pairs(points) do
         v:render()
     end
@@ -30,12 +25,16 @@ function input(event)
     elseif event.type == events.mouse.button.released then
         isDrawing = false
 
-    elseif event.type == events.key.pressed then
+    elseif event.type == events.key.pressed or event.type == events.mouse.left then
         setMouseVisible(true)
-    elseif event.type == events.key.released then
+    elseif event.type == events.key.released or event.type == events.mouse.entered then
         setMouseVisible(false)
 
     elseif event.type == events.mouse.moved then
         cursor:setOrigin(-event.x, -event.y)
+        if isDrawing then
+            local newPoint = rectangleShape:new{ x = event.x, y = event.y, width = 4, height = 4, color = colors.white }
+            table.insert(points, newPoint)
+        end
     end
 end
