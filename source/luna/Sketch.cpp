@@ -201,6 +201,14 @@ void Sketch::handleEvent(const sf::Event& ev) {
             lua_addvalue_s_i(L, "delta", ev.mouseWheel.delta);
             break;
 
+        case sf::Event::MouseEntered:
+            lua_addvalue_s_s(L, "type", "mouse_entered");
+            break;
+
+        case sf::Event::MouseLeft:
+            lua_addvalue_s_s(L, "type", "mouse_left");
+            break;
+
         case sf::Event::JoystickButtonPressed:
             lua_addvalue_s_s(L, "type", "joystick_button_pressed");
             lua_addvalue_s_i(L, "id", ev.joystickButton.joystickId);

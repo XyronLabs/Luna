@@ -10,7 +10,9 @@ events = {
             ["released"] = "mouse_button_released"
         },
         ["moved"] = "mouse_moved",
-        ["scrolled"] = "mouse_wheel_scrolled"
+        ["scrolled"] = "mouse_wheel_scrolled",
+        ["left"] = "mouse_left",
+        ["entered"] = "mouse_entered"
     },
     ["joystick"] = {
         ["button"] = {

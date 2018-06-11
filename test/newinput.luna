@@ -38,6 +38,12 @@ function input(event)
     elseif event.type == events.mouse.scrolled then
         lines[2]:setText("Direction: " .. event.direction .. ", Delta: " .. event.delta)
 
+    elseif event.type == events.mouse.left then
+        lines[4]:setText("Mouse left the screen!")
+
+    elseif event.type == events.mouse.entered then
+        lines[4]:setText("Mouse entered the screen!")
+
     elseif event.type == events.joystick.button.pressed or event.type == events.joystick.button.released then
         lines[2]:setText("ID: " .. event.id .. ", Button: " .. event.button)
 
