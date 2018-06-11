@@ -3,18 +3,18 @@ local lines = {}
 function setup()
     size(1280, 720, "App name")
 
-    for i = 1, 4 do
+    for i = 1, 5 do
         lines[i] = textbox:new{ x = 20, y = 50 * i, text = "", size = 42, color = colors.white }
     end
 end
 
-function render()
+function render(frame_time)
     clear()
 
     lines[3]:setText("MouseX: " .. mouseX .. ", MouseY: " .. mouseY)
+    lines[5]:setText("Frame time: " .. frame_time .. ", FPS: " .. (1/frame_time)*1000 )
 
-
-    for i = 1, 4 do
+    for i = 1, 5 do
         lines[i]:render()
     end
 end

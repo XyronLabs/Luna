@@ -48,6 +48,11 @@ class Sketch {
     bool isRunning;
 
     /*
+        Clock for passing frame time to render function as argument
+    */
+    sf::Clock frame_time;
+
+    /*
         Private constructor for singleton
         All Lua functions and libraries are
         loaded here

@@ -119,7 +119,8 @@ void Sketch::loop() {
         // Run loop only if not paused
         if (isRunning) {
             lua_getglobal(L, "render");
-            if (lua_pcall(L, 0, 0, 0)) {
+            lua_pushnumber(L, frame_time.restart().asMilliseconds());
+            if (lua_pcall(L, 1, 0, 0)) {
                 Logger::instance().log(Logger::Level::FATAL, { luna_conf::lang.get("render_function_error") }, L);
                 window->close();
                 return;
@@ -188,7 +189,7 @@ void Sketch::handleEvent(const sf::Event& ev) {
             break;
 
         case sf::Event::MouseMoved: {
-            sf::Vector2i pos = sf::Mouse::getPosition(*window);
+            const sf::Vector2i& pos = sf::Mouse::getPosition(*window);
             lua_addvalue_s_s(L, "type", "mouse_moved");
             lua_addvalue_s_i(L, "x", pos.x);
             lua_addvalue_s_i(L, "y", pos.y);
