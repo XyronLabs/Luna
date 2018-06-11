@@ -23,7 +23,7 @@ function input(event)
 
     lines[1]:setText(event.type)
 
-    if event.type == "key_pressed" or event.type == "key_released" then
+    if event.type == events.key.pressed or event.type == events.key.released then
         lines[2]:setText(keys[event.key])
 
     elseif event.type == "mouse_button_pressed" or event.type == "mouse_button_released" then

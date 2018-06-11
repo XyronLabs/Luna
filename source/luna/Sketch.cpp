@@ -154,7 +154,10 @@ void Sketch::cleanup() {
 }
 
 void Sketch::handleEvent(const sf::Event& ev) {
-    lua_getglobal(L, "input");
+    if (!lua_getglobal(L, "input")) {
+        return;
+    }
+
     lua_newtable(L);
 
     switch(ev.type) {
@@ -175,7 +178,7 @@ void Sketch::handleEvent(const sf::Event& ev) {
 
 
         case sf::Event::MouseButtonPressed:
-            lua_addvalue_s_s(L, "type", "mouse_button_press");
+            lua_addvalue_s_s(L, "type", "mouse_button_pressed");
             lua_addvalue_s_i(L, "button", ev.mouseButton.button);
             break;
 
@@ -218,7 +221,7 @@ void Sketch::handleEvent(const sf::Event& ev) {
             lua_addvalue_s_s(L, "type", "joystick_moved");
             lua_addvalue_s_i(L, "id", ev.joystickMove.joystickId);
             lua_addvalue_s_i(L, "axis", ev.joystickMove.axis);
-            lua_addvalue_s_i(L, "position", ev.joystickMove.position);
+            lua_addvalue_s_n(L, "position", ev.joystickMove.position);
             break;
 
         case sf::Event::JoystickConnected:
