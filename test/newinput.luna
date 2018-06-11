@@ -1,4 +1,5 @@
 local lines = {}
+local frame_counter = 0
 
 function setup()
     size(1280, 720, "App name")
@@ -11,8 +12,11 @@ end
 function render(frame_time)
     clear()
 
-    lines[3]:setText("MouseX: " .. mouseX .. ", MouseY: " .. mouseY)
-    lines[5]:setText("Frame time: " .. frame_time .. ", FPS: " .. (1/frame_time)*1000 )
+    frame_counter = frame_counter + 1
+    if frame_counter > 60 then
+        lines[5]:setText("Frame time: " .. frame_time .. ", FPS: " .. (1/frame_time)*1000 )
+        frame_counter = 0
+    end
 
     for i = 1, 5 do
         lines[i]:render()
@@ -33,6 +37,7 @@ function input(event)
         lines[2]:setText("Width: " .. event.width .. ", Height: " .. event.height)
 
     elseif event.type == events.mouse.moved then
+        lines[3]:setText("MouseX: " .. event.x .. ", MouseY: " .. event.y)
         lines[2]:setText("X: " .. event.x .. ", Y: " .. event.y)
 
     elseif event.type == events.mouse.scrolled then
