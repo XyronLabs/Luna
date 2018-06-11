@@ -24,7 +24,7 @@ namespace lunaL {
     int setLogLevel(lua_State *L);
 
     /* Set framerate of the program */
-    int frameRate(lua_State *L);
+    int framerate(lua_State *L);
 
     /* Close the window and exit the program */
     int exit(lua_State *L);
