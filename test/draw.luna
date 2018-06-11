@@ -1,9 +1,12 @@
 local isDrawing = false
 
 local points = {}
+local cursor
 
 function setup()
     size(1280, 720, "Pencil draw")
+    setMouseVisible(false)
+    cursor = customShape:new{ points = { {0,0}, {40,10}, {20, 10}, {40,30}, {30,40}, {10,20}, {10,40} }, color = colors.red, texture = nil }
 end
 
 function render()
@@ -14,12 +17,11 @@ function render()
         table.insert(points, newPoint)
     end
 
-    color(colors.red)
-    rect(mouseX, mouseY, 10, 10)
-
     for _, v in pairs(points) do
         v:render()
     end
+
+    cursor:render()
 end
 
 function input(event)
@@ -32,5 +34,8 @@ function input(event)
         setMouseVisible(true)
     elseif event.type == events.key.released then
         setMouseVisible(false)
+
+    elseif event.type == events.mouse.moved then
+        cursor:setOrigin(-event.x, -event.y)
     end
 end
