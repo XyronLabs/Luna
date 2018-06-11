@@ -154,51 +154,41 @@ void Sketch::cleanup() {
 }
 
 void Sketch::handleEvent(const sf::Event& ev) {
-    switch(ev.type) {
+    lua_getglobal(L, "input");
+    lua_newtable(L);
 
+    switch(ev.type) {
         case sf::Event::KeyPressed:
-            lua_getglobal(L, "input");
-            lua_newtable(L);
-            lua_addvalue_s_s(L, "type", "key_press");
+            lua_addvalue_s_s(L, "type", "key_pressed");
             lua_addvalue_s_i(L, "key", ev.key.code);
-            lua_pcall(L, 1, 0, 0);
             break;
 
         case sf::Event::KeyReleased:
-            lua_getglobal(L, "input");
-            lua_newtable(L);
-            lua_addvalue_s_s(L, "type", "key_release");
+            lua_addvalue_s_s(L, "type", "key_released");
             lua_addvalue_s_i(L, "key", ev.key.code);
-            lua_pcall(L, 1, 0, 0);
             break;
 
         case sf::Event::TextEntered:
-            lua_getglobal(L, "input");
-            lua_newtable(L);
             lua_addvalue_s_s(L, "type", "text_entered");
             lua_addvalue_s_i(L, "character", ev.text.unicode);
-            lua_pcall(L, 1, 0, 0);
             break;
 
 
         case sf::Event::MouseButtonPressed:
-            lua_getglobal(L, "input");
-            lua_newtable(L);
-            lua_addvalue_s_s(L, "type", "mouse_press");
+            lua_addvalue_s_s(L, "type", "mouse_button_press");
             lua_addvalue_s_i(L, "button", ev.mouseButton.button);
-            lua_pcall(L, 1, 0, 0);
             break;
 
         case sf::Event::MouseButtonReleased:
-            lua_getglobal(L, "input");
-            lua_newtable(L);
-            lua_addvalue_s_s(L, "type", "mouse_release");
+            lua_addvalue_s_s(L, "type", "mouse_button_released");
             lua_addvalue_s_i(L, "button", ev.mouseButton.button);
-            lua_pcall(L, 1, 0, 0);
             break;
 
         case sf::Event::MouseMoved: {
             sf::Vector2i pos = sf::Mouse::getPosition(*window);
+            lua_addvalue_s_s(L, "type", "mouse_moved");
+            lua_addvalue_s_i(L, "x", pos.x);
+            lua_addvalue_s_i(L, "y", pos.y);
             lua_pushinteger(L, pos.x);
             lua_setglobal(L, "mouseX");
             lua_pushinteger(L, pos.y);
@@ -207,84 +197,60 @@ void Sketch::handleEvent(const sf::Event& ev) {
         }
 
         case sf::Event::MouseWheelScrolled:
-            lua_getglobal(L, "input");
-            lua_newtable(L);
-            lua_addvalue_s_s(L, "type", "mouse_scroll");
+            lua_addvalue_s_s(L, "type", "mouse_wheel_scrolled");
             lua_addvalue_s_s(L, "direction", ev.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel ? "vertical" : "horizontal");
             lua_addvalue_s_i(L, "delta", ev.mouseWheel.delta);
-            lua_pcall(L, 1, 0, 0);
             break;
 
         case sf::Event::JoystickButtonPressed:
-            lua_getglobal(L, "input");
-            lua_newtable(L);
-            lua_addvalue_s_s(L, "type", "joystick_button_press");
+            lua_addvalue_s_s(L, "type", "joystick_button_pressed");
             lua_addvalue_s_i(L, "id", ev.joystickButton.joystickId);
             lua_addvalue_s_i(L, "button", ev.joystickButton.button);
-            lua_pcall(L, 1, 0, 0);
             break;
 
         case sf::Event::JoystickButtonReleased:
-            lua_getglobal(L, "input");
-            lua_newtable(L);
-            lua_addvalue_s_s(L, "type", "joystick_button_release");
+            lua_addvalue_s_s(L, "type", "joystick_button_released");
             lua_addvalue_s_i(L, "id", ev.joystickButton.joystickId);
             lua_addvalue_s_i(L, "button", ev.joystickButton.button);
-            lua_pcall(L, 1, 0, 0);
             break;
 
         case sf::Event::JoystickMoved:
-            lua_getglobal(L, "input");
-            lua_newtable(L);
-            lua_addvalue_s_s(L, "type", "joystick_move");
+            lua_addvalue_s_s(L, "type", "joystick_moved");
             lua_addvalue_s_i(L, "id", ev.joystickMove.joystickId);
             lua_addvalue_s_i(L, "axis", ev.joystickMove.axis);
             lua_addvalue_s_i(L, "position", ev.joystickMove.position);
-            lua_pcall(L, 1, 0, 0);
             break;
 
         case sf::Event::JoystickConnected:
-            lua_getglobal(L, "input");
-            lua_newtable(L);
-            lua_addvalue_s_s(L, "type", "joystick_connect");
+            lua_addvalue_s_s(L, "type", "joystick_connected");
             lua_addvalue_s_i(L, "id", ev.joystickConnect.joystickId);
-            lua_pcall(L, 1, 0, 0);
             break;
 
         case sf::Event::JoystickDisconnected:
-            lua_getglobal(L, "input");
-            lua_newtable(L);
-            lua_addvalue_s_s(L, "type", "joystick_disconnect");
+            lua_addvalue_s_s(L, "type", "joystick_disconnected");
             lua_addvalue_s_i(L, "id", ev.joystickConnect.joystickId);
-            lua_pcall(L, 1, 0, 0);
             break;
 
         case sf::Event::LostFocus:
-            lua_getglobal(L, "input");
-            lua_newtable(L);
             lua_addvalue_s_s(L, "type", "focus_lost");
-            lua_pcall(L, 1, 0, 0);
             break;
 
         case sf::Event::GainedFocus:
-            lua_getglobal(L, "input");
-            lua_newtable(L);
             lua_addvalue_s_s(L, "type", "focus_gained");
-            lua_pcall(L, 1, 0, 0);
             break;
 
         case sf::Event::Resized:
-            lua_getglobal(L, "input");
-            lua_newtable(L);
-            lua_addvalue_s_s(L, "type", "resize");
+            lua_addvalue_s_s(L, "type", "resized");
             lua_addvalue_s_i(L, "width", ev.size.width);
             lua_addvalue_s_i(L, "height", ev.size.height);
-            lua_pcall(L, 1, 0, 0);
             break;
 
         default:
+            lua_addvalue_s_s(L, "type", "unknown");
             break;
     }
+
+    lua_pcall(L, 1, 0, 0);
 }
 
 void Sketch::createWindow(int width, int height, const char* title) {
