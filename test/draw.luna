@@ -23,14 +23,14 @@ function render()
 end
 
 function input(event)
-    if event.type == "mouse_press" then
+    if event.type == events.mouse.button.pressed then
         isDrawing = true
-    elseif event.type == "mouse_release" then
+    elseif event.type == events.mouse.button.released then
         isDrawing = false
 
-    elseif event.type == "key_press" then
+    elseif event.type == events.key.pressed then
         setMouseVisible(true)
-    elseif event.type == "key_release" then
+    elseif event.type == events.key.released then
         setMouseVisible(false)
     end
 end
