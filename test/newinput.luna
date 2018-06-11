@@ -26,28 +26,28 @@ function input(event)
     if event.type == events.key.pressed or event.type == events.key.released then
         lines[2]:setText(keys[event.key])
 
-    elseif event.type == "mouse_button_pressed" or event.type == "mouse_button_released" then
+    elseif event.type == events.mouse.button.pressed or event.type == events.mouse.button.released then
         lines[2]:setText(mousekeys[event.button])
 
-    elseif event.type == "resized" then
+    elseif event.type == events.resized then
         lines[2]:setText("Width: " .. event.width .. ", Height: " .. event.height)
 
-    elseif event.type == "mouse_moved" then
+    elseif event.type == events.mouse.moved then
         lines[2]:setText("X: " .. event.x .. ", Y: " .. event.y)
 
-    elseif event.type == "mouse_wheel_scrolled" then
+    elseif event.type == events.mouse.scrolled then
         lines[2]:setText("Direction: " .. event.direction .. ", Delta: " .. event.delta)
 
-    elseif event.type == "joystick_button_pressed" or event.type == "joystick_button_released" then
+    elseif event.type == events.joystick.button.pressed or event.type == events.joystick.button.released then
         lines[2]:setText("ID: " .. event.id .. ", Button: " .. event.button)
 
-    elseif event.type == "joystick_moved" then
+    elseif event.type == events.joystick.moved then
         lines[2]:setText("ID: " .. event.id .. ", Axis: " .. event.axis .. ", Position: " .. event.position)
 
-    elseif event.type == "joystick_connected" or event.type == "joystick_disconnected" then
+    elseif event.type == events.joystick.connected or event.type == events.joystick.disconnected then
         lines[2]:setText("ID: " .. event.id)
 
-    elseif event.type == "text_entered" then
+    elseif event.type == events.text_entered then
         lines[4]:setText(lines[4].text .. string.char(event.character))
     end
 end
