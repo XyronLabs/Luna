@@ -192,10 +192,6 @@ void Sketch::handleEvent(const sf::Event& ev) {
             lua_addvalue_s_s(L, "type", "mouse_moved");
             lua_addvalue_s_i(L, "x", pos.x);
             lua_addvalue_s_i(L, "y", pos.y);
-            lua_pushinteger(L, pos.x);
-            lua_setglobal(L, "mouseX");
-            lua_pushinteger(L, pos.y);
-            lua_setglobal(L, "mouseY");
             break;
         }
 
